@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">5分钟配置 WorkBuddy × GitHub MCP</title>
+  <desc id="desc">PioneerXLab 学生快速操作卡，展示五步连接 WorkBuddy 与 GitHub 官方 MCP。</desc>
+  <defs>
+    <linearGradient id="g" x1="0" x2="1"><stop stop-color="#0b3aa4"/><stop offset="1" stop-color="#2e72ff"/></linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-opacity=".08"/></filter>
+    <style>
+      .t{font-family:Inter,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.b{font-weight:800}.m{fill:#64748b}.blue{fill:#155eef}.card{fill:#fff;stroke:#dbe4f0;stroke-width:2}.small{font-size:24px}.body{font-size:23px}.head{font-size:30px;font-weight:800}.num{font-size:26px;font-weight:900;fill:#fff}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:21px}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#f5f7fb"/>
+  <text x="70" y="82" class="t b" font-size="58">5分钟配置 WorkBuddy × GitHub MCP</text>
+  <text x="72" y="125" class="t blue b" font-size="25">DM001 · 学生快速操作卡</text>
+
+  <g filter="url(#s)"><rect x="70" y="155" width="1460" height="105" rx="24" class="card"/></g>
+  <rect x="100" y="181" width="58" height="58" rx="16" fill="url(#g)"/><text x="129" y="219" text-anchor="middle" class="t b" fill="#fff" font-size="22">WB</text>
+  <text x="180" y="218" class="t b" font-size="26">WorkBuddy</text><text x="350" y="218" class="t blue b" font-size="32">→</text>
+  <text x="405" y="218" class="t b" font-size="26">GitHub 官方 MCP</text><text x="650" y="218" class="t blue b" font-size="32">→</text>
+  <text x="705" y="218" class="t b" font-size="26">你的 GitHub 账号</text><text x="930" y="218" class="t blue b" font-size="32">→</text>
+  <text x="985" y="218" class="t b" font-size="26">你有权限的课程仓库</text>
+
+  <g transform="translate(70 300)">
+    <g><rect width="275" height="330" rx="22" class="card"/><circle cx="38" cy="42" r="24" fill="#155eef"/><text x="38" y="51" text-anchor="middle" class="num">1</text><text x="78" y="51" class="t head">确认权限</text>
+      <text x="28" y="105" class="t body"><tspan x="28" dy="0">• 登录自己的 GitHub</tspan><tspan x="28" dy="40">• 已加入课程 Organization</tspan><tspan x="28" dy="40">• 能看到负责的仓库</tspan><tspan x="28" dy="40">• Write / Maintain 权限</tspan><tspan x="28" dy="40">• 网页看不到仓库时</tspan><tspan x="47" dy="34" class="m">先解决 GitHub 权限</tspan></text>
+    </g>
+    <g transform="translate(295 0)"><rect width="275" height="330" rx="22" class="card"/><circle cx="38" cy="42" r="24" fill="#155eef"/><text x="38" y="51" text-anchor="middle" class="num">2</text><text x="78" y="51" class="t head">打开 MCP</text>
+      <text x="28" y="112" class="t body"><tspan x="28">进入 WorkBuddy</tspan><tspan x="28" dy="48">设置 → MCP</tspan><tspan x="28" dy="48">或：插件 → MCP 服务器</tspan><tspan x="28" dy="48">选择：添加 MCP Server</tspan></text>
+    </g>
+    <g transform="translate(590 0)"><rect width="275" height="330" rx="22" class="card"/><circle cx="38" cy="42" r="24" fill="#155eef"/><text x="38" y="51" text-anchor="middle" class="num">3</text><text x="78" y="51" class="t head">添加 GitHub MCP</text>
+      <rect x="25" y="92" width="225" height="170" rx="14" fill="#0b1220"/><text x="42" y="126" fill="#dbeafe" class="mono"><tspan x="42">名称: github</tspan><tspan x="42" dy="34">类型: HTTP</tspan><tspan x="42" dy="34">认证: OAuth</tspan></text>
+      <text x="28" y="295" class="t blue b" font-size="20">api.githubcopilot.com/mcp/</text>
+    </g>
+    <g transform="translate(885 0)"><rect width="275" height="330" rx="22" class="card"/><circle cx="38" cy="42" r="24" fill="#155eef"/><text x="38" y="51" text-anchor="middle" class="num">4</text><text x="78" y="51" class="t head">授权 GitHub</text>
+      <text x="28" y="112" class="t body"><tspan x="28">• Connect / Authorize</tspan><tspan x="28" dy="44">• 使用自己的账号登录</tspan><tspan x="28" dy="44">• 授权后返回 WB</tspan><tspan x="28" dy="44">• 看到 Connected 即成功</tspan></text>
+      <rect x="25" y="270" width="225" height="38" rx="9" fill="#fff4df" stroke="#f0d9a4"/><text x="137" y="296" text-anchor="middle" class="t" fill="#8a5100" font-size="18">不要共用账号</text>
+    </g>
+    <g transform="translate(1180 0)"><rect width="275" height="330" rx="22" class="card"/><circle cx="38" cy="42" r="24" fill="#155eef"/><text x="38" y="51" text-anchor="middle" class="num">5</text><text x="78" y="51" class="t head">做 3 个测试</text>
+      <text x="28" y="105" class="t body"><tspan x="28">① 当前 GitHub 用户？</tspan><tspan x="28" dy="52">② 可访问哪些课程仓库？</tspan><tspan x="28" dy="52">③ 读取仓库 README</tspan></text>
+      <rect x="25" y="246" width="225" height="62" rx="12" fill="#eefbf5" stroke="#b9ead2"/><text x="137" y="285" text-anchor="middle" class="t b" fill="#138a5b" font-size="22">全部正常 = 完成 ✓</text>
+    </g>
+  </g>
+
+  <g filter="url(#s)"><rect x="70" y="670" width="970" height="150" rx="22" class="card"/></g>
+  <text x="100" y="712" class="t head">日常推荐工作流</text>
+  <text x="100" y="765" class="t b" font-size="25">发现问题 → Branch → 修改 → 测试 → Commit → PR → 人工检查 → Merge</text>
+  <text x="100" y="802" class="t" fill="#b42318" font-size="22">不要默认让 AI 直接修改或合并 main</text>
+
+  <g filter="url(#s)"><rect x="1070" y="670" width="460" height="150" rx="22" fill="#fff9f8" stroke="#f2c4be" stroke-width="2"/></g>
+  <text x="1100" y="712" class="t head">三条注意事项</text>
+  <text x="1100" y="754" class="t body"><tspan x="1100">• 不共享 GitHub 账号</tspan><tspan x="1100" dy="34">• 不共享 GitHub Token</tspan><tspan x="1100" dy="34">• 优先使用 Branch + PR</tspan></text>
+
+  <text x="70" y="865" class="t m" font-size="19">GitHub MCP: https://api.githubcopilot.com/mcp/   ·   登录：自己的 GitHub 账号   ·   DM001 Course Hub</text>
+</svg>
