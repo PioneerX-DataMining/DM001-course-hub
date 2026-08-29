@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="5分钟配置 WorkBuddy × GitHub 官方 MCP：课程统一 GitHub 接入指南。" />
+  <title>5分钟配置 WorkBuddy × GitHub MCP · DM001</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">DM</span>
+      <span>DM001 <small>Course Hub</small></span>
+    </a>
+    <nav class="nav-links" aria-label="教程导航">
+      <a href="../index.html">课程首页</a>
+      <a href="#steps">配置步骤</a>
+      <a href="#test">测试</a>
+      <a href="#rules">使用规范</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="doc-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="../index.html">DM001 Course Hub</a> / 教程 / GitHub MCP</div>
+      <h1>5 分钟配置<br>WorkBuddy × GitHub MCP</h1>
+      <p class="doc-lead">使用 GitHub 官方 Remote MCP，把 WorkBuddy 接入你自己的 GitHub 账号。完成后，AI 可以在你原有的仓库权限范围内读取代码、查看 Issue / PR，并辅助完成标准的 Branch → PR 协作流程。</p>
+      <div class="meta"><span>难度：入门</span><span>预计：5–10 分钟</span><span>推荐：GitHub 官方 Remote MCP</span></div>
+    </div>
+  </section>
+
+  <div class="container infographic">
+    <img src="../assets/workbuddy-github-mcp.svg" alt="WorkBuddy GitHub MCP 五分钟配置流程图" />
+  </div>
+
+  <div class="container doc-layout">
+    <aside class="toc" aria-label="目录">
+      <div class="toc-title">On this page</div>
+      <a href="#overview">连接结构</a>
+      <a href="#steps">五步配置</a>
+      <a href="#test">三个测试</a>
+      <a href="#workflow">日常工作流</a>
+      <a href="#rules">权限与安全</a>
+      <a href="#fallback">OAuth 不可用时</a>
+      <a href="#refs">官方参考</a>
+    </aside>
+
+    <article class="article">
+      <section id="overview">
+        <h2>连接结构</h2>
+        <p>我们使用 GitHub 官方托管的 Remote MCP Server，不要求学生自己部署 MCP 服务。</p>
+        <div class="flow"><span>WorkBuddy</span><b>→</b><span>GitHub 官方 MCP</span><b>→</b><span>你的 GitHub 账号</span><b>→</b><span>你有权限的课程仓库</span></div>
+        <div class="copyline"><strong>MCP 地址</strong><code>https://api.githubcopilot.com/mcp/</code></div>
+        <p>GitHub 官方文档确认这是官方 Remote MCP endpoint；Remote MCP 可通过 OAuth 或 PAT 进行认证。OAuth 是否能够直接弹出登录，取决于 MCP Host 对远程 OAuth 的支持。</p>
+      </section>
+
+      <section id="steps">
+        <h2>五步完成配置</h2>
+        <div class="step"><div class="step-no">1</div><div class="step-body"><h3>确认 GitHub 权限</h3><ul><li>登录自己的 GitHub 账号。</li><li>确认已经加入课程要求的 GitHub Organization。</li><li>确认 GitHub 网页上能看到自己负责的仓库。</li><li>需要改代码时，应至少拥有对应仓库的 Write / Maintain 权限。</li></ul><div class="notice">如果 GitHub 网页本身看不到仓库，先解决 GitHub 权限，不要从 WorkBuddy 这一层排查。</div></div></div>
+        <div class="step"><div class="step-no">2</div><div class="step-body"><h3>打开 WorkBuddy 的 MCP 设置</h3><p>进入 WorkBuddy 的 MCP / MCP Server 设置入口，选择添加一个新的 MCP Server。</p></div></div>
+        <div class="step"><div class="step-no">3</div><div class="step-body"><h3>添加 GitHub 官方 Remote MCP</h3><p>优先填写下面三个核心字段：</p><div class="code">名称：github
+类型：HTTP（或 HTTP/SSE）
+URL：https://api.githubcopilot.com/mcp/</div><p>保存后，让 WorkBuddy 尝试连接。</p></div></div>
+        <div class="step"><div class="step-no">4</div><div class="step-body"><h3>完成 GitHub 授权</h3><p>如果 WorkBuddy 弹出 OAuth / Authorize / Connect 流程，使用<strong>你自己的 GitHub 账号</strong>在浏览器完成授权，然后回到 WorkBuddy。</p><div class="notice">不要使用老师账号，也不要多人共用一个 GitHub 账号。</div><p>如果当前 WorkBuddy 版本没有为 GitHub Remote MCP 提供 OAuth 授权入口，请直接看本文后面的 <a href="#fallback" style="color:#155eef">PAT 备用方式</a>。</p></div></div>
+        <div class="step"><div class="step-no">5</div><div class="step-body"><h3>确认连接状态</h3><p>重新加载 MCP Servers。只要 GitHub MCP 正常连接，就可以开始执行下面三个只读测试。</p><div class="notice success">建议先只读验证，确认身份与仓库范围正确后，再尝试创建 Issue 或修改代码。</div></div></div>
+      </section>
+
+      <section id="test">
+        <h2>三个测试</h2>
+        <div class="prompt">① 使用 GitHub MCP，告诉我当前登录的是哪个 GitHub 用户。</div>
+        <div class="prompt">② 使用 GitHub MCP，列出我当前可以访问的课程 GitHub 仓库。</div>
+        <div class="prompt">③ 读取我负责仓库的 README，并简单介绍这个项目。</div>
+        <div class="notice success">三个测试都正常，就说明 WorkBuddy → GitHub MCP → GitHub 的连接已经完成。</div>
+      </section>
+
+      <section id="workflow">
+        <h2>以后让 AI 改代码，统一这样做</h2>
+        <p>课程开发尽量不要让 Agent 直接修改或合并主分支。推荐把下面这句话直接作为任务要求的一部分：</p>
+        <div class="prompt">检查并解决这个问题。需要修改代码时：创建新的 branch → 修改并测试 → commit → 创建 Pull Request；不要直接 merge main。</div>
+        <div class="flow"><span>发现问题</span><b>→</b><span>Branch</span><b>→</b><span>修改</span><b>→</b><span>测试</span><b>→</b><span>Commit</span><b>→</b><span>PR</span><b>→</b><span>人工检查</span><b>→</b><span>Merge</span></div>
+      </section>
+
+      <section id="rules">
+        <h2>权限与安全</h2>
+        <ul><li><strong>每个人使用自己的 GitHub 账号。</strong></li><li><strong>不要共享 GitHub Token。</strong></li><li>GitHub MCP 不会自动给你更多仓库权限；最终边界仍由 GitHub Organization / Repository 权限决定。</li><li>AI 修改课程代码优先使用 Branch + Pull Request，保留人工检查环节。</li></ul>
+      </section>
+
+      <section id="fallback">
+        <h2>如果 OAuth 没有出现：使用 Fine-grained PAT</h2>
+        <p>GitHub 官方 Remote MCP 同样支持 PAT。只有当当前 WorkBuddy 版本没有可用的远程 OAuth 流程时，再走这个备用方案。</p>
+        <ol><li>在 GitHub 创建 Fine-grained Personal Access Token。</li><li>只选择课程需要访问的 Organization / repositories。</li><li>按任务需求授予最小权限，例如 Contents、Issues、Pull requests。</li><li>在 MCP HTTP Header 中加入 Authorization。</li></ol>
+        <div class="code">Authorization: Bearer YOUR_GITHUB_PAT</div>
+        <div class="notice">Token 不要写进课程仓库、README、截图或公开教程。能用 WorkBuddy 的安全变量 / 密钥存储时，优先使用安全存储。</div>
+      </section>
+
+      <section id="refs">
+        <h2>官方参考</h2>
+        <p class="ref">GitHub 官方 MCP Server：<a href="https://github.com/github/github-mcp-server" target="_blank" rel="noopener">github/github-mcp-server</a></p>
+        <p class="ref">GitHub Docs：<a href="https://docs.github.com/en/copilot/how-tos/provide-context/use-mcp-in-your-ide/set-up-the-github-mcp-server" target="_blank" rel="noopener">Setting up the GitHub MCP Server</a></p>
+      </section>
+    </article>
+  </div>
+</main>
+
+<footer class="footer"><div class="container footer-inner"><strong>DM001 · Course Hub</strong><a href="../index.html">← 返回课程首页</a></div></footer>
+</body>
+</html>
