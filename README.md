@@ -19,7 +19,7 @@
 ├── index.html
 ├── styles.css
 ├── assets/
-│   └── workbuddy-github-mcp.png
+│   └── workbuddy-github-mcp.svg
 └── tutorials/
     └── github-mcp.html
 ```
