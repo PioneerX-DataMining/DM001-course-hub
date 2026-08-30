@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DM001 T03：不学 Git 命令，只理解 Repository、Commit、Branch、Pull Request 与 Merge 背后的版本控制原理。" />
+  <title>T03 · Git 到底在做什么 · DM001</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .concept-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0}
+    .concept{border:1px solid #e5e7eb;border-radius:16px;padding:20px;background:#fff}
+    .concept b{display:block;font-size:1.08rem;margin-bottom:6px}
+    .concept code{font-size:.82rem}
+    .git-graph{margin:24px 0;padding:24px;border-radius:18px;background:#0f172a;color:#e2e8f0;overflow:auto}
+    .git-graph pre{margin:0;font:600 15px/1.8 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre}
+    .git-graph .caption{margin-top:14px;color:#94a3b8;font-size:.92rem}
+    .compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+    .compare>div{border-radius:16px;padding:20px;background:#f8fafc;border:1px solid #e5e7eb}
+    .compare h3{margin-top:0}
+    .takeaway{font-size:1.12rem;line-height:1.8;border-left:4px solid #155eef;padding:16px 20px;background:#f5f8ff;border-radius:0 14px 14px 0}
+    .mini-flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:18px 0}
+    .mini-flow span{padding:8px 12px;border:1px solid #dbe3f0;border-radius:999px;background:#fff;font-weight:650}
+    .mini-flow b{color:#64748b}
+    @media(max-width:760px){.concept-grid,.compare{grid-template-columns:1fr}.git-graph{padding:18px 14px}.git-graph pre{font-size:13px}}
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">DM</span>
+      <span>DM001 <small>Course Hub</small></span>
+    </a>
+    <nav class="nav-links" aria-label="教程导航">
+      <a href="../index.html">课程首页</a>
+      <a href="#five">五个概念</a>
+      <a href="#graph">分支怎么工作</a>
+      <a href="#github">Git 与 GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="doc-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="../index.html">DM001 Course Hub</a> / 教程 / T03</div>
+      <h1>Git 到底在做什么？<br>理解版本、分支和合并</h1>
+      <p class="doc-lead">这不是 Git 命令教程。你不需要记 <code>git add</code>、<code>git commit</code> 或 <code>git push</code>。在 Agent 可以完成代码操作的情况下，你真正需要理解的是：项目为什么可以保留历史、为什么可以同时修改、以及不同修改最后怎样重新汇合。</p>
+      <div class="meta"><span>T03</span><span>难度：入门</span><span>预计：8 分钟</span><span>目标：看懂 Agent 在 GitHub 上做了什么</span></div>
+    </div>
+  </section>
+
+  <div class="container doc-layout">
+    <aside class="toc" aria-label="目录">
+      <div class="toc-title">On this page</div>
+      <a href="#idea">先理解一个核心想法</a>
+      <a href="#five">五个核心概念</a>
+      <a href="#graph">一张图看懂分支</a>
+      <a href="#conflict">什么是冲突</a>
+      <a href="#github">Git ≠ GitHub</a>
+      <a href="#agent">Agent 时代为什么还要懂 Git</a>
+      <a href="#remember">最后只记住这些</a>
+    </aside>
+
+    <article class="article">
+      <section id="idea">
+        <h2>先理解一个核心想法</h2>
+        <p>普通文件夹只告诉你“现在有哪些文件”。Git 还会记录<strong>这个项目是怎样一步一步变成现在这个样子的</strong>。</p>
+        <p class="takeaway">可以把 Git 理解为：<strong>项目的时间机器 + 多条并行修改路线。</strong></p>
+        <p>因此，改坏了可以回到以前；两个人可以同时工作；Agent 也可以在不破坏当前稳定版本的情况下尝试修改。</p>
+      </section>
+
+      <section id="five">
+        <h2>五个核心概念</h2>
+        <div class="concept-grid">
+          <div class="concept"><b>1. Repository · 仓库</b><p>一个项目以及它的版本历史。它不只是“装代码的文件夹”，还记录这个项目过去发生过什么。</p></div>
+          <div class="concept"><b>2. Commit · 版本节点</b><p>项目在某个时刻的一次记录。可以把它理解成一个有编号的“存档点”。后面的版本都建立在前面的版本之上。</p></div>
+          <div class="concept"><b>3. Branch · 分支</b><p>从某个版本节点分出去的一条独立修改路线。它允许新功能、实验或修复先在旁边进行，而不马上改变主线。</p></div>
+          <div class="concept"><b>4. Pull Request · 合并请求</b><p>在 GitHub 上提出：这条分支已经产生了一组修改，现在希望把这些修改纳入另一条分支，通常是 <code>main</code>。</p></div>
+          <div class="concept"><b>5. Merge · 合并</b><p>把两条修改路线重新汇到一起。合并完成后，主线同时拥有原来的历史和这次新增的修改。</p></div>
+        </div>
+      </section>
+
+      <section id="graph">
+        <h2>一张图看懂 Git 的分支</h2>
+        <p>假设 <code>main</code> 是当前认可的项目版本。项目走到 C 以后，我们想尝试一个新功能，于是从 C 分出一条 branch。</p>
+        <div class="git-graph">
+<pre>A ── B ── C ───────────── F      main
+          \
+           D ── E                 feature branch
+                \
+                 Pull Request
+                      ↓
+                    Merge</pre>
+          <div class="caption">A–F 都是 commit。D、E 没有覆盖 C，而是在 C 的基础上形成另一条历史；最后再把它合回 main。</div>
+        </div>
+        <p>这就是 Git 最重要的能力之一：<strong>“修改项目”不等于“立刻覆盖当前版本”。</strong></p>
+        <div class="mini-flow"><span>main</span><b>→</b><span>从某个版本分支</span><b>→</b><span>独立修改</span><b>→</b><span>重新合并</span></div>
+      </section>
+
+      <section id="conflict">
+        <h2>那什么是 Conflict？</h2>
+        <p>如果两条分支修改的是不同地方，Git 往往可以自动把它们合在一起。</p>
+        <p>但如果两条路线<strong>同时修改了同一处内容，而且结果不一致</strong>，Git 就不知道应该保留哪一个。这就是 merge conflict（合并冲突）。</p>
+        <div class="notice">冲突不是 Git “坏了”，而是 Git 在说：这里存在两个互相矛盾的版本，需要有人——或者 Agent——做出判断。</div>
+      </section>
+
+      <section id="github">
+        <h2>Git 和 GitHub 不是一回事</h2>
+        <div class="compare">
+          <div><h3>Git</h3><p><strong>版本控制系统。</strong></p><p>负责 commit、branch、merge 等底层机制。没有 GitHub，Git 本身也可以工作。</p></div>
+          <div><h3>GitHub</h3><p><strong>围绕 Git 仓库建立的在线协作平台。</strong></p><p>除了托管仓库，还提供账号权限、Issue、Pull Request、Review、Actions 等协作功能。</p></div>
+        </div>
+        <p>所以，当你在 GitHub 网页上看到 branch、commit、Pull Request，本质上是在通过 GitHub 操作和观察 Git 的版本历史。</p>
+      </section>
+
+      <section id="agent">
+        <h2>Agent 会写代码，为什么还需要理解 Git？</h2>
+        <p>因为“谁敲下代码”与“谁理解项目发生了什么”是两件不同的事。</p>
+        <p>Agent 可以替你创建文件、修改代码、提交 commit、建立 branch，甚至解决部分冲突。但当你看到下面这些信息时，仍然应该知道它意味着什么：</p>
+        <ul>
+          <li>Agent 说“我创建了一个 branch”——说明它开了一条独立修改路线。</li>
+          <li>Agent 说“产生了 3 个 commits”——说明这次工作形成了 3 个可追踪的版本节点。</li>
+          <li>GitHub 出现一个 Pull Request——说明有一组修改正等待被合并。</li>
+          <li>出现 merge conflict——说明两条修改路线在某处发生了矛盾。</li>
+          <li>某个版本出问题——Git 的历史让项目有机会定位和回退。</li>
+        </ul>
+        <p class="takeaway">你不一定需要亲手操作 Git，但你应该能<strong>看懂项目的版本结构</strong>。</p>
+      </section>
+
+      <section id="remember">
+        <h2>最后只记住这些</h2>
+        <div class="code">Repository = 项目 + 历史
+Commit     = 一个版本节点
+Branch     = 一条独立修改路线
+Pull Request = 请求把一组修改合回来
+Merge      = 两条路线重新汇合
+Conflict   = 两条路线在同一处发生矛盾</div>
+        <p>如果这六句话能理解，DM001 里需要的 Git 基础就已经够用了。剩下的具体操作，可以交给 Agent 完成。</p>
+      </section>
+    </article>
+  </div>
+</main>
+
+<footer class="footer"><div class="container footer-inner"><strong>DM001 · Course Hub</strong><a href="../index.html">← 返回课程首页</a></div></footer>
+</body>
+</html>
