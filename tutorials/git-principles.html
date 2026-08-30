@@ -3,145 +3,69 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="DM001 T03：不学 Git 命令，只理解 Repository、Commit、Branch、Pull Request 与 Merge 背后的版本控制原理。" />
-  <title>T03 · Git 到底在做什么 · DM001</title>
+  <meta name="description" content="DM001 T03：用图理解 Git 的核心原理——快照、提交历史、分支、合并与 GitHub。" />
+  <title>T03 · 一张历史图看懂 Git · DM001</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .concept-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0}
-    .concept{border:1px solid #e5e7eb;border-radius:16px;padding:20px;background:#fff}
-    .concept b{display:block;font-size:1.08rem;margin-bottom:6px}
-    .concept code{font-size:.82rem}
-    .git-graph{margin:24px 0;padding:24px;border-radius:18px;background:#0f172a;color:#e2e8f0;overflow:auto}
-    .git-graph pre{margin:0;font:600 15px/1.8 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre}
-    .git-graph .caption{margin-top:14px;color:#94a3b8;font-size:.92rem}
-    .compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
-    .compare>div{border-radius:16px;padding:20px;background:#f8fafc;border:1px solid #e5e7eb}
-    .compare h3{margin-top:0}
-    .takeaway{font-size:1.12rem;line-height:1.8;border-left:4px solid #155eef;padding:16px 20px;background:#f5f8ff;border-radius:0 14px 14px 0}
-    .mini-flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:18px 0}
-    .mini-flow span{padding:8px 12px;border:1px solid #dbe3f0;border-radius:999px;background:#fff;font-weight:650}
-    .mini-flow b{color:#64748b}
-    @media(max-width:760px){.concept-grid,.compare{grid-template-columns:1fr}.git-graph{padding:18px 14px}.git-graph pre{font-size:13px}}
+    .article{max-width:800px}.article section{padding-bottom:54px}.article h2{font-size:30px;margin-bottom:12px}.article h3{font-size:19px}
+    .chapter-no{display:inline-block;margin-bottom:8px;color:#155eef;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .big-idea{margin:22px 0;padding:22px 24px;background:#0c1f46;color:#fff;border-radius:18px;font-size:20px;line-height:1.65;letter-spacing:-.015em}.big-idea strong{color:#bcd3ff}
+    .figure{margin:24px 0 12px;background:#fff;border:1px solid #dbe4f0;border-radius:20px;padding:18px;box-shadow:0 12px 34px rgba(15,23,42,.055);overflow:hidden}.figure svg{display:block;width:100%;height:auto}.figcap{margin:10px 4px 0;color:#64748b;font-size:13px;line-height:1.55}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}.idea-card{background:#fff;border:1px solid #dbe4f0;border-radius:16px;padding:18px}.idea-card strong{display:block;color:#0f172a;margin-bottom:4px}.idea-card p{margin:0;font-size:14px}
+    .term{display:grid;grid-template-columns:128px 1fr;gap:18px;padding:15px 0;border-bottom:1px solid #e2e8f0}.term:last-child{border-bottom:0}.term b{font-size:15px;color:#0f172a}.term p{margin:0;font-size:14px}
+    .memory{background:#eef4ff;border:1px solid #cfe0ff;border-radius:16px;padding:18px 20px;margin:20px 0;color:#183b71}.memory strong{color:#0b3aa4}
+    .wrong-right{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.wrong-right>div{padding:16px 18px;border-radius:15px;font-size:14px}.wrong{background:#fff5f5;border:1px solid #ffd2d2}.right{background:#eefbf5;border:1px solid #b9ead2}.wrong-right b{display:block;margin-bottom:4px;color:#0f172a}
+    .ref-list{display:grid;gap:10px}.ref-card{display:block;background:#fff;border:1px solid #dbe4f0;border-radius:14px;padding:14px 16px}.ref-card:hover{border-color:#9ab8ec}.ref-card strong{display:block;color:#155eef}.ref-card span{font-size:13px;color:#64748b}
+    .agent-map{display:grid;grid-template-columns:160px 1fr;gap:0;border:1px solid #dbe4f0;border-radius:16px;overflow:hidden;margin-top:18px}.agent-map div{padding:13px 16px;border-bottom:1px solid #e2e8f0}.agent-map div:nth-last-child(-n+2){border-bottom:0}.agent-map .k{font-weight:800;background:#f8fafc;color:#0f172a}.agent-map .v{background:#fff;color:#45546a}
+    .recap{display:grid;gap:9px;margin-top:18px}.recap div{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid #dbe4f0;border-radius:13px;padding:12px 15px}.recap b{min-width:94px;color:#155eef}.recap span{color:#45546a}
+    @media(max-width:680px){.two-col,.wrong-right{grid-template-columns:1fr}.term{grid-template-columns:1fr;gap:3px}.agent-map{grid-template-columns:110px 1fr}.figure{padding:10px}.big-idea{font-size:18px}}
   </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="container nav">
-    <a class="brand" href="../index.html">
-      <span class="brand-mark">DM</span>
-      <span>DM001 <small>Course Hub</small></span>
-    </a>
-    <nav class="nav-links" aria-label="教程导航">
-      <a href="../index.html">课程首页</a>
-      <a href="#five">五个概念</a>
-      <a href="#graph">分支怎么工作</a>
-      <a href="#github">Git 与 GitHub</a>
-    </nav>
-  </div>
-</header>
+<header class="topbar"><div class="container nav"><a class="brand" href="../index.html"><span class="brand-mark">DM</span><span>DM001 <small>Course Hub</small></span></a><nav class="nav-links" aria-label="教程导航"><a href="../index.html">课程首页</a><a href="#why">为什么需要 Git</a><a href="#snapshot">快照</a><a href="#branch">分支</a><a href="#merge">合并</a><a href="#github">GitHub</a></nav></div></header>
 
 <main>
-  <section class="doc-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../index.html">DM001 Course Hub</a> / 教程 / T03</div>
-      <h1>Git 到底在做什么？<br>理解版本、分支和合并</h1>
-      <p class="doc-lead">这不是 Git 命令教程。你不需要记 <code>git add</code>、<code>git commit</code> 或 <code>git push</code>。在 Agent 可以完成代码操作的情况下，你真正需要理解的是：项目为什么可以保留历史、为什么可以同时修改、以及不同修改最后怎样重新汇合。</p>
-      <div class="meta"><span>T03</span><span>难度：入门</span><span>预计：8 分钟</span><span>目标：看懂 Agent 在 GitHub 上做了什么</span></div>
-    </div>
-  </section>
+<section class="doc-hero"><div class="container"><div class="breadcrumb"><a href="../index.html">DM001 Course Hub</a> / 教程 / T03</div><h1>不要背 Git 命令。<br>先看懂它的世界。</h1><p class="doc-lead">Git 的核心并不是 <code>add</code>、<code>commit</code>、<code>push</code>。真正重要的是一个很简单的模型：<strong>Git 把项目保存成一连串可以分叉、也可以重新汇合的版本快照。</strong>理解这张“历史图”，Git 的大多数概念都会自然出现。</p><div class="meta"><span>T03</span><span>难度：入门</span><span>预计：10–12 分钟</span><span>不要求记任何 Git 命令</span></div></div></section>
 
-  <div class="container doc-layout">
-    <aside class="toc" aria-label="目录">
-      <div class="toc-title">On this page</div>
-      <a href="#idea">先理解一个核心想法</a>
-      <a href="#five">五个核心概念</a>
-      <a href="#graph">一张图看懂分支</a>
-      <a href="#conflict">什么是冲突</a>
-      <a href="#github">Git ≠ GitHub</a>
-      <a href="#agent">Agent 时代为什么还要懂 Git</a>
-      <a href="#remember">最后只记住这些</a>
-    </aside>
+<div class="container doc-layout">
+<aside class="toc" aria-label="目录"><div class="toc-title">On this page</div><a href="#why">01 为什么需要版本控制</a><a href="#snapshot">02 Git 保存的是快照</a><a href="#history">03 Commit 组成历史</a><a href="#branch">04 Branch 是一根指针</a><a href="#merge">05 两条历史如何汇合</a><a href="#github">06 Git 与 GitHub</a><a href="#agent">07 Agent 在做什么</a><a href="#recap">60 秒回顾</a><a href="#refs">参考资料</a></aside>
 
-    <article class="article">
-      <section id="idea">
-        <h2>先理解一个核心想法</h2>
-        <p>普通文件夹只告诉你“现在有哪些文件”。Git 还会记录<strong>这个项目是怎样一步一步变成现在这个样子的</strong>。</p>
-        <p class="takeaway">可以把 Git 理解为：<strong>项目的时间机器 + 多条并行修改路线。</strong></p>
-        <p>因此，改坏了可以回到以前；两个人可以同时工作；Agent 也可以在不破坏当前稳定版本的情况下尝试修改。</p>
-      </section>
+<article class="article">
+<section id="why"><span class="chapter-no">01 · WHY VERSION CONTROL</span><h2>先从一个最普通的问题开始</h2><p>假设你在做一个项目。今天改了一版，明天又改了一版；有时新版本变差了，于是你想回到昨天。最原始的办法，是不断复制文件夹：</p>
+<div class="figure"><svg viewBox="0 0 760 300" role="img" aria-label="手工复制版本与 Git 历史对比图"><rect x="0" y="0" width="760" height="300" rx="16" fill="#f8fafc"/><text x="34" y="38" font-size="15" font-weight="700" fill="#64748b">没有版本控制</text><g font-family="system-ui, sans-serif"><g transform="translate(34,64)"><rect width="188" height="48" rx="10" fill="#fff" stroke="#dbe4f0"/><text x="16" y="29" font-size="14" fill="#334155">project_final/</text></g><g transform="translate(54,122)"><rect width="210" height="48" rx="10" fill="#fff" stroke="#dbe4f0"/><text x="16" y="29" font-size="14" fill="#334155">project_final_2/</text></g><g transform="translate(28,180)"><rect width="240" height="48" rx="10" fill="#fff" stroke="#f0c2c2"/><text x="16" y="29" font-size="14" fill="#9f3030">project_final_真的最终版/</text></g><text x="54" y="254" font-size="13" fill="#94a3b8">哪个才是对的？改了什么？还能回去吗？</text></g><line x1="355" y1="34" x2="355" y2="266" stroke="#dbe4f0"/><text x="402" y="38" font-size="15" font-weight="700" fill="#155eef">使用 Git</text><line x1="420" y1="145" x2="700" y2="145" stroke="#9ab8ec" stroke-width="5" stroke-linecap="round"/><g fill="#155eef" stroke="#fff" stroke-width="5"><circle cx="438" cy="145" r="13"/><circle cx="520" cy="145" r="13"/><circle cx="602" cy="145" r="13"/><circle cx="684" cy="145" r="13"/></g><g font-family="system-ui,sans-serif" font-size="13" fill="#334155" text-anchor="middle"><text x="438" y="112">V1</text><text x="520" y="112">V2</text><text x="602" y="112">V3</text><text x="684" y="112">现在</text></g><text x="420" y="202" font-family="system-ui,sans-serif" font-size="14" fill="#475569">一条明确的历史：每个版本都能定位、比较、恢复</text></svg><div class="figcap">版本控制首先解决的不是“怎么写代码”，而是：项目如何保留可信的历史。</div></div>
+<p>版本控制系统（Version Control System, VCS）做的第一件事，就是<strong>记录一个项目随时间发生的变化</strong>，让过去的状态可以被找回来。Git 是今天最常用的分布式版本控制系统之一。GitHub 对 Git 的介绍也是从“记录项目变化历史”开始。 </p>
+<div class="big-idea">所以先记住：<strong>Git 不是代码编辑器。</strong><br>它是项目的“历史系统”。</div></section>
 
-      <section id="five">
-        <h2>五个核心概念</h2>
-        <div class="concept-grid">
-          <div class="concept"><b>1. Repository · 仓库</b><p>一个项目以及它的版本历史。它不只是“装代码的文件夹”，还记录这个项目过去发生过什么。</p></div>
-          <div class="concept"><b>2. Commit · 版本节点</b><p>项目在某个时刻的一次记录。可以把它理解成一个有编号的“存档点”。后面的版本都建立在前面的版本之上。</p></div>
-          <div class="concept"><b>3. Branch · 分支</b><p>从某个版本节点分出去的一条独立修改路线。它允许新功能、实验或修复先在旁边进行，而不马上改变主线。</p></div>
-          <div class="concept"><b>4. Pull Request · 合并请求</b><p>在 GitHub 上提出：这条分支已经产生了一组修改，现在希望把这些修改纳入另一条分支，通常是 <code>main</code>。</p></div>
-          <div class="concept"><b>5. Merge · 合并</b><p>把两条修改路线重新汇到一起。合并完成后，主线同时拥有原来的历史和这次新增的修改。</p></div>
-        </div>
-      </section>
+<section id="snapshot"><span class="chapter-no">02 · SNAPSHOTS</span><h2>Git 怎么记住历史？——不是“改了几行”，而是一张张快照</h2><p>这是理解 Git 最关键的一步。官方 Pro Git 特别强调：Git 在概念上把数据看成<strong>一连串项目快照（snapshots）</strong>。每次保存一个版本时，可以把它想象成给整个项目拍了一张照片。</p>
+<div class="figure"><svg viewBox="0 0 760 360" role="img" aria-label="Git 项目快照示意图"><rect width="760" height="360" rx="16" fill="#f8fafc"/><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#9ab8ec"/></marker></defs><g font-family="system-ui,sans-serif"><text x="36" y="38" font-size="15" font-weight="700" fill="#334155">同一个项目，在三个时刻的快照</text><g transform="translate(38,74)"><rect width="196" height="208" rx="16" fill="#fff" stroke="#dbe4f0"/><text x="18" y="32" font-size="13" font-weight="800" fill="#155eef">COMMIT A</text><rect x="18" y="52" width="160" height="34" rx="8" fill="#eef4ff"/><text x="31" y="74" font-size="12" fill="#334155">index.html · v1</text><rect x="18" y="96" width="160" height="34" rx="8" fill="#eef4ff"/><text x="31" y="118" font-size="12" fill="#334155">style.css · v1</text><rect x="18" y="140" width="160" height="34" rx="8" fill="#eef4ff"/><text x="31" y="162" font-size="12" fill="#334155">data.csv · v1</text></g><g transform="translate(282,74)"><rect width="196" height="208" rx="16" fill="#fff" stroke="#dbe4f0"/><text x="18" y="32" font-size="13" font-weight="800" fill="#155eef">COMMIT B</text><rect x="18" y="52" width="160" height="34" rx="8" fill="#dff7ed"/><text x="31" y="74" font-size="12" fill="#245b48">index.html · v2</text><rect x="18" y="96" width="160" height="34" rx="8" fill="#eef4ff"/><text x="31" y="118" font-size="12" fill="#334155">style.css · v1</text><rect x="18" y="140" width="160" height="34" rx="8" fill="#eef4ff"/><text x="31" y="162" font-size="12" fill="#334155">data.csv · v1</text></g><g transform="translate(526,74)"><rect width="196" height="208" rx="16" fill="#fff" stroke="#dbe4f0"/><text x="18" y="32" font-size="13" font-weight="800" fill="#155eef">COMMIT C</text><rect x="18" y="52" width="160" height="34" rx="8" fill="#eef4ff"/><text x="31" y="74" font-size="12" fill="#334155">index.html · v2</text><rect x="18" y="96" width="160" height="34" rx="8" fill="#dff7ed"/><text x="31" y="118" font-size="12" fill="#245b48">style.css · v2</text><rect x="18" y="140" width="160" height="34" rx="8" fill="#eef4ff"/><text x="31" y="162" font-size="12" fill="#334155">data.csv · v1</text></g><line x1="236" y1="178" x2="274" y2="178" stroke="#9ab8ec" stroke-width="2" marker-end="url(#arr)"/><line x1="480" y1="178" x2="518" y2="178" stroke="#9ab8ec" stroke-width="2" marker-end="url(#arr)"/><text x="380" y="324" text-anchor="middle" font-size="13" fill="#64748b">没有变化的文件并不需要重复存一份；Git 会复用已有内容。</text></g></svg><div class="figcap">“快照”是心智模型。Git 的实际存储会通过内容寻址与复用避免无意义的重复。</div></div>
+<div class="memory"><strong>Commit 是什么？</strong> 一次 commit，就是把“这个时刻的项目状态”正式放进历史里，并附上作者、时间、说明以及它前一个版本是谁。</div></section>
 
-      <section id="graph">
-        <h2>一张图看懂 Git 的分支</h2>
-        <p>假设 <code>main</code> 是当前认可的项目版本。项目走到 C 以后，我们想尝试一个新功能，于是从 C 分出一条 branch。</p>
-        <div class="git-graph">
-<pre>A ── B ── C ───────────── F      main
-          \
-           D ── E                 feature branch
-                \
-                 Pull Request
-                      ↓
-                    Merge</pre>
-          <div class="caption">A–F 都是 commit。D、E 没有覆盖 C，而是在 C 的基础上形成另一条历史；最后再把它合回 main。</div>
-        </div>
-        <p>这就是 Git 最重要的能力之一：<strong>“修改项目”不等于“立刻覆盖当前版本”。</strong></p>
-        <div class="mini-flow"><span>main</span><b>→</b><span>从某个版本分支</span><b>→</b><span>独立修改</span><b>→</b><span>重新合并</span></div>
-      </section>
+<section id="history"><span class="chapter-no">03 · HISTORY</span><h2>快照一个接一个，就形成了项目历史</h2><p>每个 commit 不只是一个孤立的存档点，它还知道自己的<strong>父 commit（parent）</strong>。于是很多 commit 连起来，就形成了一张历史图。</p>
+<div class="figure"><svg viewBox="0 0 760 260" role="img" aria-label="Commit 历史链示意图"><rect width="760" height="260" rx="16" fill="#0c1f46"/><g font-family="system-ui,sans-serif"><text x="36" y="42" font-size="15" font-weight="700" fill="#bcd3ff">项目历史</text><line x1="112" y1="130" x2="648" y2="130" stroke="#6e91cf" stroke-width="5" stroke-linecap="round"/><g fill="#fff" stroke="#2e72ff" stroke-width="6"><circle cx="134" cy="130" r="15"/><circle cx="294" cy="130" r="15"/><circle cx="454" cy="130" r="15"/><circle cx="614" cy="130" r="15"/></g><g font-size="13" fill="#dbe7ff" text-anchor="middle"><text x="134" y="92">A</text><text x="294" y="92">B</text><text x="454" y="92">C</text><text x="614" y="92">D</text></g><g font-size="12" fill="#9fb7df" text-anchor="middle"><text x="134" y="174">初始版本</text><text x="294" y="174">加入数据</text><text x="454" y="174">加入分析</text><text x="614" y="174">修正图表</text></g><rect x="571" y="198" width="86" height="30" rx="15" fill="#155eef"/><text x="614" y="218" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">main → D</text></g></svg><div class="figcap">main 并不是“所有文件的另一个副本”。它只是指向当前主线最新 commit 的一个名字。</div></div>
+<p>这时，一个比“Commit = 存档点”更准确的理解出现了：<strong>Git 的核心其实是一张 commit 图。</strong>每个节点是一次项目快照，边表示版本之间的前后关系。</p></section>
 
-      <section id="conflict">
-        <h2>那什么是 Conflict？</h2>
-        <p>如果两条分支修改的是不同地方，Git 往往可以自动把它们合在一起。</p>
-        <p>但如果两条路线<strong>同时修改了同一处内容，而且结果不一致</strong>，Git 就不知道应该保留哪一个。这就是 merge conflict（合并冲突）。</p>
-        <div class="notice">冲突不是 Git “坏了”，而是 Git 在说：这里存在两个互相矛盾的版本，需要有人——或者 Agent——做出判断。</div>
-      </section>
+<section id="branch"><span class="chapter-no">04 · BRANCHES</span><h2>Branch 不是复制项目——它只是一根会移动的指针</h2><p>这是很多初学者最容易误解的地方。创建 branch 时，Git 并不会把整个项目复制成第二份。按照 Pro Git 的定义，<strong>branch 本质上只是一个指向某个 commit 的轻量、可移动指针</strong>。</p>
+<div class="wrong-right"><div class="wrong"><b>✕ 容易产生的误解</b>Branch = 把整个项目复制一份，然后在副本里修改。</div><div class="right"><b>✓ 更准确的理解</b>Branch = 给某个 commit 放一个名字；之后新的 commit 会让这个名字继续向前移动。</div></div>
+<div class="figure"><svg viewBox="0 0 760 340" role="img" aria-label="Git 分支指针示意图"><rect width="760" height="340" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif"><text x="34" y="38" font-size="15" font-weight="700" fill="#334155">从 C 开始一条实验路线</text><path d="M105 155 H650" fill="none" stroke="#9ab8ec" stroke-width="5" stroke-linecap="round"/><path d="M382 155 C420 155,420 240,470 240 H650" fill="none" stroke="#58b58c" stroke-width="5" stroke-linecap="round"/><g fill="#fff" stroke="#155eef" stroke-width="6"><circle cx="130" cy="155" r="14"/><circle cx="260" cy="155" r="14"/><circle cx="390" cy="155" r="14"/><circle cx="520" cy="155" r="14"/><circle cx="650" cy="155" r="14"/></g><g fill="#fff" stroke="#138a5b" stroke-width="6"><circle cx="505" cy="240" r="14"/><circle cx="650" cy="240" r="14"/></g><g font-size="12" fill="#334155" text-anchor="middle"><text x="130" y="124">A</text><text x="260" y="124">B</text><text x="390" y="124">C</text><text x="520" y="124">D</text><text x="650" y="124">E</text><text x="505" y="278">X</text><text x="650" y="278">Y</text></g><rect x="606" y="72" width="90" height="30" rx="15" fill="#155eef"/><text x="651" y="92" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">main → E</text><rect x="575" y="294" width="121" height="30" rx="15" fill="#138a5b"/><text x="635" y="314" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">experiment → Y</text><text x="408" y="205" font-size="12" fill="#64748b">共同祖先 C</text></g></svg><div class="figcap">从 C 之后，main 和 experiment 各自产生新的 commit，于是项目历史发生“分叉”。这就是 branching。</div></div>
+<div class="big-idea">Git 的“分支”之所以强大，是因为它不是复制文件，<br>而是允许<strong>一张历史图同时长出多条路线。</strong></div></section>
 
-      <section id="github">
-        <h2>Git 和 GitHub 不是一回事</h2>
-        <div class="compare">
-          <div><h3>Git</h3><p><strong>版本控制系统。</strong></p><p>负责 commit、branch、merge 等底层机制。没有 GitHub，Git 本身也可以工作。</p></div>
-          <div><h3>GitHub</h3><p><strong>围绕 Git 仓库建立的在线协作平台。</strong></p><p>除了托管仓库，还提供账号权限、Issue、Pull Request、Review、Actions 等协作功能。</p></div>
-        </div>
-        <p>所以，当你在 GitHub 网页上看到 branch、commit、Pull Request，本质上是在通过 GitHub 操作和观察 Git 的版本历史。</p>
-      </section>
+<section id="merge"><span class="chapter-no">05 · MERGE</span><h2>分出去之后，怎么重新回来？—— Merge</h2><p>如果实验路线最后值得保留，就需要把两条历史重新整合。Git 会寻找它们的共同祖先，并尝试把两边的变化组合起来。Atlassian 的 Git 教程把 merge 概括为：把一段分叉的历史重新放回统一历史。</p>
+<div class="figure"><svg viewBox="0 0 760 360" role="img" aria-label="Git merge 示意图"><rect width="760" height="360" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif"><text x="34" y="38" font-size="15" font-weight="700" fill="#334155">两条历史重新汇合</text><path d="M96 150 H650" fill="none" stroke="#9ab8ec" stroke-width="5" stroke-linecap="round"/><path d="M350 150 C390 150,390 242,448 242 H548 C600 242,602 150,650 150" fill="none" stroke="#58b58c" stroke-width="5" stroke-linecap="round"/><g fill="#fff" stroke="#155eef" stroke-width="6"><circle cx="120" cy="150" r="14"/><circle cx="235" cy="150" r="14"/><circle cx="350" cy="150" r="14"/><circle cx="500" cy="150" r="14"/><circle cx="650" cy="150" r="16"/></g><g fill="#fff" stroke="#138a5b" stroke-width="6"><circle cx="450" cy="242" r="14"/><circle cx="548" cy="242" r="14"/></g><g font-size="12" fill="#334155" text-anchor="middle"><text x="120" y="118">A</text><text x="235" y="118">B</text><text x="350" y="118">C</text><text x="500" y="118">D</text><text x="650" y="112">M</text><text x="450" y="280">X</text><text x="548" y="280">Y</text></g><rect x="595" y="55" width="110" height="32" rx="16" fill="#0c1f46"/><text x="650" y="76" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">merge commit</text><text x="650" y="181" text-anchor="middle" font-size="12" fill="#64748b">同时连接 D 与 Y</text></g></svg><div class="figcap">典型的三方合并会产生一个新的 merge commit，它有两个父 commit：两条历史在这里重新汇合。</div></div>
+<h3>那 Conflict 又是什么？</h3><p>Git 能自动判断很多合并。例如一条分支改标题，另一条改图片，通常可以自动组合。但如果两条分支都修改了<strong>同一处内容</strong>，而结果不同，Git 就无法替人决定“哪个才对”。这时才叫 merge conflict。</p>
+<div class="two-col"><div class="idea-card"><strong>可以自动合并</strong><p>main：修改首页标题<br>branch：增加一张新图<br><br>修改互不矛盾 → Git 可以组合。</p></div><div class="idea-card"><strong>产生冲突</strong><p>main：标题改成“数据挖掘”<br>branch：同一标题改成“智能数据分析”<br><br>同一位置两种答案 → 需要判断。</p></div></div>
+<div class="memory"><strong>Conflict 不是“Git 出错了”。</strong> 它准确地告诉你：历史里出现了两个 Git 无法自动替你选择的答案。</div></section>
 
-      <section id="agent">
-        <h2>Agent 会写代码，为什么还需要理解 Git？</h2>
-        <p>因为“谁敲下代码”与“谁理解项目发生了什么”是两件不同的事。</p>
-        <p>Agent 可以替你创建文件、修改代码、提交 commit、建立 branch，甚至解决部分冲突。但当你看到下面这些信息时，仍然应该知道它意味着什么：</p>
-        <ul>
-          <li>Agent 说“我创建了一个 branch”——说明它开了一条独立修改路线。</li>
-          <li>Agent 说“产生了 3 个 commits”——说明这次工作形成了 3 个可追踪的版本节点。</li>
-          <li>GitHub 出现一个 Pull Request——说明有一组修改正等待被合并。</li>
-          <li>出现 merge conflict——说明两条修改路线在某处发生了矛盾。</li>
-          <li>某个版本出问题——Git 的历史让项目有机会定位和回退。</li>
-        </ul>
-        <p class="takeaway">你不一定需要亲手操作 Git，但你应该能<strong>看懂项目的版本结构</strong>。</p>
-      </section>
+<section id="github"><span class="chapter-no">06 · GIT ≠ GITHUB</span><h2>最后再把 GitHub 放进来</h2><p>到这里，其实 Git 已经讲完了。Git 本身就能在一台电脑上保存 commit、建立 branch、合并历史。<strong>GitHub 是建立在 Git 之上的网络协作平台。</strong></p>
+<div class="figure"><svg viewBox="0 0 760 360" role="img" aria-label="Git 与 GitHub 关系图"><rect width="760" height="360" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif"><text x="34" y="38" font-size="15" font-weight="700" fill="#334155">同一套 Git 历史，可以存在不同位置</text><rect x="52" y="78" width="280" height="210" rx="20" fill="#fff" stroke="#dbe4f0"/><text x="80" y="112" font-size="13" font-weight="800" fill="#64748b">LOCAL · 本地</text><text x="80" y="145" font-size="23" font-weight="800" fill="#0f172a">Git repository</text><line x1="90" y1="207" x2="292" y2="207" stroke="#9ab8ec" stroke-width="4"/><g fill="#155eef"><circle cx="108" cy="207" r="9"/><circle cx="172" cy="207" r="9"/><circle cx="236" cy="207" r="9"/><circle cx="292" cy="207" r="9"/></g><text x="80" y="254" font-size="12" fill="#64748b">commit · branch · merge · history</text><rect x="428" y="78" width="280" height="210" rx="20" fill="#0c1f46"/><text x="456" y="112" font-size="13" font-weight="800" fill="#9fb7df">REMOTE · 网络</text><text x="456" y="145" font-size="23" font-weight="800" fill="#fff">GitHub</text><line x1="466" y1="207" x2="668" y2="207" stroke="#6e91cf" stroke-width="4"/><g fill="#fff"><circle cx="484" cy="207" r="9"/><circle cx="548" cy="207" r="9"/><circle cx="612" cy="207" r="9"/><circle cx="668" cy="207" r="9"/></g><text x="456" y="254" font-size="12" fill="#b9c9e6">Git 历史 + PR · Issue · Review · Actions · 权限</text><path d="M348 160 H412" stroke="#155eef" stroke-width="3"/><path d="M402 151 L414 160 L402 169" fill="none" stroke="#155eef" stroke-width="3"/><path d="M412 220 H348" stroke="#138a5b" stroke-width="3"/><path d="M358 211 L346 220 L358 229" fill="none" stroke="#138a5b" stroke-width="3"/><text x="380" y="143" text-anchor="middle" font-size="11" fill="#155eef">同步</text></g></svg><div class="figcap">Git 是版本控制机制；GitHub 是托管 Git 仓库并增加在线协作能力的平台。Pull Request 是 GitHub 的协作概念，不是 Git 本身的一种对象。</div></div>
+<div class="term"><b>Repository</b><p>项目文件 + Git 历史。</p></div><div class="term"><b>Pull Request</b><p>GitHub 上把一条分支的修改拿出来比较、讨论、检查并请求合并的协作页面。</p></div><div class="term"><b>Issue / Review / Actions</b><p>这些是 GitHub 围绕 Git 增加的项目管理、评审和自动化能力。</p></div></section>
 
-      <section id="remember">
-        <h2>最后只记住这些</h2>
-        <div class="code">Repository = 项目 + 历史
-Commit     = 一个版本节点
-Branch     = 一条独立修改路线
-Pull Request = 请求把一组修改合回来
-Merge      = 两条路线重新汇合
-Conflict   = 两条路线在同一处发生矛盾</div>
-        <p>如果这六句话能理解，DM001 里需要的 Git 基础就已经够用了。剩下的具体操作，可以交给 Agent 完成。</p>
-      </section>
-    </article>
-  </div>
-</main>
+<section id="agent"><span class="chapter-no">07 · IN AN AGENT WORKFLOW</span><h2>Agent 在操作，但你看到的仍然是这张图</h2><p>在 DM001 里，很多 Git 操作可以由 Agent 完成。学生没有必要背命令，但看到下面这些词时，应该知道<strong>项目历史发生了什么</strong>：</p>
+<div class="agent-map"><div class="k">Agent 说…</div><div class="v">你应该理解成…</div><div class="k">“做了一个 commit”</div><div class="v">历史图上多了一个版本节点。</div><div class="k">“建了 branch”</div><div class="v">从某个历史节点开始了一条独立路线。</div><div class="k">“开了 PR”</div><div class="v">GitHub 正在比较两条路线，并准备讨论是否把它们合起来。</div><div class="k">“有 conflict”</div><div class="v">两条历史在同一处给出了互相矛盾的修改，需要判断。</div><div class="k">“merge 完成”</div><div class="v">两条历史已经重新汇入同一条项目历史。</div></div>
+<p class="big-idea">Agent 可以替你<strong>操作 Git</strong>，<br>但你至少要能<strong>读懂 Git 的历史图</strong>。</p></section>
 
+<section id="recap"><span class="chapter-no">60-SECOND RECAP</span><h2>如果只记六句话</h2><div class="recap"><div><b>Git</b><span>记录项目如何从过去一步步变成现在。</span></div><div><b>Commit</b><span>一次正式保存的项目快照，也是历史图上的一个节点。</span></div><div><b>History</b><span>Commit 通过父子关系连接起来，形成项目的版本历史。</span></div><div><b>Branch</b><span>不是项目副本，而是指向 commit 的一根可移动指针。</span></div><div><b>Merge</b><span>把分叉的历史重新整合。</span></div><div><b>GitHub</b><span>把 Git 仓库放到网络上，再加上 PR、Issue、Review、Actions 等协作层。</span></div></div></section>
+
+<section id="refs"><span class="chapter-no">REFERENCES</span><h2>这篇教程参考了哪些讲法？</h2><p>这里没有直接复制任何来源的插图；上面的示意图均为课程重新绘制。内容组织主要参考以下资料：</p><div class="ref-list"><a class="ref-card" href="https://git-scm.com/book/en/v2/Getting-Started-What-is-Git" target="_blank" rel="noopener"><strong>Pro Git · What is Git?</strong><span>最重要的心智模型：Git 把数据看成一连串 snapshots，而不是简单的文件差异。</span></a><a class="ref-card" href="https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell.html" target="_blank" rel="noopener"><strong>Pro Git · Branches in a Nutshell</strong><span>解释 commit、parent，以及“branch 是指向 commit 的轻量可移动指针”。</span></a><a class="ref-card" href="https://docs.github.com/en/get-started/using-git/about-git" target="_blank" rel="noopener"><strong>GitHub Docs · About Git</strong><span>从版本历史、repository 到 GitHub 协作层的官方入门解释。</span></a><a class="ref-card" href="https://www.atlassian.com/git/tutorials/using-branches/git-merge" target="_blank" rel="noopener"><strong>Atlassian Git Tutorial · Git Merge</strong><span>用分叉历史重新汇合的方式理解 merge。</span></a><a class="ref-card" href="https://learngitbranching.js.org/?locale=zh_CN" target="_blank" rel="noopener"><strong>Learn Git Branching</strong><span>非常优秀的交互式 Git 历史图；想进一步直观看 branch / merge，可以在这里拖着学。</span></a></div></section>
+</article></div></main>
 <footer class="footer"><div class="container footer-inner"><strong>DM001 · Course Hub</strong><a href="../index.html">← 返回课程首页</a></div></footer>
-</body>
-</html>
+</body></html>
