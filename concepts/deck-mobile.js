@@ -7,6 +7,7 @@
     `<script src="${esc(new URL('deck-mobile-core.js', base).href)}"><\/script>` +
     `<script src="${esc(new URL('start-once.js', base).href)}"><\/script>` +
     `<script src="${esc(new URL('deck-editor.js', base).href)}"><\/script>` +
+    `<script src="${esc(new URL('deck-text-editor.js', base).href)}"><\/script>` +
     `<link rel="stylesheet" href="${esc(new URL('fullscreen-consistency.css', base).href)}">` +
     `<script src="${esc(new URL('fullscreen-sync.js', base).href)}"><\/script>`
   );
