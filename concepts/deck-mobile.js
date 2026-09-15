@@ -127,6 +127,8 @@
     if (currentFile === 'data-mining.html') {
       const firstKicker = root.querySelector('.slide:first-child .slide-kicker');
       if (firstKicker && firstKicker.textContent.includes('Warm-up')) firstKicker.remove();
+      const secondLead = root.querySelector('.slide:nth-child(2) .lead');
+      if (secondLead && secondLead.textContent.includes('先记住一条主线')) secondLead.remove();
     }
 
     if (embedded) {
