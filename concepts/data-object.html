@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DM001 数据挖掘核心概念 02：数据对象 Object / Sample / Instance 交互式课堂演示。" />
+  <title>概念 02 · 数据对象 | DM001</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body{background:#eef2f8;overflow-x:hidden}
+    .deck-topbar{position:sticky;top:0;z-index:30;background:rgba(238,242,248,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(219,228,240,.9)}
+    .deck-nav{height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .deck-nav-left,.deck-nav-right{display:flex;align-items:center;gap:10px;min-width:0}
+    .back-link,.tool-btn{border:1px solid var(--line);background:#fff;border-radius:11px;min-height:40px;padding:0 13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;font:inherit;font-size:13px;font-weight:780;color:#334155;cursor:pointer}
+    .back-link:hover,.tool-btn:hover{border-color:#b8c8df;color:var(--blue)}
+    .deck-label{font-weight:850;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .deck-label small{display:block;color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-top:-2px}
+    .deck-wrap{width:min(calc(100% - 32px),1180px);margin:28px auto 54px;outline:none}
+    .stage{position:relative;background:#fff;border:1px solid #d8e1ee;border-radius:24px;box-shadow:0 30px 80px rgba(15,23,42,.12);overflow:hidden;aspect-ratio:16/9;min-height:620px}
+    .slide{position:absolute;inset:0;padding:48px 54px 42px;display:none;flex-direction:column;background:#fff;overflow:auto}
+    .slide.active{display:flex}.slide-no{position:absolute;right:28px;top:24px;color:#94a3b8;font-weight:850;font-size:12px;letter-spacing:.12em}
+    .slide-kicker{font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--blue);text-transform:uppercase;margin-bottom:10px}
+    .slide h1,.slide h2{margin:0;letter-spacing:-.05em;line-height:1.05}.slide h1{font-size:clamp(42px,5.1vw,74px);max-width:930px}.slide h2{font-size:clamp(34px,4vw,58px)}
+    .slide .lead{font-size:clamp(17px,1.7vw,23px);color:#526178;max-width:930px;margin:14px 0 0;line-height:1.55}.accent{color:var(--blue)}
+    .slide-content{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;margin-top:22px}
+    .object-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:stretch}
+    .data-card{border:1px solid var(--line);border-radius:18px;background:#f8fafc;overflow:hidden;min-height:330px}.data-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}.data-head strong{font-size:14px}.data-head span{font-size:11px;color:var(--muted);font-weight:800}
+    table.mock{width:100%;border-collapse:collapse;font-size:13px}.mock th,.mock td{padding:14px 14px;text-align:left;border-bottom:1px solid #e7edf5;white-space:nowrap}.mock th{color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:.05em}.mock tr[data-object]{cursor:pointer;transition:.15s ease}.mock tr[data-object]:hover{background:#eef5ff}.mock tr[data-object].selected{background:#e7f0ff;box-shadow:inset 4px 0 0 var(--blue)}
+    .object-panel{border-radius:18px;background:#0c1f46;color:#fff;padding:24px;display:flex;flex-direction:column;justify-content:center;min-height:330px}.object-panel .eyebrow-mini{font-size:10px;font-weight:900;letter-spacing:.12em;color:#9fc1ff;text-transform:uppercase}.object-panel h3{font-size:26px;margin:8px 0 8px}.object-panel p{margin:0;color:#cbd8ee;line-height:1.6}.object-result{margin-top:16px;padding:14px;border-radius:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);min-height:76px}.object-result strong{color:#fff}.object-result span{color:#9fc1ff;font-weight:900}
+    .term-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}.term-btn{border:1px solid var(--line);background:#f8fafc;border-radius:16px;padding:18px 10px;font:inherit;cursor:pointer;text-align:center;transition:.16s ease}.term-btn:hover,.term-btn.active{border-color:#9bb9ef;background:#eef5ff;transform:translateY(-1px)}.term-btn b{display:block;font-size:16px}.term-btn small{display:block;margin-top:5px;color:#64748b;font-size:11px}.term-detail{border:1px solid #cfe0ff;background:#f3f7ff;border-radius:16px;padding:18px 20px;min-height:94px;color:#35547d;display:flex;align-items:center}.term-detail strong{color:#173f7d}.definition-box{margin-top:16px;border-radius:18px;background:#0c1f46;color:#fff;padding:18px 20px;text-align:center;font-size:clamp(20px,2.3vw,30px);font-weight:900;letter-spacing:-.025em}.definition-box small{display:block;color:#b8c8df;font-size:12px;font-weight:650;margin-top:6px;letter-spacing:0}
+    .scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.scenario{border:1px solid var(--line);border-radius:18px;background:#f8fafc;padding:18px}.scenario .tag{font-size:10px;color:#7890b5;font-weight:900;letter-spacing:.1em}.scenario h3{font-size:20px;line-height:1.35;margin:7px 0 14px}.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.choice-btn{border:1px solid #cfdcf0;background:#fff;color:#26466f;border-radius:12px;padding:10px 8px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}.choice-btn:hover{border-color:#9eb8df;background:#f0f6ff}.choice-btn.correct{background:#eefbf5;border-color:#9bd9bd;color:#0f6d49}.choice-btn.wrong{background:#fff3f1;border-color:#efb4aa;color:#a34031}.scenario-result{min-height:42px;margin-top:12px;font-size:12px;font-weight:800;color:#40516a;line-height:1.45}.final-takeaway{margin-top:18px;border-radius:18px;background:#0c1f46;color:#fff;padding:19px 22px;text-align:center;font-size:clamp(20px,2.3vw,30px);font-weight:900;letter-spacing:-.03em}.final-takeaway small{display:block;color:#b8c8df;font-size:12px;font-weight:650;margin-top:6px;letter-spacing:0}.next-concept{margin-top:12px;text-align:center;color:#64748b;font-size:12px}.next-concept strong{color:var(--blue)}
+    .deck-controls{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;margin-top:16px}.deck-controls .left{justify-self:start}.deck-controls .center{display:flex;align-items:center;gap:7px}.deck-controls .right{justify-self:end;display:flex;align-items:center;gap:10px}.nav-btn{width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:#fff;cursor:pointer;font:inherit;font-size:21px;color:#334155}.nav-btn:disabled{opacity:.35;cursor:not-allowed}.dot-btn{width:10px;height:10px;border:0;border-radius:50%;background:#c8d3e2;cursor:pointer;padding:0}.dot-btn.active{background:var(--blue);transform:scale(1.22)}.slide-status{font-size:12px;color:#64748b;font-weight:800;min-width:44px;text-align:center}.hint{font-size:11px;color:#94a3b8;margin-top:8px;text-align:center}.sources{margin-top:18px;border:1px solid var(--line);background:#fff;border-radius:14px;padding:0 16px;color:#526178}.sources summary{cursor:pointer;padding:12px 0;font-size:12px;font-weight:850;color:#40516a}.sources ul{margin:0 0 14px;padding-left:20px;font-size:12px}.sources li{margin:4px 0}.fs-exit{display:none}
+    .deck-wrap:fullscreen{width:100%;height:100%;margin:0;padding:14px 20px 12px;background:#eef2f8;display:flex;flex-direction:column;overflow:hidden}.deck-wrap:fullscreen .stage{flex:1;min-height:0;width:100%;aspect-ratio:auto;border-radius:18px}.deck-wrap:fullscreen .slide{padding:4.2vw 5.3vw}.deck-wrap:fullscreen .slide h1{font-size:min(6.5vw,86px)}.deck-wrap:fullscreen .slide h2{font-size:min(4.7vw,64px)}.deck-wrap:fullscreen .deck-controls{flex:0 0 auto;margin-top:10px}.deck-wrap:fullscreen .hint,.deck-wrap:fullscreen .sources{display:none}.deck-wrap:fullscreen .fs-exit{display:inline-flex}
+    @media(max-width:900px){.stage{aspect-ratio:auto;min-height:760px}.slide{padding:38px 28px}.object-layout,.scenario-grid{grid-template-columns:1fr}.term-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:620px){.deck-wrap{width:min(calc(100% - 18px),1180px);margin-top:14px}.stage{min-height:900px;border-radius:17px}.slide{padding:30px 18px 24px}.slide-no{right:16px;top:14px}.term-grid{grid-template-columns:1fr 1fr}.choices{grid-template-columns:1fr}.deck-controls{grid-template-columns:auto 1fr auto}.deck-controls .center{justify-content:center}.slide-status{display:none}.deck-label{font-size:13px}.deck-label small{display:none}.deck-wrap:fullscreen{padding:8px}.deck-wrap:fullscreen .stage{border-radius:12px}.deck-wrap:fullscreen .slide{padding:26px 18px 22px}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+<header class="deck-topbar">
+  <div class="container deck-nav">
+    <div class="deck-nav-left">
+      <a class="back-link" href="../curriculum.html#lesson-1">← 返回</a>
+      <div class="deck-label">概念 02 · 数据对象<small>Object / Sample / Instance</small></div>
+    </div>
+    <div class="deck-nav-right">
+      <button class="tool-btn" id="restartBtn" type="button">↺ <span>重新开始</span></button>
+      <button class="tool-btn" id="fullscreenBtn" type="button">⛶ <span>全屏演示</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="deck-wrap" id="deckRoot" tabindex="0">
+  <section class="stage" id="stage" aria-live="polite">
+    <article class="slide active" data-title="一个 Object 是什么">
+      <span class="slide-no">01 / 03</span>
+      <div class="slide-kicker">Start with a table · 先看一行</div>
+      <h1>这张表里，<br><span class="accent">一个 Object</span> 是什么？</h1>
+      <p class="lead">点击任意一行。先建立最简单的直觉：在表格型数据中，一行通常记录一个被研究的对象。</p>
+      <div class="slide-content">
+        <div class="object-layout">
+          <div class="data-card">
+            <div class="data-head"><strong>students.csv</strong><span>点击任意一行</span></div>
+            <table class="mock">
+              <thead><tr><th>ID</th><th>姓名</th><th>专业</th><th>本周学习时长</th></tr></thead>
+              <tbody>
+                <tr data-object="学生 S101"><td>S101</td><td>李明</td><td>生物工程</td><td>8.4 h</td></tr>
+                <tr data-object="学生 S102"><td>S102</td><td>王悦</td><td>化学</td><td>5.9 h</td></tr>
+                <tr data-object="学生 S103"><td>S103</td><td>陈哲</td><td>计算机</td><td>10.7 h</td></tr>
+                <tr data-object="学生 S104"><td>S104</td><td>赵宁</td><td>材料</td><td>7.2 h</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="object-panel">
+            <div class="eyebrow-mini">DATA OBJECT</div>
+            <h3>我们正在研究的“一个对象”</h3>
+            <p>表格中的每一行，通常对应一个被描述、比较或预测的对象。</p>
+            <div class="object-result" id="objectResult">点一行试试。<br><span>Object = ?</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide" data-title="同一个概念的不同叫法">
+      <span class="slide-no">02 / 03</span>
+      <div class="slide-kicker">Vocabulary · 不要被术语吓住</div>
+      <h2>它可能有很多名字。</h2>
+      <p class="lead">数据挖掘和机器学习教材里，下面这些词经常指向同一个基本角色。点击看看语境差异。</p>
+      <div class="slide-content">
+        <div class="term-grid">
+          <button class="term-btn active" data-term="object" type="button"><b>Object</b><small>数据对象</small></button>
+          <button class="term-btn" data-term="instance" type="button"><b>Instance</b><small>实例</small></button>
+          <button class="term-btn" data-term="sample" type="button"><b>Sample</b><small>样本</small></button>
+          <button class="term-btn" data-term="record" type="button"><b>Record</b><small>记录</small></button>
+          <button class="term-btn" data-term="point" type="button"><b>Data Point</b><small>数据点</small></button>
+        </div>
+        <div class="term-detail" id="termDetail"><div><strong>Object：</strong>最直接的说法——数据集中被描述的一个实体或对象。</div></div>
+        <div class="definition-box">Object = 分析、比较或预测的一个基本单位<small>这些术语在很多机器学习语境里近似使用；具体教材可能偏好不同叫法。</small></div>
+      </div>
+    </article>
+
+    <article class="slide" data-title="问题决定分析单位">
+      <span class="slide-no">03 / 03</span>
+      <div class="slide-kicker">Think · 同一批原始数据</div>
+      <h2>Object 是天然固定的吗？</h2>
+      <p class="lead">不一定。同一批业务数据，因为问题不同，最终拿来分析的基本单位也可能不同。</p>
+      <div class="slide-content">
+        <div class="scenario-grid">
+          <section class="scenario" data-answer="user">
+            <div class="tag">QUESTION A</div>
+            <h3>预测哪些用户下个月最可能流失？</h3>
+            <div class="choices">
+              <button class="choice-btn" data-choice="user" type="button">用户</button>
+              <button class="choice-btn" data-choice="order" type="button">订单</button>
+              <button class="choice-btn" data-choice="store" type="button">商家</button>
+            </div>
+            <div class="scenario-result">请选择这里的 Object。</div>
+          </section>
+          <section class="scenario" data-answer="order">
+            <div class="tag">QUESTION B</div>
+            <h3>检测哪些订单的行为异常，值得进一步检查？</h3>
+            <div class="choices">
+              <button class="choice-btn" data-choice="user" type="button">用户</button>
+              <button class="choice-btn" data-choice="order" type="button">订单</button>
+              <button class="choice-btn" data-choice="store" type="button">商家</button>
+            </div>
+            <div class="scenario-result">请选择这里的 Object。</div>
+          </section>
+        </div>
+        <div class="final-takeaway">Object = 我们真正拿来分析、比较或预测的基本单位<small>所以先问清楚：我到底在研究“谁”或“什么”？</small></div>
+        <div class="next-concept">下一概念：<strong>Feature / Attribute</strong> —— 机器靠什么来描述这些对象？</div>
+      </div>
+    </article>
+  </section>
+
+  <div class="deck-controls" aria-label="幻灯片导航">
+    <div class="left"><button class="nav-btn" id="prevBtn" type="button" aria-label="上一页">←</button></div>
+    <div class="center" id="dots"></div>
+    <div class="right"><span class="slide-status" id="slideStatus">1 / 3</span><button class="tool-btn fs-exit" id="exitFullscreenBtn" type="button">退出全屏</button><button class="nav-btn" id="nextBtn" type="button" aria-label="下一页">→</button></div>
+  </div>
+  <div class="hint">课堂操作：← / → 翻页 · 空格下一页 · 点击页内元素互动 · 支持全屏演示</div>
+
+  <details class="sources">
+    <summary>参考资料与教学说明</summary>
+    <ul>
+      <li>Tan, Steinbach, Karpatne & Kumar, <em>Introduction to Data Mining</em>：Data Objects and Attribute Types。</li>
+      <li>scikit-learn Glossary：sample / instance / data point 等术语的常见机器学习用法。</li>
+      <li>本节刻意不提前引入 feature vector 或 feature space；这些内容放到下一个概念 Feature / Attribute 再讲。</li>
+      <li>“一行 = 一个 Object”只针对典型表格数据建立直觉，不作为所有数据形式的严格定义。</li>
+    </ul>
+  </details>
+</main>
+
+<script>
+(() => {
+  const root = document.getElementById('deckRoot');
+  const stage = document.getElementById('stage');
+  const slides = Array.from(stage.querySelectorAll('.slide'));
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const restartBtn = document.getElementById('restartBtn');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  const exitFullscreenBtn = document.getElementById('exitFullscreenBtn');
+  const dots = document.getElementById('dots');
+  const slideStatus = document.getElementById('slideStatus');
+  const objectResult = document.getElementById('objectResult');
+  const termDetail = document.getElementById('termDetail');
+  let current = 0;
+
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'dot-btn' + (i === 0 ? ' active' : '');
+    b.setAttribute('aria-label', `跳到第 ${i + 1} 页`);
+    b.addEventListener('click', () => showSlide(i));
+    dots.appendChild(b);
+  });
+
+  function showSlide(index) {
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+    Array.from(dots.children).forEach((dot, i) => dot.classList.toggle('active', i === current));
+    slideStatus.textContent = `${current + 1} / ${slides.length}`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === slides.length - 1;
+    stage.setAttribute('aria-label', `第 ${current + 1} 页：${slides[current].dataset.title || ''}`);
+  }
+
+  prevBtn.addEventListener('click', () => showSlide(current - 1));
+  nextBtn.addEventListener('click', () => showSlide(current + 1));
+
+  document.addEventListener('keydown', (event) => {
+    const tag = document.activeElement && document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+    if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') { event.preventDefault(); showSlide(current + 1); }
+    else if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); showSlide(current - 1); }
+    else if (event.key === 'Home') { event.preventDefault(); showSlide(0); }
+    else if (event.key === 'End') { event.preventDefault(); showSlide(slides.length - 1); }
+  });
+
+  async function toggleFullscreen() {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else { await root.requestFullscreen(); root.focus({preventScroll:true}); }
+    } catch (_) { fullscreenBtn.title = '浏览器阻止了全屏，请使用浏览器自带全屏功能'; }
+  }
+  if (!root.requestFullscreen) {
+    fullscreenBtn.disabled = true;
+    fullscreenBtn.title = '当前浏览器不支持全屏 API';
+  } else {
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    exitFullscreenBtn.addEventListener('click', toggleFullscreen);
+    document.addEventListener('fullscreenchange', () => {
+      const isFullscreen = document.fullscreenElement === root;
+      fullscreenBtn.innerHTML = isFullscreen ? '⛶ <span>退出全屏</span>' : '⛶ <span>全屏演示</span>';
+      if (isFullscreen) root.focus({preventScroll:true});
+    });
+  }
+
+  document.querySelectorAll('tr[data-object]').forEach((row) => {
+    row.addEventListener('click', () => {
+      document.querySelectorAll('tr[data-object]').forEach((r) => r.classList.remove('selected'));
+      row.classList.add('selected');
+      objectResult.innerHTML = `<strong>这一整行就是一个数据对象：</strong><br><span>Object = ${row.dataset.object}</span>`;
+    });
+  });
+
+  const termText = {
+    object: '<strong>Object：</strong>最直接的说法——数据集中被描述的一个实体或对象。',
+    instance: '<strong>Instance：</strong>强调“一个具体实例”，机器学习教材里非常常见。',
+    sample: '<strong>Sample：</strong>机器学习里常指一个样本；注意统计学中 sample 也常指一整批抽样得到的观测。',
+    record: '<strong>Record：</strong>强调数据表或数据库中的一条记录，尤其适合表格型数据。',
+    point: '<strong>Data Point：</strong>常作为“一个观测”的口语化称呼；这里先只理解为一个数据对象，不提前讲特征空间。'
+  };
+  document.querySelectorAll('.term-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.term-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      termDetail.innerHTML = `<div>${termText[btn.dataset.term]}</div>`;
+    });
+  });
+
+  document.querySelectorAll('.scenario').forEach((scenario) => {
+    const result = scenario.querySelector('.scenario-result');
+    scenario.querySelectorAll('.choice-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        scenario.querySelectorAll('.choice-btn').forEach((b) => b.classList.remove('correct','wrong'));
+        const correct = btn.dataset.choice === scenario.dataset.answer;
+        btn.classList.add(correct ? 'correct' : 'wrong');
+        result.textContent = correct ? `✓ 对。这里一个 Object = ${btn.textContent}。` : '再想一下：最终要被逐个判断或比较的基本单位是谁？';
+      });
+    });
+  });
+
+  function resetInteractions() {
+    document.querySelectorAll('tr[data-object]').forEach((r) => r.classList.remove('selected'));
+    objectResult.innerHTML = '点一行试试。<br><span>Object = ?</span>';
+    document.querySelectorAll('.term-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+    termDetail.innerHTML = '<div><strong>Object：</strong>最直接的说法——数据集中被描述的一个实体或对象。</div>';
+    document.querySelectorAll('.choice-btn').forEach((b) => b.classList.remove('correct','wrong'));
+    document.querySelectorAll('.scenario-result').forEach((r) => r.textContent = '请选择这里的 Object。');
+  }
+  restartBtn.addEventListener('click', () => { resetInteractions(); showSlide(0); root.focus({preventScroll:true}); });
+
+  let pointerStartX = null, pointerStartY = null;
+  stage.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse') return;
+    pointerStartX = event.clientX; pointerStartY = event.clientY;
+  });
+  stage.addEventListener('pointerup', (event) => {
+    if (pointerStartX === null || pointerStartY === null) return;
+    const dx = event.clientX - pointerStartX, dy = event.clientY - pointerStartY;
+    pointerStartX = null; pointerStartY = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) showSlide(current + (dx < 0 ? 1 : -1));
+  });
+
+  showSlide(0);
+  root.focus({preventScroll:true});
+})();
+</script>
+</body>
+</html>
