@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="DM001 数据挖掘核心概念 03：特征与属性 Feature / Attribute 交互式课堂演示。" />
+  <title>概念 03 · 特征与属性 | DM001</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="deck-mobile.js"></script>
+  <link rel="stylesheet" href="feature-attribute.css" />
+</head>
+<body>
+<header class="deck-topbar"><div class="container deck-nav"><div class="deck-nav-left"><a class="back-link" href="../curriculum.html#lesson-1">← 返回</a><div class="deck-label">概念 03 · 特征与属性<small>Feature / Attribute</small></div></div><div class="deck-nav-right"><button class="tool-btn" id="restartBtn" type="button">↺ <span>重新开始</span></button><button class="tool-btn" id="fullscreenBtn" type="button">⛶ <span>全屏演示</span></button></div></div></header>
+
+<main class="deck-wrap" id="deckRoot" tabindex="0">
+  <section class="stage" id="stage" aria-live="polite">
+    <article class="slide active" data-title="对象如何变成数据">
+      <span class="slide-no">01 / 05</span><div class="slide-kicker">From object to data · 从对象到数据</div>
+      <h1>只有“小明”，<br>计算机<span class="accent">知道什么？</span></h1>
+      <p class="lead">上一节我们找到了 Object。现在的问题是：怎样把一个现实对象变成机器可以分析的数据？</p>
+      <div class="slide-content"><div class="person-layout">
+        <div class="person-card"><div class="avatar">👤</div><h3>小明</h3><p>一个真实世界中的学生对象</p></div>
+        <div class="attribute-board" id="attributeBoard"><h3>点击，把 Object 变成可描述的数据</h3><div class="attribute-chips"><span class="attribute-chip">年龄 · 21 岁</span><span class="attribute-chip">身高 · 175 cm</span><span class="attribute-chip">体重 · 68 kg</span><span class="attribute-chip">专业 · 化学</span><span class="attribute-chip">平均成绩 · 86</span><span class="attribute-chip">睡眠 · 6.5 h</span></div><button class="reveal-btn" id="revealBtn" type="button">显示 Attributes →</button><div class="reveal-note" id="revealNote">Object 本身不是一串数字；我们先选择怎样描述它。</div></div>
+      </div></div>
+    </article>
+
+    <article class="slide" data-title="一行与一列">
+      <span class="slide-no">02 / 05</span><div class="slide-kicker">Objects × Attributes · 数据表的两个方向</div>
+      <h2>一行回答“谁”，<br>一列回答<span class="accent">“我们知道什么”</span>。</h2>
+      <p class="lead">经典数据挖掘教材最基础的视角：数据集由 Objects 和描述它们的 Attributes 共同组成。</p>
+      <div class="slide-content"><div class="matrix-layout">
+        <div class="matrix-card"><div class="matrix-toolbar"><button class="active" data-matrix="row" type="button">高亮一个 Object（一行）</button><button data-matrix="col" type="button">高亮 Attributes（列）</button><button data-matrix="reset" type="button">恢复</button></div><table class="matrix highlight-row" id="matrixTable"><thead><tr><th>Object</th><th>Age</th><th>Height</th><th>Major</th><th>Score</th></tr></thead><tbody><tr><td>小明</td><td>21</td><td>175</td><td>化学</td><td>86</td></tr><tr><td>小雨</td><td>20</td><td>163</td><td>材料</td><td>91</td></tr><tr><td>小陈</td><td>22</td><td>181</td><td>计算机</td><td>79</td></tr></tbody></table></div>
+        <div class="matrix-side"><div class="formula">Data =<br>Objects × Attributes</div><p>表格只是最直观的例子，但这两个问题会贯穿整门课：研究对象是谁？我们用什么信息描述它？</p><div class="legend"><div class="legend-row"><span class="legend-swatch swatch-row"></span> Row → 一个 Object</div><div class="legend-row"><span class="legend-swatch swatch-col"></span> Column → 一个 Attribute</div></div></div>
+      </div></div>
+    </article>
+
+    <article class="slide" data-title="属性不等于属性值">
+      <span class="slide-no">03 / 05</span><div class="slide-kicker">Attribute ≠ Attribute value · 一个关键区分</div>
+      <h2><span class="accent">Height</span> 是特征，<br>但 <span class="accent">175 cm</span> 不是。</h2>
+      <p class="lead">属性（Attribute）是描述维度；属性值（Attribute Value）才是某个对象在这个维度上的具体观测。</p>
+      <div class="slide-content"><div class="value-layout">
+        <div class="value-table"><table><thead><tr><th>Attribute</th><th>Attribute Value</th></tr></thead><tbody><tr data-value="年龄|21 岁"><td>Age</td><td>21 岁</td></tr><tr data-value="身高|175 cm"><td>Height</td><td>175 cm</td></tr><tr data-value="专业|Chemistry"><td>Major</td><td>Chemistry</td></tr><tr data-value="成绩|86"><td>Score</td><td>86</td></tr></tbody></table></div>
+        <div class="value-quiz"><div class="question">“175” 本身是 Feature 吗？</div><div class="binary"><button data-answer="no" type="button">不是</button><button data-answer="yes" type="button">是</button></div><div class="value-feedback" id="valueFeedback">先作答。然后再点左边任意一行，看 Attribute 与 Value 的对应关系。</div></div>
+      </div></div>
+    </article>
+
+    <article class="slide" data-title="数字不一定具有相同含义">
+      <span class="slide-no">04 / 05</span><div class="slide-kicker">Meaning before math · 先理解含义，再做计算</div>
+      <h2>都是数字，<br>就能<span class="accent">一样处理</span>吗？</h2>
+      <p class="lead">数据长什么样，不等于它在语义上是什么。点击三组数字，看看为什么“数字列”也可能完全不同。</p>
+      <div class="slide-content"><div class="number-grid">
+        <div class="number-card" data-number="age"><div class="tag">AGE</div><h3>年龄</h3><div class="nums">18 · 19 · 20 · 21</div><p>数值差异有实际意义；20 岁比 18 岁大 2 岁。</p></div>
+        <div class="number-card" data-number="id"><div class="tag">STUDENT ID</div><h3>学号</h3><div class="nums">001 · 002 · 003 · 004</div><p>看起来是数字，但主要作用是标识对象；平均学号通常没有意义。</p></div>
+        <div class="number-card" data-number="level"><div class="tag">GRADE LEVEL</div><h3>等级编码</h3><div class="nums">1 · 2 · 3 · 4</div><p>可能表示 A/B/C/D 或低/中/高；数字只是编码，不一定代表等距。</p></div>
+      </div><div class="number-result" id="numberResult"><strong>先记住：</strong>&nbsp;“存成数字” ≠ “可以随便做数学运算”。后面还会继续讲数据类型与测量尺度。</div></div>
+    </article>
+
+    <article class="slide" data-title="特征取决于问题">
+      <span class="slide-no">05 / 05</span><div class="slide-kicker">Features depend on the question · 描述方式不是唯一的</div>
+      <h2>同一个 Object，<br>可以有<span class="accent">完全不同的 Features</span>。</h2>
+      <p class="lead">Feature 不是对象天然携带的一张固定清单；我们为了一个问题，选择一种描述方式。</p>
+      <div class="slide-content"><div class="final-layout">
+        <div class="problem-tabs"><h3>还是“小明”，你现在想研究什么？</h3><div class="tabs"><button class="tab-btn active" data-problem="study" type="button">学习成绩</button><button class="tab-btn" data-problem="sport" type="button">运动能力</button><button class="tab-btn" data-problem="consume" type="button">消费行为</button></div><div class="feature-list" id="featureList"></div><div class="problem-note">切换问题，观察描述同一个人的 Features 怎样随之改变。</div></div>
+        <div class="mini-challenge"><h3>最后一题：如果要预测 IC50？</h3><table class="mol-table"><thead><tr><th>Molecule</th><th>MW</th><th>logP</th><th>HBD</th><th>IC50</th></tr></thead><tbody><tr><td>A</td><td>320</td><td>2.1</td><td>2</td><td>18</td></tr><tr><td>B</td><td>275</td><td>1.3</td><td>1</td><td>63</td></tr><tr><td>C</td><td>410</td><td>4.2</td><td>0</td><td>7</td></tr></tbody></table><div class="challenge-options"><button data-challenge="mw" type="button">MW / logP / HBD</button><button data-challenge="ic50" type="button">IC50</button><button data-challenge="all" type="button">全部都一样</button></div><div class="challenge-feedback" id="challengeFeedback">哪些列更像是“用来描述分子、帮助预测”的 Features？</div></div>
+      </div><div class="takeaway">Feature = 为了当前问题，用来描述 Object 的属性<small>An object is described by attributes · Attribute ≠ value · Representation depends on the question</small></div></div>
+    </article>
+  </section>
+
+  <div class="deck-controls" aria-label="幻灯片导航"><div class="left"><button class="nav-btn" id="prevBtn" type="button" aria-label="上一页">←</button></div><div class="center" id="dots"></div><div class="right"><span class="slide-status" id="slideStatus">1 / 5</span><button class="tool-btn fs-exit" id="exitFullscreenBtn" type="button">退出全屏</button><button class="nav-btn" id="nextBtn" type="button" aria-label="下一页">→</button></div></div>
+  <div class="hint">课堂操作：← / → 翻页 · 空格下一页 · 点击页内元素互动 · 支持全屏演示</div>
+  <details class="sources"><summary>参考资料与教学说明</summary><ul><li>Tan, Steinbach, Karpatne &amp; Kumar, <em>Introduction to Data Mining</em>：Data Objects and Attribute Types；数据由对象及其属性构成。</li><li>Han, Kamber &amp; Pei, <em>Data Mining: Concepts and Techniques</em>：数据对象、属性类型与测量尺度。</li><li>本节刻意区分 Attribute 与 Attribute Value，并用“学号也是数字”提前为后续数据类型概念埋下问题。</li><li>“一行 = Object / 一列 = Attribute”用于建立表格型数据直觉，不作为图、序列、图像等所有数据形式的严格定义。</li></ul></details>
+</main>
+
+<script src="feature-attribute.js"></script>
+</body>
+</html>
