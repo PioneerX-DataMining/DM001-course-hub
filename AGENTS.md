@@ -45,6 +45,8 @@ DM001 is a concept-first Data Mining course. The concept pages are classroom pre
    - **Never auto-save teacher edits.** Editing creates a local draft first; persistence happens only after the teacher explicitly clicks `保存本页`.
    - Deleting selected text/buttons follows the same draft-first rule and must not sync until `保存本页` is clicked.
    - Unsaved changes should be visibly indicated and navigation away should warn when practical.
+   - Keep teacher entry points simple: the top bar should expose `编辑本页` and `页面管理`, not a separate top-level `删除本页` button.
+   - `删除本页` belongs inside the `编辑本页` panel as a dangerous current-page action; `页面管理` is for deck-level page management such as viewing/restoring deleted pages.
 
 8. **Maintain interaction consistency.**
    - Student-answer interactions should give immediate visual feedback.
@@ -61,5 +63,6 @@ Check the page for:
 - Broken normal/fullscreen/mobile layout.
 - A missing `deck-mobile.js` loader that would disable shared editing/presentation behavior.
 - Any teacher edit path that silently auto-saves instead of requiring `保存本页`.
+- Duplicate teacher controls such as a top-level `删除本页` plus the same action inside `编辑本页`.
 
 When the user's explicit instruction conflicts with this file, follow the user's instruction and update this file if the change should become a lasting repository convention.
