@@ -6,6 +6,8 @@
     'feature-attribute.html': 'dm03',
     'attribute-type.html': 'dm04',
   };
+  const HIDE_TEXT = '__DM_EDITOR_HIDE_TEXT_V1__';
+  const HIDE_BUTTON = '__DM_EDITOR_HIDE_BUTTON_V1__';
 
   const SKIP_DYNAMIC = [
     '.slide-no',
@@ -21,6 +23,10 @@
     '.process-note',
     '.task-example',
   ].join(',');
+
+  function clone(value) {
+    return JSON.parse(JSON.stringify(value || {}));
+  }
 
   function init() {
     const file = location.pathname.split('/').pop();
@@ -46,6 +52,8 @@
       canEdit: false,
       editing: false,
       edits: {},
+      savedEdits: {},
+      dirtySlides: new Set(),
       selected: null,
       button: null,
       panel: null,
@@ -53,7 +61,7 @@
       textarea: null,
       sizeInput: null,
       colorInput: null,
-      saveTimers: new Map(),
+      saveButton: null,
     };
 
     installStyles();
@@ -74,6 +82,12 @@
       }
     }, true);
 
+    window.addEventListener('beforeunload', (event) => {
+      if (!state.dirtySlides.size) return;
+      event.preventDefault();
+      event.returnValue = '';
+    });
+
     fetch(`${API_BASE}/api/dm/register?resource=slides&deck_id=${encodeURIComponent(deckId)}`, {
       mode: 'cors',
       credentials: 'include',
@@ -84,8 +98,10 @@
         return response.json();
       })
       .then((payload) => {
-        state.canEdit = !!payload.can_edit;
-        state.edits = payload.slide_edits && typeof payload.slide_edits === 'object' ? payload.slide_edits : {};
+        const supportsEdits = Object.prototype.hasOwnProperty.call(payload, 'slide_edits');
+        state.canEdit = !!payload.can_edit && supportsEdits;
+        state.edits = payload.slide_edits && typeof payload.slide_edits === 'object' ? clone(payload.slide_edits) : {};
+        state.savedEdits = clone(state.edits);
         applyAllEdits();
         if (state.canEdit && !embedded) installEditButton();
       })
@@ -104,11 +120,16 @@
         .dm-edit-mode .dm-edit-fragment{cursor:text}
         .dm-edit-mode .dm-edit-fragment:hover{outline:2px dashed rgba(21,94,239,.45);outline-offset:2px;background:rgba(234,241,255,.45)}
         .dm-edit-fragment.dm-edit-selected{outline:2px solid #155eef!important;outline-offset:3px;background:rgba(234,241,255,.7)}
-        .dm-text-editor-panel{position:fixed;z-index:2050;right:22px;top:78px;width:min(350px,calc(100vw - 28px));max-height:calc(100vh - 96px);overflow:auto;background:#fff;border:1px solid #d7e1ef;border-radius:18px;box-shadow:0 24px 70px rgba(15,23,42,.22);padding:16px;display:none}
+        .dm-editor-hidden{display:none!important}
+        .dm-edit-mode .dm-editor-hidden{display:revert!important;opacity:.28!important;filter:grayscale(.35);outline:2px dashed #d36b5e!important;outline-offset:2px}
+        .dm-text-editor-panel{position:fixed;z-index:2050;right:22px;top:78px;width:min(370px,calc(100vw - 28px));max-height:calc(100vh - 96px);overflow:auto;background:#fff;border:1px solid #d7e1ef;border-radius:18px;box-shadow:0 24px 70px rgba(15,23,42,.22);padding:16px;display:none}
         .dm-text-editor-panel.open{display:block}
         .dm-editor-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
         .dm-editor-head strong{font-size:17px}.dm-editor-close{border:0;background:#eef2f7;border-radius:9px;width:32px;height:32px;font-size:18px;cursor:pointer}
         .dm-editor-help{font-size:12px;line-height:1.55;color:#64748b;margin:0 0 13px}
+        .dm-editor-savebar{display:flex;align-items:center;gap:9px;margin:0 0 13px;padding:10px;border:1px solid #d8e5f7;background:#f5f9ff;border-radius:12px}
+        .dm-editor-savebar button{margin-left:auto;border:0;border-radius:9px;background:#155eef;color:#fff;padding:8px 13px;font:inherit;font-size:13px;font-weight:850;cursor:pointer}.dm-editor-savebar button:disabled{opacity:.42;cursor:default}
+        .dm-editor-dirty{font-size:12px;font-weight:800;color:#64748b}.dm-editor-dirty.active{color:#9a5c00}
         .dm-editor-empty{border:1px dashed #cbd5e1;border-radius:12px;padding:18px 12px;text-align:center;color:#64748b;font-size:13px}
         .dm-editor-controls{display:none}.dm-editor-controls.ready{display:block}
         .dm-editor-field{display:grid;gap:6px;margin-top:12px}.dm-editor-field label{font-size:12px;font-weight:850;color:#40516a}
@@ -116,8 +137,8 @@
         .dm-editor-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:end}
         .dm-editor-sizebox{display:grid;grid-template-columns:34px 1fr 34px;gap:5px}.dm-editor-sizebox button{border:1px solid #cfd9e8;background:#f8fafc;border-radius:9px;font:700 18px/1 inherit;cursor:pointer}.dm-editor-sizebox input{width:100%;min-width:0;border:1px solid #cfd9e8;border-radius:9px;padding:8px;text-align:center;font:inherit}
         .dm-editor-colorbox{display:grid;grid-template-columns:44px 1fr;gap:7px;align-items:center}.dm-editor-colorbox input[type="color"]{width:44px;height:38px;border:1px solid #cfd9e8;border-radius:9px;padding:3px;background:#fff}.dm-editor-color-value{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:#526178}
-        .dm-editor-actions{display:flex;gap:8px;margin-top:14px}.dm-editor-actions button{flex:1;border:1px solid #cfd9e8;background:#fff;border-radius:10px;padding:9px 10px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}.dm-editor-actions .danger{color:#a33a30;border-color:#efc2bd;background:#fff9f8}
-        .dm-editor-status{min-height:20px;margin-top:10px;font-size:12px;font-weight:750;color:#64748b}.dm-editor-status.saving{color:#8a5b00}.dm-editor-status.saved{color:#0f7a50}.dm-editor-status.error{color:#b42318}
+        .dm-editor-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.dm-editor-actions button{border:1px solid #cfd9e8;background:#fff;border-radius:10px;padding:9px 10px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}.dm-editor-actions .danger{color:#a33a30;border-color:#efc2bd;background:#fff9f8}.dm-editor-actions .delete{grid-column:1/-1;color:#fff;background:#b33c30;border-color:#b33c30}
+        .dm-editor-status{min-height:20px;margin-top:10px;font-size:12px;font-weight:750;color:#64748b}.dm-editor-status.saving{color:#8a5b00}.dm-editor-status.saved{color:#0f7a50}.dm-editor-status.error{color:#b42318}.dm-editor-status.dirty{color:#9a5c00}
         @media(max-width:900px){.dm-edit-text-btn span{display:none}.dm-text-editor-panel{right:10px;top:68px}}
       `;
       document.head.appendChild(style);
@@ -172,8 +193,29 @@
       });
     }
 
+    function clearHidden(element) {
+      element.classList.remove('dm-editor-hidden');
+      const button = element.closest('button');
+      if (button) button.classList.remove('dm-editor-hidden');
+      delete element.dataset.dmHiddenScope;
+    }
+
     function applyEdit(element, edit) {
       if (!edit || typeof edit !== 'object') return;
+      clearHidden(element);
+      if (edit.text === HIDE_BUTTON) {
+        const button = element.closest('button');
+        if (button) {
+          button.classList.add('dm-editor-hidden');
+          element.dataset.dmHiddenScope = 'button';
+          return;
+        }
+      }
+      if (edit.text === HIDE_TEXT) {
+        element.classList.add('dm-editor-hidden');
+        element.dataset.dmHiddenScope = 'text';
+        return;
+      }
       if (typeof edit.text === 'string') element.textContent = edit.text;
       if (Number.isFinite(Number(edit.font_size))) {
         element.style.setProperty('font-size', `${Number(edit.font_size)}px`, 'important');
@@ -203,15 +245,20 @@
       panel.setAttribute('aria-label', '页面文字编辑器');
       panel.innerHTML = `
         <div class="dm-editor-head"><strong>编辑本页</strong><button class="dm-editor-close" type="button" aria-label="关闭">×</button></div>
-        <p class="dm-editor-help">点击页面中的文字进行编辑。第一版支持改文字、字号和文字颜色，修改会自动保存并同步到学生端。</p>
-        <div class="dm-editor-empty">先点击页面中的一段文字。</div>
+        <p class="dm-editor-help">点击页面中的文字进行编辑。修改只会形成草稿，必须点击“保存本页”才会同步到学生端。</p>
+        <div class="dm-editor-savebar"><span class="dm-editor-dirty">没有未保存修改</span><button type="button" data-editor-save disabled>保存本页</button></div>
+        <div class="dm-editor-empty">先点击页面中的一段文字或按钮文字。</div>
         <div class="dm-editor-controls">
           <div class="dm-editor-field"><label>文字</label><textarea class="dm-editor-textarea" spellcheck="false"></textarea></div>
           <div class="dm-editor-row">
             <div class="dm-editor-field"><label>字号（px）</label><div class="dm-editor-sizebox"><button type="button" data-size-step="-1">−</button><input type="number" min="8" max="120" step="1"><button type="button" data-size-step="1">＋</button></div></div>
             <div class="dm-editor-field"><label>文字颜色</label><div class="dm-editor-colorbox"><input type="color"><span class="dm-editor-color-value">#000000</span></div></div>
           </div>
-          <div class="dm-editor-actions"><button type="button" data-editor-reset>还原这段</button><button type="button" class="danger" data-editor-reset-slide>还原本页</button></div>
+          <div class="dm-editor-actions">
+            <button type="button" data-editor-reset>还原选中</button>
+            <button type="button" class="danger" data-editor-reset-slide>还原本页</button>
+            <button type="button" class="delete" data-editor-delete>删除选中</button>
+          </div>
         </div>
         <div class="dm-editor-status"></div>
       `;
@@ -221,10 +268,13 @@
       state.textarea = panel.querySelector('.dm-editor-textarea');
       state.sizeInput = panel.querySelector('input[type="number"]');
       state.colorInput = panel.querySelector('input[type="color"]');
+      state.saveButton = panel.querySelector('[data-editor-save]');
 
       panel.querySelector('.dm-editor-close').addEventListener('click', () => setEditing(false));
+      state.saveButton.addEventListener('click', saveCurrentSlide);
       state.textarea.addEventListener('input', () => {
         if (!state.selected) return;
+        clearHidden(state.selected);
         state.selected.textContent = state.textarea.value;
         updateDraftFromSelected();
       });
@@ -253,6 +303,7 @@
       });
       panel.querySelector('[data-editor-reset]').addEventListener('click', resetSelected);
       panel.querySelector('[data-editor-reset-slide]').addEventListener('click', resetCurrentSlide);
+      panel.querySelector('[data-editor-delete]').addEventListener('click', deleteSelected);
     }
 
     function clampSize(value) {
@@ -269,6 +320,7 @@
       }
       if (state.panel) state.panel.classList.toggle('open', state.editing);
       if (!state.editing) clearSelection();
+      updateSaveUi();
     }
 
     function selectFragment(element) {
@@ -278,12 +330,13 @@
       element.classList.add('dm-edit-selected');
       state.panel.querySelector('.dm-editor-empty').style.display = 'none';
       state.panel.querySelector('.dm-editor-controls').classList.add('ready');
-      state.textarea.value = element.textContent;
-      state.sizeInput.value = String(Math.round(parseFloat(getComputedStyle(element).fontSize) || 16));
-      const color = cssColorToHex(getComputedStyle(element).color) || '#0f172a';
+      const hidden = element.dataset.dmHiddenScope;
+      state.textarea.value = hidden ? '' : element.textContent;
+      state.sizeInput.value = String(Math.round(parseFloat(getComputedStyle(element).fontSize) || Number(element.dataset.dmOriginalFontSize) || 16));
+      const color = cssColorToHex(getComputedStyle(element).color) || element.dataset.dmOriginalColor || '#0f172a';
       state.colorInput.value = color;
       state.panel.querySelector('.dm-editor-color-value').textContent = color;
-      setStatus('已选中文字', '');
+      setStatus(hidden ? '该元素当前已标记删除；可还原或重新编辑。' : '已选中文字', hidden ? 'dirty' : '');
     }
 
     function clearSelection() {
@@ -297,6 +350,9 @@
 
     function currentEntry(element) {
       const entry = {};
+      if (element.dataset.dmHiddenScope === 'button') return { text: HIDE_BUTTON };
+      if (element.dataset.dmHiddenScope === 'text') return { text: HIDE_TEXT };
+
       const originalText = element.dataset.dmOriginalText || '';
       const originalSize = Number(element.dataset.dmOriginalFontSize) || 16;
       const originalColor = (element.dataset.dmOriginalColor || '#0f172a').toLowerCase();
@@ -321,23 +377,43 @@
       if (Object.keys(entry).length) state.edits[slideId][editId] = entry;
       else delete state.edits[slideId][editId];
       if (!Object.keys(state.edits[slideId]).length) delete state.edits[slideId];
-      queueSave(slideId);
+      markDirty(slideId);
     }
 
-    function queueSave(slideId) {
-      const previous = state.saveTimers.get(slideId);
-      if (previous) clearTimeout(previous);
-      setStatus('正在编辑…', 'saving');
-      const timer = setTimeout(() => {
-        state.saveTimers.delete(slideId);
-        saveSlide(slideId);
-      }, 650);
-      state.saveTimers.set(slideId, timer);
+    function markDirty(slideId) {
+      const draft = JSON.stringify(state.edits[slideId] || {});
+      const saved = JSON.stringify(state.savedEdits[slideId] || {});
+      if (draft === saved) state.dirtySlides.delete(slideId);
+      else state.dirtySlides.add(slideId);
+      updateSaveUi();
+      setStatus(state.dirtySlides.has(slideId) ? '有未保存修改' : '已恢复到已保存状态', state.dirtySlides.has(slideId) ? 'dirty' : '');
+    }
+
+    function activeSlideId() {
+      const slide = stage.querySelector('.slide.active');
+      return slide ? slide.dataset.slideId : '';
+    }
+
+    function updateSaveUi() {
+      if (!state.panel || !state.saveButton) return;
+      const slideId = activeSlideId();
+      const dirty = !!slideId && state.dirtySlides.has(slideId);
+      const label = state.panel.querySelector('.dm-editor-dirty');
+      label.textContent = dirty ? '本页有未保存修改' : '本页已保存';
+      label.classList.toggle('active', dirty);
+      state.saveButton.disabled = !dirty;
+    }
+
+    async function saveCurrentSlide() {
+      const slideId = activeSlideId();
+      if (!slideId || !state.dirtySlides.has(slideId)) return;
+      await saveSlide(slideId);
     }
 
     async function saveSlide(slideId) {
       if (!state.canEdit) return;
       setStatus('正在保存…', 'saving');
+      if (state.saveButton) state.saveButton.disabled = true;
       const body = new URLSearchParams({
         deck_id: deckId,
         slide_id: slideId,
@@ -354,14 +430,43 @@
         let payload = {};
         try { payload = await response.json(); } catch (_) {}
         if (!response.ok) throw new Error(payload.detail || `保存失败（${response.status}）`);
-        if (payload.slide_edits && typeof payload.slide_edits === 'object') state.edits = payload.slide_edits;
+        if (payload.slide_edits && typeof payload.slide_edits === 'object') {
+          state.edits = clone(payload.slide_edits);
+          state.savedEdits = clone(payload.slide_edits);
+        } else {
+          state.savedEdits[slideId] = clone(state.edits[slideId] || {});
+        }
+        state.dirtySlides.delete(slideId);
         setStatus('已保存', 'saved');
       } catch (error) {
         setStatus(error.message || '保存失败', 'error');
+      } finally {
+        updateSaveUi();
       }
     }
 
+    function deleteSelected() {
+      if (!state.selected) return;
+      const element = state.selected;
+      const button = element.closest('button');
+      if (button && stage.contains(button)) {
+        if (!confirm('删除这个按钮？保存本页后会同步到学生端。')) return;
+        clearHidden(element);
+        button.classList.add('dm-editor-hidden');
+        element.dataset.dmHiddenScope = 'button';
+      } else {
+        if (!confirm('删除这段文字？保存本页后会同步到学生端。')) return;
+        clearHidden(element);
+        element.classList.add('dm-editor-hidden');
+        element.dataset.dmHiddenScope = 'text';
+      }
+      state.textarea.value = '';
+      updateDraftFromSelected();
+      setStatus(button ? '按钮已标记删除，尚未保存' : '文字已标记删除，尚未保存', 'dirty');
+    }
+
     function resetElement(element) {
+      clearHidden(element);
       element.textContent = element.dataset.dmOriginalText || '';
       element.style.removeProperty('font-size');
       element.style.removeProperty('color');
@@ -382,11 +487,12 @@
     function resetCurrentSlide() {
       const slide = stage.querySelector('.slide.active');
       if (!slide) return;
-      if (!confirm('还原本页全部文字、字号和颜色修改？')) return;
+      if (!confirm('还原本页全部文字、字号、颜色和删除操作？还原后仍需点击“保存本页”才会同步。')) return;
       slide.querySelectorAll('.dm-edit-fragment').forEach(resetElement);
       delete state.edits[slide.dataset.slideId];
+      markDirty(slide.dataset.slideId);
       if (state.selected && slide.contains(state.selected)) selectFragment(state.selected);
-      saveSlide(slide.dataset.slideId);
+      setStatus('本页已还原为原始内容，尚未保存', 'dirty');
     }
 
     function setStatus(message, kind) {
@@ -394,6 +500,11 @@
       state.status.textContent = message;
       state.status.className = `dm-editor-status${kind ? ` ${kind}` : ''}`;
     }
+
+    const observer = new MutationObserver(() => {
+      if (state.editing) updateSaveUi();
+    });
+    observer.observe(stage, { subtree: true, attributes: true, attributeFilter: ['class'] });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
