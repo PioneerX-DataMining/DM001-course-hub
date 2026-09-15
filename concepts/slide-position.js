@@ -1,68 +1,66 @@
 (() => {
-  const navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
-  const isReload = navEntry ? navEntry.type === 'reload' : (performance.navigation && performance.navigation.type === 1);
-  const storageKey = `dm-slide-position:${location.pathname}`;
+  const initialUrl = new URL(location.href);
+  const hadTransientLast = initialUrl.searchParams.get('start') === 'last';
+
+  const readHashSlide = () => {
+    const match = location.hash.match(/^#slide=(\d+)$/);
+    if (!match) return null;
+    const n = Number.parseInt(match[1], 10);
+    return Number.isInteger(n) && n > 0 ? n : null;
+  };
+
+  const writeHashSlide = (n) => {
+    if (!Number.isInteger(n) || n < 1) return;
+    const next = `#slide=${n}`;
+    if (location.hash === next) return;
+    const url = new URL(location.href);
+    url.hash = next;
+    history.replaceState(history.state, '', url.href);
+  };
 
   document.addEventListener('DOMContentLoaded', () => {
-    // deck-mobile-core may schedule a one-time start=last jump on the same event.
-    // Run after that so cross-concept navigation keeps its intended landing page.
+    // Individual deck scripts run before DOMContentLoaded and finish their own
+    // showSlide(0) initialization first. Restore only after that initialization.
     setTimeout(() => {
       const stage = document.getElementById('stage');
+      const dots = document.getElementById('dots');
       if (!stage) return;
 
       const slides = Array.from(stage.querySelectorAll('.slide'));
-      const dots = document.getElementById('dots');
       if (!slides.length) return;
 
-      const isVisible = (slide) => !slide.classList.contains('dm-slide-deleted') && getComputedStyle(slide).display !== 'none';
-      const activeIndex = () => slides.findIndex(slide => slide.classList.contains('active'));
-
-      const saveCurrent = () => {
-        const index = activeIndex();
-        if (index < 0) return;
-        try {
-          sessionStorage.setItem(storageKey, String(index));
-        } catch (_) {}
+      const activeNumber = () => {
+        const index = slides.findIndex(slide => slide.classList.contains('active'));
+        return index >= 0 ? index + 1 : 1;
       };
 
-      if (isReload) {
-        let saved = -1;
-        try {
-          saved = Number.parseInt(sessionStorage.getItem(storageKey) || '', 10);
-        } catch (_) {}
+      const requested = readHashSlide();
 
-        if (Number.isInteger(saved) && saved >= 0 && saved < slides.length) {
-          // If that page was soft-deleted since the last view, choose the nearest visible page.
-          let target = saved;
-          if (!isVisible(slides[target])) {
-            const visibleIndexes = slides
-              .map((slide, index) => ({ slide, index }))
-              .filter(item => isVisible(item.slide))
-              .map(item => item.index);
-            if (visibleIndexes.length) {
-              target = visibleIndexes.reduce((best, index) =>
-                Math.abs(index - saved) < Math.abs(best - saved) ? index : best,
-              visibleIndexes[0]);
-            }
-          }
-
-          const dot = dots && dots.children[target];
-          if (dot && typeof dot.click === 'function') {
-            dot.click();
-          } else {
-            slides.forEach((slide, index) => slide.classList.toggle('active', index === target));
-          }
+      // start=last is a one-time cross-concept navigation command and has priority.
+      // deck-mobile-core schedules that jump on the same DOMContentLoaded event, so
+      // do not fight it with an older hash value here.
+      if (!hadTransientLast && requested && requested <= slides.length) {
+        const targetSlide = slides[requested - 1];
+        if (!targetSlide.classList.contains('dm-slide-deleted')) {
+          const dot = dots && dots.children[requested - 1];
+          if (dot && typeof dot.click === 'function') dot.click();
         }
       }
 
-      // Start observing only after restoration, otherwise the initial first slide would
-      // overwrite the saved position before we get a chance to restore it.
+      // Make the URL the durable source of truth for refreshes. Any navigation
+      // mechanism (buttons, keyboard, swipe, dots, presenter helpers) ultimately
+      // changes the active class, so observing that class keeps the hash in sync.
+      const syncHash = () => writeHashSlide(activeNumber());
       const observer = new MutationObserver((mutations) => {
-        if (mutations.some(m => m.type === 'attributes' && m.attributeName === 'class')) saveCurrent();
+        if (mutations.some(m => m.type === 'attributes' && m.attributeName === 'class')) {
+          queueMicrotask(syncHash);
+        }
       });
       slides.forEach(slide => observer.observe(slide, { attributes: true, attributeFilter: ['class'] }));
 
-      saveCurrent();
+      // If start=last was used, let its scheduled jump finish before recording the hash.
+      if (hadTransientLast) setTimeout(syncHash, 0);
+      else syncHash();
     }, 0);
   });
 })();
