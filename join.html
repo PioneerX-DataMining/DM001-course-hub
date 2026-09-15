@@ -7,7 +7,7 @@
   <title>加入课程 · DM001 Course Hub</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    .join-shell{max-width:860px;margin:0 auto 64px}.join-panel{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}.join-head{padding:28px 30px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#f8fbff,#eef4ff)}.join-head h2{margin:0 0 7px;font-size:26px;letter-spacing:-.03em}.join-head p{margin:0;color:var(--muted);font-size:14px}.join-body{padding:28px 30px}.join-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 24px}.join-step{border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px}.join-step b{display:block;color:var(--blue);font-size:12px;margin-bottom:4px}.join-step span{font-size:13px;color:#475569}.field{margin:0 0 18px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px;color:#26354d}.field input{width:100%;height:48px;border:1px solid #cbd7e6;border-radius:12px;background:#fff;padding:0 14px;font:inherit;color:var(--text);outline:none;transition:.18s ease}.field input:focus{border-color:#6f9dff;box-shadow:0 0 0 4px rgba(21,94,239,.09)}.field small{display:block;color:var(--muted);font-size:12px;margin-top:6px}.preview{padding:14px 16px;border:1px dashed #b8c8df;background:#f8fbff;border-radius:13px;margin:2px 0 20px;font-size:13px;color:#45546a}.preview strong{color:#173f83}.check{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:#eefbf5;border:1px solid #b9ead2;border-radius:13px;color:#0f6846;font-size:13px;margin-bottom:20px}.check input{margin-top:3px}.join-actions{display:flex;gap:10px;flex-wrap:wrap}.join-actions button{cursor:pointer}.join-actions .btn[disabled]{opacity:.55;cursor:wait;transform:none}.privacy{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.privacy strong{color:#45546a}.status{display:none;margin-top:14px;padding:12px 14px;border-radius:12px;font-size:13px}.status.show{display:block}.status.error{background:#fff2f2;border:1px solid #f4caca;color:#9f2d2d}.status.ok{background:#eefbf5;border:1px solid #b9ead2;color:#0f6846}.hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}@media(max-width:700px){.join-head,.join-body{padding:22px 18px}.join-steps{grid-template-columns:1fr}.join-actions{flex-direction:column}.join-actions .btn{width:100%}}
+    .join-shell{max-width:860px;margin:0 auto 64px}.join-panel{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}.join-head{padding:28px 30px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#f8fbff,#eef4ff)}.join-head h2{margin:0 0 7px;font-size:26px;letter-spacing:-.03em}.join-head p{margin:0;color:var(--muted);font-size:14px}.join-body{padding:28px 30px}.join-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 24px}.join-step{border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px}.join-step b{display:block;color:var(--blue);font-size:12px;margin-bottom:4px}.join-step span{font-size:13px;color:#475569}.field{margin:0 0 18px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px;color:#26354d}.field input{width:100%;height:48px;border:1px solid #cbd7e6;border-radius:12px;background:#fff;padding:0 14px;font:inherit;color:var(--text);outline:none;transition:.18s ease}.field input:focus{border-color:#6f9dff;box-shadow:0 0 0 4px rgba(21,94,239,.09)}.field small{display:block;color:var(--muted);font-size:12px;margin-top:6px}.preview{padding:14px 16px;border:1px dashed #b8c8df;background:#f8fbff;border-radius:13px;margin:2px 0 20px;font-size:13px;color:#45546a}.preview strong{color:#173f83}.check{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:#eefbf5;border:1px solid #b9ead2;border-radius:13px;color:#0f6846;font-size:13px;margin-bottom:20px}.check input{margin-top:3px}.join-actions{display:flex;gap:10px;flex-wrap:wrap}.join-actions button{cursor:pointer}.join-actions .btn[disabled]{opacity:.55;cursor:wait;transform:none}.privacy{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.privacy strong{color:#45546a}.status{display:none;margin-top:14px;padding:14px 16px;border-radius:12px;font-size:14px;line-height:1.65}.status.show{display:block}.status.error{background:#fff2f2;border:1px solid #f4caca;color:#9f2d2d}.status.ok{background:#eefbf5;border:1px solid #b9ead2;color:#0f6846}.status.ok a{color:#0b5fc0;font-weight:800}.next-help{margin-top:18px;padding:16px 18px;border:1px solid #b9d4f8;background:#f2f7ff;border-radius:14px;font-size:14px;line-height:1.65}.next-help a{font-weight:800;color:#155eef}.hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}@media(max-width:700px){.join-head,.join-body{padding:22px 18px}.join-steps{grid-template-columns:1fr}.join-actions{flex-direction:column}.join-actions .btn{width:100%}}
   </style>
 </head>
 <body>
@@ -17,6 +17,7 @@
     <nav class="nav-links" aria-label="主导航">
       <a href="./">首页</a>
       <a href="join.html">加入课程</a>
+      <a href="tutorials/accept-github-invite.html">T01 接受邀请</a>
       <a href="curriculum.html">课程内容</a>
       <a href="tutorials/git-principles.html">Git 原理</a>
     </nav>
@@ -49,40 +50,14 @@
             </div>
 
             <form id="joinForm" novalidate>
-              <div class="field">
-                <label for="studentId">学号</label>
-                <input id="studentId" name="studentId" autocomplete="off" maxlength="32" placeholder="请输入学号" required />
-                <small>仅用于和课程名单核对，不会公开显示。</small>
-              </div>
-
-              <div class="field">
-                <label for="realName">姓名</label>
-                <input id="realName" name="realName" autocomplete="name" maxlength="40" placeholder="请填写课程名单中的姓名" required />
-              </div>
-
-              <div class="field">
-                <label for="githubUser">GitHub Username</label>
-                <input id="githubUser" name="githubUser" autocomplete="off" maxlength="39" placeholder="例如：octocat" required />
-                <small>不是昵称。打开 GitHub 个人主页后，地址中 github.com/ 后面的部分就是 Username。</small>
-              </div>
-
-              <div class="field">
-                <label for="githubEmail">GitHub 账号已验证邮箱</label>
-                <input id="githubEmail" name="githubEmail" type="email" autocomplete="email" maxlength="254" placeholder="例如：name@example.com" required />
-                <small>请填写已添加到该 GitHub 账号并完成验证的邮箱，用于账号核对；不会在课程网站公开。</small>
-              </div>
+              <div class="field"><label for="studentId">学号</label><input id="studentId" name="studentId" autocomplete="off" maxlength="32" placeholder="请输入学号" required /><small>仅用于和课程名单核对，不会公开显示。</small></div>
+              <div class="field"><label for="realName">姓名</label><input id="realName" name="realName" autocomplete="name" maxlength="40" placeholder="请填写课程名单中的姓名" required /></div>
+              <div class="field"><label for="githubUser">GitHub Username</label><input id="githubUser" name="githubUser" autocomplete="off" maxlength="39" placeholder="例如：octocat" required /><small>不是昵称。打开 GitHub 个人主页后，地址中 github.com/ 后面的部分就是 Username。</small></div>
+              <div class="field"><label for="githubEmail">GitHub 账号已验证邮箱</label><input id="githubEmail" name="githubEmail" type="email" autocomplete="email" maxlength="254" placeholder="例如：name@example.com" required /><small>请填写已添加到该 GitHub 账号并完成验证的邮箱，用于账号核对；不会在课程网站公开。</small></div>
 
               <div class="preview" id="profilePreview">GitHub 主页：<strong>等待填写 Username</strong></div>
-
-              <label class="check" for="confirmAccount">
-                <input type="checkbox" id="confirmAccount" required />
-                <span>我已经核对 GitHub Username 和邮箱，确认它们属于我准备在本课程中使用的同一个 GitHub 账号。</span>
-              </label>
-
-              <div class="hp" aria-hidden="true">
-                <label for="website">Website</label>
-                <input id="website" name="website" tabindex="-1" autocomplete="off" />
-              </div>
+              <label class="check" for="confirmAccount"><input type="checkbox" id="confirmAccount" required /><span>我已经核对 GitHub Username 和邮箱，确认它们属于我准备在本课程中使用的同一个 GitHub 账号。</span></label>
+              <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
 
               <div class="join-actions">
                 <button class="btn btn-primary" id="submitBtn" type="submit">提交账号登记 →</button>
@@ -92,9 +67,9 @@
               <div class="status ok" id="okBox" role="status"></div>
             </form>
 
-            <div class="privacy">
-              <strong>隐私说明：</strong>学号、姓名、GitHub Username 与 GitHub 已验证邮箱仅保存在课程的 AutoLab 私有数据库中，只有教师管理端可以查看。不会写入公开 GitHub 仓库、Issue 或课程网页；本页不收集手机号，也不在课前收集分组信息。
-            </div>
+            <div class="next-help"><strong>已经收到课程组织邀请？</strong> 下一步按 <a href="tutorials/accept-github-invite.html">T01 · 接受 GitHub 课程组织邀请</a> 完成加入。</div>
+
+            <div class="privacy"><strong>隐私说明：</strong>学号、姓名、GitHub Username 与 GitHub 已验证邮箱仅保存在课程的 AutoLab 私有数据库中，只有教师管理端可以查看。不会写入公开 GitHub 仓库、Issue 或课程网页；本页不收集手机号，也不在课前收集分组信息。</div>
           </div>
         </div>
       </div>
@@ -102,9 +77,7 @@
   </section>
 </main>
 
-<footer class="footer">
-  <div class="container footer-inner"><strong>DM001 · Course Hub</strong><span>Data Mining · built as a living course project</span></div>
-</footer>
+<footer class="footer"><div class="container footer-inner"><strong>DM001 · Course Hub</strong><span>Data Mining · built as a living course project</span></div></footer>
 
 <script>
   const API_URL = 'https://lab.pioneer-x.cn/api/dm/register';
@@ -116,18 +89,13 @@
   const submitBtn = document.getElementById('submitBtn');
 
   function cleanUsername(value){ return value.trim().replace(/^@/, ''); }
-  function usernameLooksValid(value){
-    return /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/.test(value) && !value.includes('--');
-  }
+  function usernameLooksValid(value){ return /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/.test(value) && !value.includes('--'); }
   function emailLooksValid(value){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); }
 
   userInput.addEventListener('input', () => {
     const username = cleanUsername(userInput.value);
-    if(username){
-      preview.innerHTML = 'GitHub 主页：<strong>https://github.com/' + username.replace(/[<>&"']/g,'') + '</strong>';
-    }else{
-      preview.innerHTML = 'GitHub 主页：<strong>等待填写 Username</strong>';
-    }
+    if(username){ preview.innerHTML = 'GitHub 主页：<strong>https://github.com/' + username.replace(/[<>&"']/g,'') + '</strong>'; }
+    else{ preview.innerHTML = 'GitHub 主页：<strong>等待填写 Username</strong>'; }
   });
 
   form.addEventListener('submit', async (event) => {
@@ -144,35 +112,20 @@
 
     if(!studentId){ errorBox.textContent = '请填写学号。'; errorBox.classList.add('show'); return; }
     if(!realName){ errorBox.textContent = '请填写姓名。'; errorBox.classList.add('show'); return; }
-    if(!usernameLooksValid(username)){
-      errorBox.textContent = 'GitHub Username 格式看起来不正确，请检查后再提交。';
-      errorBox.classList.add('show'); return;
-    }
-    if(!emailLooksValid(githubEmail)){
-      errorBox.textContent = '请填写 GitHub 账号中已验证的有效邮箱。';
-      errorBox.classList.add('show'); return;
-    }
-    if(!confirmed){
-      errorBox.textContent = '请先确认你已经核对 GitHub Username 和邮箱。';
-      errorBox.classList.add('show'); return;
-    }
+    if(!usernameLooksValid(username)){ errorBox.textContent = 'GitHub Username 格式看起来不正确，请检查后再提交。'; errorBox.classList.add('show'); return; }
+    if(!emailLooksValid(githubEmail)){ errorBox.textContent = '请填写 GitHub 账号中已验证的有效邮箱。'; errorBox.classList.add('show'); return; }
+    if(!confirmed){ errorBox.textContent = '请先确认你已经核对 GitHub Username 和邮箱。'; errorBox.classList.add('show'); return; }
 
     submitBtn.disabled = true;
     submitBtn.textContent = '正在提交…';
     try{
-      const body = new URLSearchParams({
-        student_id: studentId,
-        real_name: realName,
-        github_username: username,
-        github_email: githubEmail,
-        website: website
-      });
+      const body = new URLSearchParams({student_id:studentId,real_name:realName,github_username:username,github_email:githubEmail,website});
       const response = await fetch(API_URL, {method:'POST', body, credentials:'omit'});
       const result = await response.json().catch(() => ({}));
       if(!response.ok || !result.ok){ throw new Error(result.detail || '提交失败，请稍后重试。'); }
       okBox.innerHTML = result.created
-        ? '登记成功。老师会根据登记信息统一发送课程 GitHub 组织邀请，请留意 GitHub 通知。'
-        : '登记信息已更新。老师会以你最新提交的信息为准。';
+        ? '登记成功。老师会统一发送 <strong>PioneerX-DataMining</strong> 课程组织邀请。收到后请按 <a href="tutorials/accept-github-invite.html">T01 · 接受 GitHub 邀请</a> 完成加入。'
+        : '登记信息已更新。老师会以你最新提交的信息为准；收到邀请后请按 <a href="tutorials/accept-github-invite.html">T01 · 接受 GitHub 邀请</a> 完成加入。';
       okBox.classList.add('show');
     }catch(err){
       errorBox.textContent = err && err.message ? err.message : '提交失败，请检查网络后重试。';
