@@ -13,6 +13,28 @@
     `;
     document.head.appendChild(style);
 
+    let sourceObserver = null;
+    let observedSource = null;
+
+    function mirrorState(source, target) {
+      const shouldDisable = !!source.disabled;
+      if (target.disabled !== shouldDisable) target.disabled = shouldDisable;
+      const nextTitle = source.title || '可恢复地删除当前页';
+      if (target.title !== nextTitle) target.title = nextTitle;
+    }
+
+    function bindSource(source, target) {
+      if (observedSource === source) {
+        mirrorState(source, target);
+        return;
+      }
+      if (sourceObserver) sourceObserver.disconnect();
+      observedSource = source;
+      sourceObserver = new MutationObserver(() => mirrorState(source, target));
+      sourceObserver.observe(source, { attributes: true, attributeFilter: ['disabled', 'title'] });
+      mirrorState(source, target);
+    }
+
     function sync() {
       const panel = document.querySelector('.dm-text-editor-panel');
       const originalDelete = document.querySelector('.dm-delete-slide-btn');
@@ -39,14 +61,17 @@
       }
 
       const button = danger.querySelector('.dm-editor-delete-page');
-      button.disabled = originalDelete.disabled;
-      button.title = originalDelete.title || '可恢复地删除当前页';
+      bindSource(originalDelete, button);
       return true;
     }
 
+    // Only watch for creation/removal of the editor UI. Do NOT observe attributes on the
+    // whole document: mirroring disabled/title back into another button can otherwise
+    // retrigger the same observer indefinitely and freeze all presentation interactions.
+    const structureObserver = new MutationObserver(() => sync());
+    structureObserver.observe(document.body, { childList: true, subtree: true });
+
     sync();
-    const observer = new MutationObserver(sync);
-    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled', 'title'] });
     setTimeout(sync, 300);
     setTimeout(sync, 1000);
   }
