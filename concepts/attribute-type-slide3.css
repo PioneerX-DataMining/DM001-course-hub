@@ -1,0 +1,57 @@
+/* Concept 04 · slide 3 only: reduce visual crowding and improve hierarchy */
+.slide[data-title="为什么属性类型重要"] .slide-content{justify-content:flex-start;margin-top:18px;gap:16px}
+.slide[data-title="为什么属性类型重要"] .impact-layout{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:24px;align-items:stretch}
+.slide[data-title="为什么属性类型重要"] .coding-trap,
+.slide[data-title="为什么属性类型重要"] .implication-panel{padding:22px 24px;border-radius:20px}
+.slide[data-title="为什么属性类型重要"] .trap-title{font-size:12px;letter-spacing:.08em}
+.slide[data-title="为什么属性类型重要"] .city-row{padding:12px 2px;font-size:16px}
+.slide[data-title="为什么属性类型重要"] .trap-question{margin-top:18px;font-size:18px;line-height:1.45}
+.slide[data-title="为什么属性类型重要"] .trap-actions{gap:12px;margin-top:14px}
+.slide[data-title="为什么属性类型重要"] .trap-actions button{padding:12px 14px;font-size:15px}
+.slide[data-title="为什么属性类型重要"] .trap-feedback{margin-top:12px;min-height:42px;font-size:14px;line-height:1.55}
+.slide[data-title="为什么属性类型重要"] .implication-panel h3{font-size:20px;margin-bottom:16px}
+.slide[data-title="为什么属性类型重要"] .implication-list{gap:12px}
+.slide[data-title="为什么属性类型重要"] .implication-list button{padding:14px 15px;border-radius:14px;min-height:82px}
+.slide[data-title="为什么属性类型重要"] .implication-list b{font-size:15px}
+.slide[data-title="为什么属性类型重要"] .implication-list span{font-size:12px;line-height:1.55;margin-top:5px}
+.slide[data-title="为什么属性类型重要"] .impact-detail{margin-top:14px;padding:13px 15px;min-height:66px;font-size:14px;line-height:1.6}
+.slide[data-title="为什么属性类型重要"] .second-axis{display:grid;grid-template-columns:1.35fr repeat(3,auto);gap:10px 12px;align-items:center;margin-top:0;padding:14px 16px;font-size:13px}
+.slide[data-title="为什么属性类型重要"] .second-axis>div{margin-right:0;font-size:14px;line-height:1.5}
+.slide[data-title="为什么属性类型重要"] .second-axis span{padding:8px 11px;font-size:12px;text-align:center}
+.slide[data-title="为什么属性类型重要"] .takeaway{margin-top:0;padding:14px 18px;font-size:clamp(18px,1.9vw,24px)}
+.slide[data-title="为什么属性类型重要"] .takeaway small{font-size:12px;margin-top:6px}
+
+@media(max-width:900px){
+  .slide[data-title="为什么属性类型重要"] .impact-layout{grid-template-columns:1fr;gap:16px}
+  .slide[data-title="为什么属性类型重要"] .second-axis{grid-template-columns:1fr 1fr}
+  .slide[data-title="为什么属性类型重要"] .second-axis>div{grid-column:1/-1}
+}
+
+@media(max-width:620px){
+  .slide[data-title="为什么属性类型重要"] .coding-trap,
+  .slide[data-title="为什么属性类型重要"] .implication-panel{padding:18px}
+  .slide[data-title="为什么属性类型重要"] .second-axis{grid-template-columns:1fr}
+  .slide[data-title="为什么属性类型重要"] .second-axis>div{grid-column:auto}
+}
+
+@media(orientation:landscape) and (max-height:650px){
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .slide-content{gap:8px!important;margin-top:10px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .impact-layout{grid-template-columns:.82fr 1.18fr!important;gap:12px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .coding-trap,
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-panel{padding:12px 14px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .city-row{padding:6px 1px!important;font-size:11px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .trap-question{font-size:12px!important;margin-top:8px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .trap-actions button{padding:7px!important;font-size:10px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .trap-feedback{font-size:10px!important;min-height:26px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-panel h3{font-size:13px!important;margin-bottom:8px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-list{gap:7px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-list button{padding:8px!important;min-height:54px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-list b{font-size:10px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-list span{font-size:9px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .impact-detail{font-size:10px!important;min-height:36px!important;padding:7px 9px!important;margin-top:7px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .second-axis{grid-template-columns:1.35fr repeat(3,auto)!important;gap:5px!important;padding:7px 9px!important;font-size:9px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .second-axis>div{font-size:9px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .second-axis span{padding:4px 6px!important;font-size:8px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .takeaway{padding:8px 10px!important;font-size:14px!important}
+  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .takeaway small{font-size:8px!important}
+}
