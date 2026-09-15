@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="attribute-type.css" />
 </head>
 <body>
-<header class="deck-topbar"><div class="container deck-nav"><div class="deck-nav-left"><a class="back-link" href="../curriculum.html#lesson-1">← 返回</a><div class="deck-label">概念 04 · 属性类型<small>Attribute Type / Variable Type</small></div></div><div class="deck-nav-right"><button class="tool-btn" id="restartBtn" type="button">↺ <span>重新开始</span></button><button class="tool-btn" id="fullscreenBtn" type="button">⛶ <span>全屏演示</span></button></div></div></header>
+<header class="deck-topbar"><div class="container deck-nav"><div class="deck-nav-left"><a class="back-link" href="../curriculum.html#lesson-1">← 返回</a><div class="deck-label">概念 04 · 属性类型<small>属性类型 / 变量类型 · Attribute Type / Variable Type</small></div></div><div class="deck-nav-right"><button class="tool-btn" id="restartBtn" type="button">↺ <span>重新开始</span></button><button class="tool-btn" id="fullscreenBtn" type="button">⛶ <span>全屏演示</span></button></div></div></header>
 
 <main class="deck-wrap" id="deckRoot" tabindex="0">
   <section class="stage" id="stage" aria-live="polite">
@@ -21,12 +21,12 @@
       <p class="lead">点击四列数据。真正决定变量类型的，不是它“长得像不像数字”，而是这些数值代表什么。</p>
       <div class="slide-content">
         <div class="numeric-grid">
-          <button class="numeric-card" data-kind="id" type="button"><span class="tag">STUDENT ID</span><strong>2026001</strong><span>学号</span></button>
-          <button class="numeric-card" data-kind="satisfaction" type="button"><span class="tag">SATISFACTION</span><strong>4</strong><span>满意度 1–5</span></button>
-          <button class="numeric-card" data-kind="temp" type="button"><span class="tag">TEMPERATURE</span><strong>25°C</strong><span>摄氏温度</span></button>
-          <button class="numeric-card" data-kind="height" type="button"><span class="tag">HEIGHT</span><strong>175 cm</strong><span>身高</span></button>
+          <button class="numeric-card" data-kind="id" type="button"><span class="tag">学号（STUDENT ID）</span><strong>2026001</strong><span>学号</span></button>
+          <button class="numeric-card" data-kind="satisfaction" type="button"><span class="tag">满意度（SATISFACTION）</span><strong>4</strong><span>满意度 1–5</span></button>
+          <button class="numeric-card" data-kind="temp" type="button"><span class="tag">摄氏温度（TEMPERATURE）</span><strong>25°C</strong><span>摄氏温度</span></button>
+          <button class="numeric-card" data-kind="height" type="button"><span class="tag">身高（HEIGHT）</span><strong>175 cm</strong><span>身高</span></button>
         </div>
-        <div class="meaning-panel" id="meaningPanel"><div class="meaning-kicker">CLICK A VARIABLE</div><div class="meaning-main">先点任意一列。</div><div class="meaning-note">“存成数字”不代表“可以随便做数学运算”。</div></div>
+        <div class="meaning-panel" id="meaningPanel"><div class="meaning-kicker">点击变量（CLICK A VARIABLE）</div><div class="meaning-main">先点任意一列。</div><div class="meaning-note">“存成数字”不代表“可以随便做数学运算”。</div></div>
         <div class="takeaway">数字只是表示形式，<span>含义</span>才决定变量类型。</div>
       </div>
     </article>
@@ -39,19 +39,19 @@
       <div class="slide-content">
         <div class="ladder-layout">
           <div class="operator-ladder" id="operatorLadder">
-            <button class="operator-step active" data-step="0" type="button"><span class="op">= / ≠</span><div><strong>能判断相同 / 不同吗？</strong><small>血型 A、B、AB、O</small></div><span class="type-pill">Nominal</span></button>
-            <button class="operator-step" data-step="1" type="button"><span class="op">&lt; / &gt;</span><div><strong>还能比较顺序吗？</strong><small>差 / 中 / 良 / 优</small></div><span class="type-pill locked">Ordinal</span></button>
-            <button class="operator-step" data-step="2" type="button"><span class="op">−</span><div><strong>“差多少”有意义吗？</strong><small>10°C 与 20°C 相差 10°C</small></div><span class="type-pill locked">Interval</span></button>
-            <button class="operator-step" data-step="3" type="button"><span class="op">÷</span><div><strong>“几倍”有意义吗？</strong><small>100 cm 是 50 cm 的两倍</small></div><span class="type-pill locked">Ratio</span></button>
+            <button class="operator-step active" data-step="0" type="button"><span class="op">= / ≠</span><div><strong>能判断相同 / 不同吗？</strong><small>血型 A、B、AB、O</small></div><span class="type-pill">名义（Nominal）</span></button>
+            <button class="operator-step" data-step="1" type="button"><span class="op">&lt; / &gt;</span><div><strong>还能比较顺序吗？</strong><small>差 / 中 / 良 / 优</small></div><span class="type-pill locked">有序（Ordinal）</span></button>
+            <button class="operator-step" data-step="2" type="button"><span class="op">−</span><div><strong>“差多少”有意义吗？</strong><small>10°C 与 20°C 相差 10°C</small></div><span class="type-pill locked">区间（Interval）</span></button>
+            <button class="operator-step" data-step="3" type="button"><span class="op">÷</span><div><strong>“几倍”有意义吗？</strong><small>100 cm 是 50 cm 的两倍</small></div><span class="type-pill locked">比率（Ratio）</span></button>
           </div>
           <div class="ladder-side">
-            <div class="scale-title" id="scaleTitle">Nominal · 名义尺度</div>
+            <div class="scale-title" id="scaleTitle">名义尺度（Nominal）</div>
             <div class="scale-example" id="scaleExample">只允许判断“相同 / 不同”。类别没有天然顺序。</div>
             <div class="scale-check" id="scaleCheck"><strong>血型：</strong>A ≠ B ✓<br>但 A &gt; B ✗</div>
             <button class="unlock-btn" id="unlockBtn" type="button">解锁下一层 →</button>
           </div>
         </div>
-        <div class="scale-summary">Distinctness → Order → Difference → Ratio　<span>每向右一步，都比前一种尺度多一种有意义的操作。</span></div>
+        <div class="scale-summary">相异性（Distinctness）→ 顺序（Order）→ 差值（Difference）→ 比率（Ratio）　<span>每向右一步，都比前一种尺度多一种有意义的操作。</span></div>
       </div>
     </article>
 
@@ -72,7 +72,7 @@
             <div class="trap-feedback" id="trapFeedback">先作答。</div>
           </section>
           <section class="implication-panel">
-            <h3>Attribute Type 会影响什么？</h3>
+            <h3>属性类型（Attribute Type）会影响什么？</h3>
             <div class="implication-list">
               <button data-impact="summary" type="button"><b>统计</b><span>平均值、众数、中位数能不能用？</span></button>
               <button data-impact="encoding" type="button"><b>编码</b><span>类别数字编码不能凭空制造大小关系。</span></button>
@@ -83,10 +83,10 @@
           </section>
         </div>
         <div class="second-axis">
-          <div><strong>还有另一条分类轴：</strong>Discrete vs Continuous</div>
-          <span>人数：Discrete + Ratio</span><span>邮编：Discrete + Nominal</span><span>身高：Continuous + Ratio</span>
+          <div><strong>还有另一条分类轴：</strong>离散（Discrete） vs 连续（Continuous）</div>
+          <span>人数：离散（Discrete）+ 比率（Ratio）</span><span>邮编：离散（Discrete）+ 名义（Nominal）</span><span>身高：连续（Continuous）+ 比率（Ratio）</span>
         </div>
-        <div class="takeaway">Attribute Type 决定的不是“这一列叫什么”，而是<span>“这一列允许你做什么”</span>。<small>下一步：不同的数据对象与属性，又可以怎样组织成完整的数据表示？</small></div>
+        <div class="takeaway">属性类型（Attribute Type）决定的不是“这一列叫什么”，而是<span>“这一列允许你做什么”</span>。<small>下一步：不同的数据对象与属性，又可以怎样组织成完整的数据表示？</small></div>
       </div>
     </article>
   </section>
