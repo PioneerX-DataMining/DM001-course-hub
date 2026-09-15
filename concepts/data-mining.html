@@ -41,7 +41,7 @@
     .thinking-panel{border-radius:18px;background:#0c1f46;color:#fff;padding:22px;display:flex;flex-direction:column;justify-content:center;min-height:330px}
     .thinking-panel h3{margin:0 0 8px;font-size:22px}.thinking-panel p{margin:0;color:#cbd8ee;font-size:14px}.answer-stack{display:grid;gap:9px;margin-top:15px}
     .answer{display:none;padding:11px 12px;border-radius:12px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.12);font-size:13px}.answer.show{display:block;animation:pop .22s ease}
-    .answer b{display:inline-block;min-width:60px;color:#9fc1ff}
+    .answer b{display:inline-block;min-width:100px;color:#9fc1ff}
     @keyframes pop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
     .definition{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:center;margin:16px 0 26px}
     .def-node{border:1px solid var(--line);border-radius:18px;background:#f8fafc;padding:22px 18px;text-align:center;min-height:128px;display:grid;place-items:center}.def-node strong{font-size:28px;letter-spacing:-.04em}.def-node span{display:block;font-size:12px;color:var(--muted);margin-top:4px}.arrow{font-size:30px;color:#a4b4c8;font-weight:900}
@@ -72,7 +72,7 @@
   <div class="container deck-nav">
     <div class="deck-nav-left">
       <a class="back-link" href="../curriculum.html#lesson-1" aria-label="返回课程内容">← 返回</a>
-      <div class="deck-label">概念 01 · 数据挖掘<small>DM001 Interactive Concept Deck</small></div>
+      <div class="deck-label">概念 01 · 数据挖掘<small>数据挖掘 · Data Mining</small></div>
     </div>
     <div class="deck-nav-right">
       <button class="tool-btn" id="restartBtn" type="button">↺ <span>重新开始</span></button>
@@ -91,9 +91,9 @@
       <div class="slide-content">
         <div class="order-layout">
           <div class="data-card" aria-label="模拟订单表格">
-            <div class="data-head"><strong>orders.csv</strong><span>1,000,000 rows</span></div>
+            <div class="data-head"><strong>orders.csv</strong><span>1,000,000 行（rows）</span></div>
             <table class="mock">
-              <thead><tr><th>User</th><th>Time</th><th>Items</th><th>Amount</th></tr></thead>
+              <thead><tr><th>用户（User）</th><th>时间（Time）</th><th>商品（Items）</th><th>金额（Amount）</th></tr></thead>
               <tbody>
                 <tr><td>U0821</td><td>Fri 20:14</td><td>奶茶 + 炸鸡</td><td>¥48</td></tr>
                 <tr><td>U1044</td><td>Mon 12:03</td><td>盖饭</td><td>¥27</td></tr>
@@ -111,11 +111,11 @@
               <button class="reveal-btn primary" type="button" data-reveal="mining">显示潜在发现</button>
             </div>
             <div class="answer-stack">
-              <div class="answer" data-kind="query"><b>Query</b> 昨天一共有多少订单？</div>
-              <div class="answer" data-kind="query"><b>Query</b> 哪家店销售额最高？</div>
-              <div class="answer" data-kind="mining"><b>Mining</b> 哪些商品经常一起购买？</div>
-              <div class="answer" data-kind="mining"><b>Mining</b> 用户会自然形成哪些消费群体？</div>
-              <div class="answer" data-kind="mining"><b>Mining</b> 哪些订单行为异常，值得进一步检查？</div>
+              <div class="answer" data-kind="query"><b>查询（Query）</b> 昨天一共有多少订单？</div>
+              <div class="answer" data-kind="query"><b>查询（Query）</b> 哪家店销售额最高？</div>
+              <div class="answer" data-kind="mining"><b>挖掘（Mining）</b> 哪些商品经常一起购买？</div>
+              <div class="answer" data-kind="mining"><b>挖掘（Mining）</b> 用户会自然形成哪些消费群体？</div>
+              <div class="answer" data-kind="mining"><b>挖掘（Mining）</b> 哪些订单行为异常，值得进一步检查？</div>
             </div>
           </div>
         </div>
@@ -125,38 +125,38 @@
     <article class="slide" data-title="定义数据挖掘">
       <span class="slide-no">02 / 05</span>
       <div class="slide-kicker">Concept · 建立第一印象</div>
-      <h2>什么是 Data Mining？</h2>
+      <h2>什么是数据挖掘（Data Mining）？</h2>
       <p class="lead">先记住一条主线，而不是背一段长定义。</p>
       <div class="slide-content">
         <div class="definition" aria-label="数据到知识的流程">
-          <div class="def-node"><div><strong>Data</strong><span>大量观察与记录</span></div></div>
+          <div class="def-node"><div><strong>数据（Data）</strong><span>大量观察与记录</span></div></div>
           <div class="arrow">→</div>
-          <div class="def-node"><div><strong>Pattern</strong><span>非随机的结构与关系</span></div></div>
+          <div class="def-node"><div><strong>模式（Pattern）</strong><span>非随机的结构与关系</span></div></div>
           <div class="arrow">→</div>
-          <div class="def-node"><div><strong>Knowledge</strong><span>可以解释、判断或行动</span></div></div>
+          <div class="def-node"><div><strong>知识（Knowledge）</strong><span>可以解释、判断或行动</span></div></div>
         </div>
         <div class="core-definition">从数据中发现 <span class="accent">原本不知道、但有价值</span> 的规律。</div>
         <div class="criteria">
-          <button class="criterion" type="button"><strong>Unknown · 未知</strong><span>不是把已经知道的答案查出来</span><div class="detail">真正的“发现”应该带来新的认识，而不是重复已有结论。</div></button>
-          <button class="criterion" type="button"><strong>Valid · 可靠</strong><span>不是随机碰巧出现的巧合</span><div class="detail">模式需要经得起数据、统计与验证，而不是只在一个样本里好看。</div></button>
-          <button class="criterion" type="button"><strong>Useful · 有用</strong><span>能够支持解释、预测或决策</span><div class="detail">“有规律”不等于“有价值”；是否值得使用取决于问题本身。</div></button>
+          <button class="criterion" type="button"><strong>未知（Unknown）</strong><span>不是把已经知道的答案查出来</span><div class="detail">真正的“发现”应该带来新的认识，而不是重复已有结论。</div></button>
+          <button class="criterion" type="button"><strong>可靠（Valid）</strong><span>不是随机碰巧出现的巧合</span><div class="detail">模式需要经得起数据、统计与验证，而不是只在一个样本里好看。</div></button>
+          <button class="criterion" type="button"><strong>有用（Useful）</strong><span>能够支持解释、预测或决策</span><div class="detail">“有规律”不等于“有价值”；是否值得使用取决于问题本身。</div></button>
         </div>
       </div>
     </article>
 
-    <article class="slide" data-title="Mining 不是 Query">
+    <article class="slide" data-title="挖掘不是查询">
       <span class="slide-no">03 / 05</span>
       <div class="slide-kicker">Boundary · 最重要的区分</div>
-      <h2>Mining ≠ Query</h2>
+      <h2>挖掘（Mining） ≠ 查询（Query）</h2>
       <p class="lead">点一下你的判断。目标不是考试，而是建立“什么时候才需要挖掘”的直觉。</p>
       <div class="slide-content">
         <div class="quiz">
-          <div class="quiz-item" data-answer="query"><p>① 昨天全平台一共有多少订单？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">Query</button><button class="choice-btn" type="button" data-choice="mining">Mining</button></div><div class="quiz-result"></div></div>
-          <div class="quiz-item" data-answer="mining"><p>② 哪些商品组合经常一起出现？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">Query</button><button class="choice-btn" type="button" data-choice="mining">Mining</button></div><div class="quiz-result"></div></div>
-          <div class="quiz-item" data-answer="query"><p>③ 北京地区平均客单价是多少？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">Query</button><button class="choice-btn" type="button" data-choice="mining">Mining</button></div><div class="quiz-result"></div></div>
-          <div class="quiz-item" data-answer="mining"><p>④ 哪一类用户最可能在下个月流失？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">Query</button><button class="choice-btn" type="button" data-choice="mining">Mining</button></div><div class="quiz-result"></div></div>
+          <div class="quiz-item" data-answer="query"><p>① 昨天全平台一共有多少订单？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">查询（Query）</button><button class="choice-btn" type="button" data-choice="mining">挖掘（Mining）</button></div><div class="quiz-result"></div></div>
+          <div class="quiz-item" data-answer="mining"><p>② 哪些商品组合经常一起出现？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">查询（Query）</button><button class="choice-btn" type="button" data-choice="mining">挖掘（Mining）</button></div><div class="quiz-result"></div></div>
+          <div class="quiz-item" data-answer="query"><p>③ 北京地区平均客单价是多少？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">查询（Query）</button><button class="choice-btn" type="button" data-choice="mining">挖掘（Mining）</button></div><div class="quiz-result"></div></div>
+          <div class="quiz-item" data-answer="mining"><p>④ 哪一类用户最可能在下个月流失？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">查询（Query）</button><button class="choice-btn" type="button" data-choice="mining">挖掘（Mining）</button></div><div class="quiz-result"></div></div>
         </div>
-        <div class="takeaway">Query：我知道自己要找什么　↔　Mining：我在寻找尚未知道的模式<small>这是课堂上的教学化简，不是严格的计算机科学边界定义。</small></div>
+        <div class="takeaway">查询（Query）：我知道自己要找什么　↔　挖掘（Mining）：我在寻找尚未知道的模式<small>这是课堂上的教学化简，不是严格的计算机科学边界定义。</small></div>
       </div>
     </article>
 
@@ -168,7 +168,7 @@
       <div class="slide-content">
         <div class="task-map">
           <section class="task-column">
-            <div class="task-head"><h3>描述 · Description</h3><span>What is there?</span></div>
+            <div class="task-head"><h3>描述（Description）</h3><span>是什么？（What is there?）</span></div>
             <div class="task-list">
               <button class="task-btn" type="button" data-example="自动把顾客分成若干消费类型；事先没有人工标签。"><b>聚类</b><small>Clustering</small></button>
               <button class="task-btn" type="button" data-example="发现“买尿布的人也常买啤酒”这类共现关系。"><b>关联</b><small>Association</small></button>
@@ -177,7 +177,7 @@
             </div>
           </section>
           <section class="task-column">
-            <div class="task-head"><h3>预测 · Prediction</h3><span>What will happen?</span></div>
+            <div class="task-head"><h3>预测（Prediction）</h3><span>会发生什么？（What will happen?）</span></div>
             <div class="task-list">
               <button class="task-btn" type="button" data-example="预测一封新邮件是“垃圾邮件”还是“正常邮件”。"><b>分类</b><small>Classification</small></button>
               <button class="task-btn" type="button" data-example="根据房屋信息预测一个连续数值：房价。"><b>回归</b><small>Regression</small></button>
@@ -186,24 +186,24 @@
             </div>
           </section>
         </div>
-        <div class="task-example" id="taskExample"><span class="label">CLICK A TASK</span><p>点击上面的任意任务，看一个具体例子。</p></div>
+        <div class="task-example" id="taskExample"><span class="label">点击任务（CLICK A TASK）</span><p>点击上面的任意任务，看一个具体例子。</p></div>
       </div>
     </article>
 
     <article class="slide" data-title="数据挖掘是一个过程">
       <span class="slide-no">05 / 05</span>
       <div class="slide-kicker">Process · 算法只是一步</div>
-      <h2>Data Mining is a <span class="accent">process</span>.</h2>
+      <h2>数据挖掘（Data Mining）是一个<span class="accent">过程（process）</span>。</h2>
       <p class="lead">真实项目不是“选一个算法然后跑起来”，而是从问题出发，再回到可以行动的知识。</p>
       <div class="slide-content">
         <div class="process" id="process">
-          <div class="process-step" data-process="0"><span class="num">01</span><b>Question<br>问题</b></div>
-          <div class="process-step" data-process="1"><span class="num">02</span><b>Data<br>数据</b></div>
-          <div class="process-step" data-process="2"><span class="num">03</span><b>Preparation<br>准备</b></div>
-          <div class="process-step" data-process="3"><span class="num">04</span><b>Mining / Modeling<br>挖掘 / 建模</b></div>
-          <div class="process-step" data-process="4"><span class="num">05</span><b>Evaluation<br>评价</b></div>
-          <div class="process-step" data-process="5"><span class="num">06</span><b>Knowledge<br>知识</b></div>
-          <div class="process-step" data-process="6"><span class="num">07</span><b>Action<br>行动</b></div>
+          <div class="process-step" data-process="0"><span class="num">01</span><b>问题<br>Question</b></div>
+          <div class="process-step" data-process="1"><span class="num">02</span><b>数据<br>Data</b></div>
+          <div class="process-step" data-process="2"><span class="num">03</span><b>准备<br>Preparation</b></div>
+          <div class="process-step" data-process="3"><span class="num">04</span><b>挖掘 / 建模<br>Mining / Modeling</b></div>
+          <div class="process-step" data-process="4"><span class="num">05</span><b>评价<br>Evaluation</b></div>
+          <div class="process-step" data-process="5"><span class="num">06</span><b>知识<br>Knowledge</b></div>
+          <div class="process-step" data-process="6"><span class="num">07</span><b>行动<br>Action</b></div>
         </div>
         <div class="process-controls">
           <button class="process-btn primary" id="processNext" type="button">演示下一步 →</button>
@@ -228,7 +228,7 @@
       <li>Tan, Steinbach, Karpatne & Kumar, <em>Introduction to Data Mining</em>：Why Mine Data、What is / is not Data Mining、任务分类等。</li>
       <li>Fayyad, Piatetsky-Shapiro & Smyth (1996), From Data Mining to Knowledge Discovery in Databases：KDD 过程与有效、新颖、有用、可理解的知识发现。</li>
       <li>Stanford CS246 / Mining Massive Data Sets：大规模数据中的挖掘与机器学习任务。</li>
-      <li>本页将“Query vs Mining”做了教学化简，用于帮助学生建立第一直觉，不作为严格边界定义。</li>
+      <li>本页将“查询（Query） vs 挖掘（Mining）”做了教学化简，用于帮助学生建立第一直觉，不作为严格边界定义。</li>
     </ul>
   </details>
 </main>
@@ -334,7 +334,7 @@
       btn.addEventListener('click', () => {
         const result = item.querySelector('.quiz-result');
         const correct = btn.dataset.choice === item.dataset.answer;
-        result.textContent = correct ? '✓ 对，这一项更接近 ' + (item.dataset.answer === 'query' ? 'Query：答案已经被问题明确指定。' : 'Mining：目标是发现或预测尚未知的模式。') : '再想一下：问题是在“取一个已知答案”，还是在“发现未知模式”？';
+        result.textContent = correct ? '✓ 对，这一项更接近 ' + (item.dataset.answer === 'query' ? '查询（Query）：答案已经被问题明确指定。' : '挖掘（Mining）：目标是发现或预测尚未知的模式。') : '再想一下：问题是在“取一个已知答案”，还是在“发现未知模式”？';
         result.className = 'quiz-result ' + (correct ? 'ok' : 'no');
       });
     });
@@ -345,7 +345,7 @@
     btn.addEventListener('click', () => {
       document.querySelectorAll('.task-btn').forEach((other) => other.classList.remove('active'));
       btn.classList.add('active');
-      taskExample.innerHTML = `<span class="label">EXAMPLE</span><p>${btn.dataset.example}</p>`;
+      taskExample.innerHTML = `<span class="label">示例（EXAMPLE）</span><p>${btn.dataset.example}</p>`;
     });
   });
 
@@ -392,7 +392,7 @@
     document.querySelectorAll('.criterion').forEach((el) => el.classList.remove('active'));
     document.querySelectorAll('.quiz-result').forEach((el) => { el.textContent = ''; el.className = 'quiz-result'; });
     document.querySelectorAll('.task-btn').forEach((el) => el.classList.remove('active'));
-    taskExample.innerHTML = '<span class="label">CLICK A TASK</span><p>点击上面的任意任务，看一个具体例子。</p>';
+    taskExample.innerHTML = '<span class="label">点击任务（CLICK A TASK）</span><p>点击上面的任意任务，看一个具体例子。</p>';
     processIndex = 0;
     renderProcess();
   }
