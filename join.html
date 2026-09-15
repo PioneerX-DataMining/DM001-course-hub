@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DM001 课程 GitHub 账号登记入口。注册 GitHub 后在这里登记姓名与 GitHub Username，等待课程组织邀请。" />
+  <title>加入课程 · DM001 Course Hub</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .join-shell{max-width:860px;margin:0 auto 64px}.join-panel{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}.join-head{padding:28px 30px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#f8fbff,#eef4ff)}.join-head h2{margin:0 0 7px;font-size:26px;letter-spacing:-.03em}.join-head p{margin:0;color:var(--muted);font-size:14px}.join-body{padding:28px 30px}.join-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 24px}.join-step{border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px}.join-step b{display:block;color:var(--blue);font-size:12px;margin-bottom:4px}.join-step span{font-size:13px;color:#475569}.field{margin:0 0 18px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px;color:#26354d}.field input,.field select{width:100%;height:48px;border:1px solid #cbd7e6;border-radius:12px;background:#fff;padding:0 14px;font:inherit;color:var(--text);outline:none;transition:.18s ease}.field input:focus,.field select:focus{border-color:#6f9dff;box-shadow:0 0 0 4px rgba(21,94,239,.09)}.field small{display:block;color:var(--muted);font-size:12px;margin-top:6px}.preview{padding:14px 16px;border:1px dashed #b8c8df;background:#f8fbff;border-radius:13px;margin:2px 0 20px;font-size:13px;color:#45546a}.preview strong{color:#173f83}.check{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:#fff8e8;border:1px solid #f0d9a4;border-radius:13px;color:#724400;font-size:13px;margin-bottom:20px}.check input{margin-top:3px}.join-actions{display:flex;gap:10px;flex-wrap:wrap}.join-actions button{cursor:pointer}.join-actions .btn[disabled]{opacity:.5;cursor:not-allowed;transform:none}.privacy{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.privacy strong{color:#45546a}.mini-link{color:var(--blue);text-decoration:underline;text-underline-offset:3px}.status{display:none;margin-top:14px;padding:12px 14px;border-radius:12px;font-size:13px}.status.show{display:block}.status.error{background:#fff2f2;border:1px solid #f4caca;color:#9f2d2d}.status.ok{background:#eefbf5;border:1px solid #b9ead2;color:#0f6846}@media(max-width:700px){.join-head,.join-body{padding:22px 18px}.join-steps{grid-template-columns:1fr}.join-actions{flex-direction:column}.join-actions .btn{width:100%}}
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="./"><span class="brand-mark">DM</span><span>DM001 <small>Course Hub</small></span></a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="./">首页</a>
+      <a href="join.html">加入课程</a>
+      <a href="curriculum.html">课程内容</a>
+      <a href="tutorials/git-principles.html">Git 原理</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="doc-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="./">DM001 Course Hub</a> / 加入课程</div>
+      <h1>登记你的 GitHub 账号</h1>
+      <p class="doc-lead">先注册并登录 GitHub，再完成一次课程账号登记。老师会根据登记结果统一邀请你进入课程 GitHub 组织。</p>
+      <div class="meta"><span>约 2 分钟</span><span>需要 GitHub 账号</span><span>无需安装 Git</span></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:12px">
+    <div class="container">
+      <div class="join-shell">
+        <div class="join-panel">
+          <div class="join-head">
+            <h2>加入课程 / Join the Course</h2>
+            <p>登记信息会通过 GitHub Issue 提交，老师可以直接核对实际提交账号与填写的 Username 是否一致。</p>
+          </div>
+          <div class="join-body">
+            <div class="join-steps" aria-label="登记流程">
+              <div class="join-step"><b>STEP 1</b><span>注册并登录 GitHub</span></div>
+              <div class="join-step"><b>STEP 2</b><span>填写姓名和 Username</span></div>
+              <div class="join-step"><b>STEP 3</b><span>在 GitHub 页面确认提交</span></div>
+            </div>
+
+            <form id="joinForm" novalidate>
+              <div class="field">
+                <label for="realName">姓名</label>
+                <input id="realName" name="realName" autocomplete="name" maxlength="30" placeholder="请填写课程名单中的姓名" required />
+              </div>
+
+              <div class="field">
+                <label for="githubUser">GitHub Username</label>
+                <input id="githubUser" name="githubUser" autocomplete="off" maxlength="39" placeholder="例如：octocat" required />
+                <small>不是昵称。打开 GitHub 个人主页后，地址中 github.com/ 后面的部分就是 Username。</small>
+              </div>
+
+              <div class="field">
+                <label for="team">小组编号（可选）</label>
+                <input id="team" name="team" autocomplete="off" maxlength="20" placeholder="例如：DM003；尚未分组可留空" />
+              </div>
+
+              <div class="preview" id="profilePreview">GitHub 主页：<strong>等待填写 Username</strong></div>
+
+              <label class="check" for="confirmLogin">
+                <input type="checkbox" id="confirmLogin" required />
+                <span>我已使用上面填写的 GitHub 账号登录。点击提交后会打开 GitHub 的 Issue 创建页面，我会再点击一次 <strong>Submit new issue</strong> 完成登记。</span>
+              </label>
+
+              <div class="join-actions">
+                <button class="btn btn-primary" id="submitBtn" type="submit">提交 GitHub 账号登记 →</button>
+                <a class="btn btn-secondary" href="https://github.com/signup" target="_blank" rel="noopener noreferrer">还没有 GitHub？去注册</a>
+              </div>
+              <div class="status error" id="errorBox" role="alert"></div>
+              <div class="status ok" id="okBox">即将打开 GitHub。请检查页面中的姓名与 Username，然后点击 <strong>Submit new issue</strong>。</div>
+            </form>
+
+            <div class="privacy">
+              <strong>隐私提示：</strong>课程仓库是公开仓库，因此本页不收集学号、手机号或邮箱。请不要在 GitHub Issue 中主动填写这些信息。登记仅用于确认“姓名 ↔ GitHub 账号”的对应关系和后续组织邀请。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner"><strong>DM001 · Course Hub</strong><span>Data Mining · built as a living course project</span></div>
+</footer>
+
+<script>
+  const form = document.getElementById('joinForm');
+  const userInput = document.getElementById('githubUser');
+  const preview = document.getElementById('profilePreview');
+  const errorBox = document.getElementById('errorBox');
+  const okBox = document.getElementById('okBox');
+
+  function cleanUsername(value){
+    return value.trim().replace(/^@/, '');
+  }
+
+  function usernameLooksValid(value){
+    return /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/.test(value) && !value.includes('--');
+  }
+
+  userInput.addEventListener('input', () => {
+    const username = cleanUsername(userInput.value);
+    if(username){
+      preview.innerHTML = 'GitHub 主页：<strong>https://github.com/' + username.replace(/[<>&"']/g,'') + '</strong>';
+    }else{
+      preview.innerHTML = 'GitHub 主页：<strong>等待填写 Username</strong>';
+    }
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    errorBox.className = 'status error';
+    okBox.className = 'status ok';
+
+    const realName = document.getElementById('realName').value.trim();
+    const username = cleanUsername(userInput.value);
+    const team = document.getElementById('team').value.trim();
+    const confirmed = document.getElementById('confirmLogin').checked;
+
+    if(!realName){
+      errorBox.textContent = '请填写姓名。';
+      errorBox.classList.add('show');
+      return;
+    }
+    if(!usernameLooksValid(username)){
+      errorBox.textContent = 'GitHub Username 格式看起来不正确，请检查后再提交。';
+      errorBox.classList.add('show');
+      return;
+    }
+    if(!confirmed){
+      errorBox.textContent = '请先确认你已经使用该 GitHub 账号登录。';
+      errorBox.classList.add('show');
+      return;
+    }
+
+    const title = `[JOIN] ${realName} · @${username}`;
+    const body = [
+      '## DM001 课程 GitHub 账号登记',
+      '',
+      `- **姓名：** ${realName}`,
+      `- **GitHub Username：** @${username}`,
+      `- **GitHub 主页：** https://github.com/${username}`,
+      `- **小组编号：** ${team || '尚未分组'}`,
+      '',
+      '### 确认',
+      '- [x] 我已使用上述 GitHub 账号登录并提交本登记。',
+      '- [x] 我知道老师会根据本登记邀请我加入课程 GitHub 组织。',
+      '',
+      '> 请勿在本 Issue 中填写学号、手机号、邮箱等个人信息。'
+    ].join('\n');
+
+    const url = 'https://github.com/PioneerX-DataMining/DM001-course-hub/issues/new?title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
+    okBox.classList.add('show');
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+</script>
+</body>
+</html>
