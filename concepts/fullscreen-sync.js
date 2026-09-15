@@ -1,7 +1,7 @@
 (() => {
   const DEFAULT_STAGE = { width: 1180, height: 663.75, controlsHeight: 46, gap: 16 };
   const OWNED_STYLE_PROPS = {
-    root: ['position','width','height','margin','padding','display','overflow','background'],
+    root: ['position','left','top','z-index','width','height','margin','padding','display','overflow','background'],
     stage: ['position','left','top','width','height','min-height','max-height','aspect-ratio','margin','transform','transform-origin'],
     controls: ['position','left','top','width','margin','transform','transform-origin'],
   };
@@ -10,6 +10,8 @@
     const root = document.getElementById('deckRoot');
     const stage = document.getElementById('stage');
     const controls = root && root.querySelector('.deck-controls');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const exitFullscreenBtn = document.getElementById('exitFullscreenBtn');
     if (!root || !stage || !controls) return;
 
     const params = new URLSearchParams(location.search);
@@ -18,12 +20,29 @@
     let normalGeometry = null;
     let applying = false;
 
-    function isFullscreen() {
-      return document.fullscreenElement === root || document.webkitFullscreenElement === root;
+    function fullscreenElement() {
+      return document.fullscreenElement || document.webkitFullscreenElement || null;
+    }
+
+    function nativeFullscreenActive() {
+      return Boolean(fullscreenElement());
     }
 
     function presentationActive() {
-      return embedded || isFullscreen();
+      return embedded || nativeFullscreenActive();
+    }
+
+    function requestPageFullscreen() {
+      const el = document.documentElement;
+      if (el.requestFullscreen) return el.requestFullscreen();
+      if (el.webkitRequestFullscreen) return el.webkitRequestFullscreen();
+      return Promise.reject(new Error('Fullscreen API unavailable'));
+    }
+
+    function exitPageFullscreen() {
+      if (document.exitFullscreen) return document.exitFullscreen();
+      if (document.webkitExitFullscreen) return document.webkitExitFullscreen();
+      return Promise.resolve();
     }
 
     function saveGeometry(geometry) {
@@ -66,7 +85,23 @@
       root.classList.remove('dm-fixed-layout-presenter');
     }
 
+    function syncPresentationClassAndUi() {
+      const active = presentationActive();
+      document.documentElement.classList.toggle('dm-presentation-active', active);
+      root.classList.toggle('dm-presentation-active', active);
+
+      if (fullscreenBtn && !embedded) {
+        fullscreenBtn.innerHTML = nativeFullscreenActive()
+          ? '⛶ <span>退出全屏</span>'
+          : '⛶ <span>全屏演示</span>';
+      }
+      if (exitFullscreenBtn) {
+        exitFullscreenBtn.style.display = active ? 'inline-flex' : '';
+      }
+    }
+
     function applyPresentationGeometry() {
+      syncPresentationClassAndUi();
       if (!presentationActive()) {
         applying = true;
         clearOwnedStyles();
@@ -93,8 +128,11 @@
       const controlsTop = top + (base.height + base.gap) * scale;
 
       root.classList.add('dm-fixed-layout-presenter');
-      setImportant(root, 'position', 'relative');
-      setImportant(root, 'width', '100%');
+      setImportant(root, 'position', 'fixed');
+      setImportant(root, 'left', '0');
+      setImportant(root, 'top', '0');
+      setImportant(root, 'z-index', '2147483000');
+      setImportant(root, 'width', '100vw');
       setImportant(root, 'height', '100vh');
       setImportant(root, 'margin', '0');
       setImportant(root, 'padding', '0');
@@ -124,6 +162,33 @@
       applying = false;
     }
 
+    async function sharedFullscreenToggle(event) {
+      if (embedded) return;
+      if (!document.documentElement.requestFullscreen && !document.documentElement.webkitRequestFullscreen) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      try {
+        if (nativeFullscreenActive()) {
+          await exitPageFullscreen();
+        } else {
+          captureNormalGeometry();
+          await requestPageFullscreen();
+        }
+      } catch (_) {
+        if (fullscreenBtn) fullscreenBtn.title = '浏览器阻止了全屏，请使用浏览器自带全屏功能';
+      }
+    }
+
+    /*
+     * Capture phase is intentional: legacy concept-page scripts still attach
+     * their own fullscreen click handlers to #deckRoot. We intercept those
+     * before they run and fullscreen the document element instead. This keeps
+     * .deck-wrap:fullscreen page-specific CSS from activating, so fullscreen
+     * becomes a pure scaled copy of the normal layout.
+     */
+    if (fullscreenBtn) fullscreenBtn.addEventListener('click', sharedFullscreenToggle, true);
+    if (exitFullscreenBtn) exitFullscreenBtn.addEventListener('click', sharedFullscreenToggle, true);
+
     const resizeObserver = new ResizeObserver(() => {
       if (!presentationActive()) captureNormalGeometry();
     });
@@ -131,6 +196,7 @@
     resizeObserver.observe(controls);
 
     captureNormalGeometry();
+    syncPresentationClassAndUi();
     document.addEventListener('fullscreenchange', () => requestAnimationFrame(applyPresentationGeometry));
     document.addEventListener('webkitfullscreenchange', () => requestAnimationFrame(applyPresentationGeometry));
     window.addEventListener('resize', () => {
