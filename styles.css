@@ -149,14 +149,14 @@ html body .deck-topbar .tool-btn { font-size:15px !important; }
 html body .deck-topbar .deck-label small { font-size:13px !important; }
 html body .deck-wrap .slide-kicker,
 html body .deck-wrap .slide-no { font-size:14px !important; }
-html body .deck-wrap .slide .lead { font-size:clamp(19px,1.75vw,24px) !important; }
-html body .deck-wrap .slide-content p { font-size:15px !important; line-height:1.6; }
-html body .deck-wrap .slide-content small { font-size:14px !important; line-height:1.45; }
-html body .deck-wrap .slide-content button { font-size:15px !important; line-height:1.35; }
-html body .deck-wrap .slide-content table { font-size:15px !important; }
-html body .deck-wrap .slide-content th { font-size:13px !important; }
+html body .deck-wrap .slide .lead { font-size:clamp(20px,1.8vw,25px) !important; }
+html body .deck-wrap .slide-content p { font-size:16px !important; line-height:1.6; }
+html body .deck-wrap .slide-content small { font-size:15px !important; line-height:1.45; }
+html body .deck-wrap .slide-content button { font-size:16px !important; line-height:1.35; }
+html body .deck-wrap .slide-content table { font-size:16px !important; }
+html body .deck-wrap .slide-content th { font-size:14px !important; }
 html body .deck-wrap .slide-content .tag,
-html body .deck-wrap .slide-content .label { font-size:13px !important; }
+html body .deck-wrap .slide-content .label { font-size:14px !important; }
 html body .deck-wrap .data-head span,
 html body .deck-wrap .answer,
 html body .deck-wrap .criterion span,
@@ -196,7 +196,28 @@ html body .deck-wrap .second-axis,
 html body .deck-wrap .slide-status,
 html body .deck-wrap .hint,
 html body .deck-wrap .sources summary,
-html body .deck-wrap .sources ul { font-size:14px !important; }
+html body .deck-wrap .sources ul { font-size:15px !important; }
+
+/* Important explanatory labels that were still too small in concept decks 01–04. */
+html body .deck-wrap .def-node span,
+html body .deck-wrap .criterion strong,
+html body .deck-wrap .task-btn small,
+html body .deck-wrap .term-btn small,
+html body .deck-wrap .matrix th,
+html body .deck-wrap .value-table th,
+html body .deck-wrap .number-card p,
+html body .deck-wrap .operator-step small,
+html body .deck-wrap .type-pill,
+html body .deck-wrap .scale-summary span,
+html body .deck-wrap .implication-list span,
+html body .deck-wrap .second-axis span,
+html body .deck-wrap .numeric-card .tag,
+html body .deck-wrap .numeric-card > span:last-child,
+html body .deck-wrap .mol-table th,
+html body .deck-wrap .challenge-options button { font-size:15px !important; line-height:1.45; }
+html body .deck-wrap .criterion strong,
+html body .deck-wrap .operator-step strong,
+html body .deck-wrap .meaning-main { font-size:17px !important; }
 
 /* Full-screen projection gets one more step of enlargement. The extra specificity
    intentionally overrides the compact landscape rules in individual concept pages. */
@@ -204,12 +225,12 @@ html body .deck-wrap:fullscreen .slide-kicker,
 html body .deck-wrap:fullscreen .slide-no { font-size:16px !important; }
 html body .deck-wrap:fullscreen .slide .lead { font-size:clamp(23px,2vw,30px) !important; }
 html body .deck-wrap:fullscreen .slide-content p { font-size:18px !important; line-height:1.6; }
-html body .deck-wrap:fullscreen .slide-content small { font-size:16px !important; }
-html body .deck-wrap:fullscreen .slide-content button { font-size:17px !important; }
+html body .deck-wrap:fullscreen .slide-content small { font-size:17px !important; }
+html body .deck-wrap:fullscreen .slide-content button { font-size:18px !important; }
 html body .deck-wrap:fullscreen .slide-content table { font-size:18px !important; }
-html body .deck-wrap:fullscreen .slide-content th { font-size:16px !important; }
+html body .deck-wrap:fullscreen .slide-content th { font-size:17px !important; }
 html body .deck-wrap:fullscreen .slide-content .tag,
-html body .deck-wrap:fullscreen .slide-content .label { font-size:15px !important; }
+html body .deck-wrap:fullscreen .slide-content .label { font-size:16px !important; }
 html body .deck-wrap:fullscreen .data-head span,
 html body .deck-wrap:fullscreen .answer,
 html body .deck-wrap:fullscreen .criterion span,
@@ -246,19 +267,32 @@ html body .deck-wrap:fullscreen .implication-list b,
 html body .deck-wrap:fullscreen .implication-list span,
 html body .deck-wrap:fullscreen .impact-detail,
 html body .deck-wrap:fullscreen .second-axis,
-html body .deck-wrap:fullscreen .second-axis span { font-size:16px !important; }
-html body .deck-wrap:fullscreen .numeric-card .tag { font-size:15px !important; }
-html body .deck-wrap:fullscreen .numeric-card strong { font-size:clamp(28px,2.7vw,38px) !important; margin:14px 0 6px !important; }
-html body .deck-wrap:fullscreen .numeric-card > span:last-child { font-size:16px !important; }
+html body .deck-wrap:fullscreen .second-axis span { font-size:17px !important; }
+html body .deck-wrap:fullscreen .def-node span,
+html body .deck-wrap:fullscreen .criterion strong,
+html body .deck-wrap:fullscreen .task-btn small,
+html body .deck-wrap:fullscreen .term-btn small,
+html body .deck-wrap:fullscreen .matrix th,
+html body .deck-wrap:fullscreen .value-table th,
+html body .deck-wrap:fullscreen .number-card p,
+html body .deck-wrap:fullscreen .operator-step small,
+html body .deck-wrap:fullscreen .type-pill,
+html body .deck-wrap:fullscreen .scale-summary span,
+html body .deck-wrap:fullscreen .implication-list span,
+html body .deck-wrap:fullscreen .second-axis span,
+html body .deck-wrap:fullscreen .numeric-card .tag,
+html body .deck-wrap:fullscreen .numeric-card > span:last-child,
+html body .deck-wrap:fullscreen .mol-table th,
+html body .deck-wrap:fullscreen .challenge-options button { font-size:17px !important; line-height:1.45; }
+html body .deck-wrap:fullscreen .criterion strong,
+html body .deck-wrap:fullscreen .operator-step strong,
 html body .deck-wrap:fullscreen .meaning-main { font-size:19px !important; }
-html body .deck-wrap:fullscreen .operator-step .op { font-size:24px !important; }
-html body .deck-wrap:fullscreen .operator-step strong { font-size:16px !important; }
-html body .deck-wrap:fullscreen .type-pill { font-size:15px !important; }
-html body .deck-wrap:fullscreen .scale-title { font-size:24px !important; }
+html body .deck-wrap:fullscreen .numeric-card strong { font-size:clamp(30px,2.8vw,40px) !important; margin:14px 0 6px !important; }
+html body .deck-wrap:fullscreen .operator-step .op { font-size:26px !important; }
+html body .deck-wrap:fullscreen .scale-title { font-size:26px !important; }
 html body .deck-wrap:fullscreen .scale-example,
-html body .deck-wrap:fullscreen .scale-check { font-size:16px !important; }
-html body .deck-wrap:fullscreen .scale-summary { font-size:16px !important; }
-html body .deck-wrap:fullscreen .scale-summary span { font-size:15px !important; }
-html body .deck-wrap:fullscreen .city-row { font-size:16px !important; }
-html body .deck-wrap:fullscreen .trap-question { font-size:18px !important; }
-html body .deck-wrap:fullscreen .implication-panel h3 { font-size:20px !important; }
+html body .deck-wrap:fullscreen .scale-check { font-size:17px !important; }
+html body .deck-wrap:fullscreen .scale-summary { font-size:17px !important; }
+html body .deck-wrap:fullscreen .city-row { font-size:17px !important; }
+html body .deck-wrap:fullscreen .trap-question { font-size:19px !important; }
+html body .deck-wrap:fullscreen .implication-panel h3 { font-size:21px !important; }
