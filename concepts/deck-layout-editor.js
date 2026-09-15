@@ -10,9 +10,11 @@
   const SMALL_STEP = 4;
   const LARGE_STEP = 16;
   const MAX_MOVE = 4000;
+  const LAYOUT_MARKER = '__DM_LAYOUT_V1__';
 
   const num = (value) => Number.isFinite(Number(value)) ? Number(value) : 0;
   const clamp = (value) => Math.max(-MAX_MOVE, Math.min(MAX_MOVE, Math.round(value * 10) / 10));
+  const clone = (value) => JSON.parse(JSON.stringify(value || {}));
 
   function start() {
     const file = location.pathname.split('/').pop();
@@ -25,7 +27,7 @@
     if (!root || !stage) return;
 
     // deck-editor-id-compat remaps whole-component IDs on the same DOMContentLoaded turn.
-    // Wait one tick so saved layout always targets the final tNNN IDs accepted by AutoLab.
+    // Wait one tick so positions always target the final tNNN IDs accepted by AutoLab.
     setTimeout(() => init(deckId, root, stage, embedded), 20);
   }
 
@@ -34,8 +36,7 @@
       canEdit: false,
       multi: false,
       selected: new Set(),
-      touched: new Map(), // slideId -> Set(editId)
-      dirty: new Set(),   // slideId
+      dirty: new Set(),
       panel: null,
       tools: null,
       count: null,
@@ -44,12 +45,11 @@
       multiBtn: null,
       saveBtn: null,
       status: null,
-      serverEdits: {},
     };
 
     installStyles();
 
-    let payload = null;
+    let payload;
     try {
       const response = await fetch(`${API_BASE}/api/dm/register?resource=slides&deck_id=${encodeURIComponent(deckId)}`, {
         mode: 'cors', credentials: 'include', cache: 'no-store',
@@ -60,15 +60,13 @@
       return;
     }
 
+    const slideEdits = payload.slide_edits && typeof payload.slide_edits === 'object' ? payload.slide_edits : {};
+    applySavedMoves(stage, slideEdits);
     state.canEdit = !!payload.can_edit;
-    state.serverEdits = payload.slide_edits && typeof payload.slide_edits === 'object' ? payload.slide_edits : {};
-    applySavedMoves(stage, state.serverEdits);
-
     if (!state.canEdit || embedded) return;
+
     ensureTools();
 
-    // Multi-select click interception happens on document capture, before the existing
-    // editor's stage-level capture handler can turn the click into a single selection.
     document.addEventListener('click', (event) => {
       if (!root.classList.contains('dm-edit-mode')) return;
       if (event.target.closest && event.target.closest('.dm-text-editor-panel')) return;
@@ -84,14 +82,13 @@
       toggleMultiSelection(element);
     }, true);
 
-    // Arrow keys move selected elements while editing. Window capture runs before the
-    // deck navigation handlers, so the slide itself will not turn when an element moves.
+    // Move selected elements before the deck's own arrow-key navigation sees the key.
     window.addEventListener('keydown', (event) => {
       if (!root.classList.contains('dm-edit-mode')) return;
       const tag = document.activeElement && document.activeElement.tagName;
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tag)) return;
-      const targetList = movementTargets();
-      if (!targetList.length) return;
+      const list = movementTargets();
+      if (!list.length) return;
       const step = event.shiftKey ? LARGE_STEP : SMALL_STEP;
       let dx = 0, dy = 0;
       if (event.key === 'ArrowLeft') dx = -step;
@@ -102,15 +99,31 @@
       event.preventDefault();
       event.stopPropagation();
       event.stopImmediatePropagation();
-      move(targetList, dx, dy);
+      move(list, dx, dy);
     }, true);
 
-    // If the normal text editor later saves the page, its private draft may not know
-    // about move_x/move_y. Re-merge saved positions after that save completes.
+    // The original text editor owns its own draft object. If it saves later in the same
+    // session, re-save layout metadata afterwards so that new positions are never lost.
     document.addEventListener('click', (event) => {
       const save = event.target.closest && event.target.closest('[data-editor-save]');
-      if (!save || !state.dirty.size && !hasAnyMovedElement(stage)) return;
+      if (!save || !hasAnyMovedElement(stage)) return;
       waitForTextSaveThenSync();
+    }, true);
+
+    // "还原本页" should also restore element positions to their authored locations.
+    document.addEventListener('click', (event) => {
+      const reset = event.target.closest && event.target.closest('[data-editor-reset-slide]');
+      if (!reset || !root.classList.contains('dm-edit-mode')) return;
+      setTimeout(() => {
+        const slide = activeSlide();
+        if (!slide) return;
+        const moved = Array.from(slide.querySelectorAll('[data-dm-edit-id]')).filter((el) => num(el.dataset.dmMoveX) || num(el.dataset.dmMoveY));
+        moved.forEach((el) => setPosition(el, 0, 0));
+        if (moved.length) {
+          state.dirty.add(slide.dataset.slideId);
+          syncUi();
+        }
+      }, 0);
     }, true);
 
     const modeObserver = new MutationObserver(() => {
@@ -123,18 +136,14 @@
     modeObserver.observe(root, { attributes: true, attributeFilter: ['class'] });
 
     function ensureTools() {
-      const findPanel = () => document.querySelector('.dm-text-editor-panel');
       const insert = () => {
-        const panel = findPanel();
+        const panel = document.querySelector('.dm-text-editor-panel');
         if (!panel || panel.querySelector('.dm-layout-tools')) return false;
         state.panel = panel;
         const tools = document.createElement('section');
         tools.className = 'dm-layout-tools';
         tools.innerHTML = `
-          <div class="dm-layout-head">
-            <strong>布局 / 位置</strong>
-            <span class="dm-layout-count">未选择</span>
-          </div>
+          <div class="dm-layout-head"><strong>布局 / 位置</strong><span class="dm-layout-count">未选择</span></div>
           <div class="dm-layout-select-row">
             <button type="button" class="dm-layout-multi">多选模式</button>
             <button type="button" class="dm-layout-clear">清除多选</button>
@@ -178,9 +187,8 @@
         tools.querySelector('[data-reset-position]').addEventListener('click', () => {
           const list = movementTargets();
           if (!list.length) return;
-          list.forEach((element) => setPosition(element, 0, 0, true));
+          list.forEach((element) => setPosition(element, 0, 0));
           markDirty(list);
-          syncUi();
         });
         state.saveBtn.addEventListener('click', () => saveLayout(false));
         syncUi();
@@ -207,8 +215,6 @@
         const single = stage.querySelector('.slide.active .dm-edit-selected');
         if (single) list = [single];
       }
-      // If both a component and one of its text children are selected, move the parent
-      // only; otherwise the child would visually receive the offset twice.
       return list.filter((element) => !list.some((other) => other !== element && other.contains(element)));
     }
 
@@ -231,29 +237,17 @@
 
     function move(elements, dx, dy) {
       elements.forEach((element) => {
-        const x = clamp(num(element.dataset.dmMoveX) + dx);
-        const y = clamp(num(element.dataset.dmMoveY) + dy);
-        setPosition(element, x, y, true);
+        setPosition(element, num(element.dataset.dmMoveX) + dx, num(element.dataset.dmMoveY) + dy);
       });
       markDirty(elements);
-      syncUi();
     }
 
-    function setPosition(element, x, y, touched) {
-      element.dataset.dmMoveX = String(clamp(x));
-      element.dataset.dmMoveY = String(clamp(y));
-      if (x || y) element.style.setProperty('translate', `${clamp(x)}px ${clamp(y)}px`);
+    function setPosition(element, x, y) {
+      x = clamp(x); y = clamp(y);
+      element.dataset.dmMoveX = String(x);
+      element.dataset.dmMoveY = String(y);
+      if (x || y) element.style.setProperty('translate', `${x}px ${y}px`);
       else element.style.removeProperty('translate');
-      if (touched) rememberTouched(element);
-    }
-
-    function rememberTouched(element) {
-      const slide = element.closest('.slide');
-      const editId = element.dataset.dmEditId;
-      if (!slide || !editId) return;
-      const slideId = slide.dataset.slideId;
-      if (!state.touched.has(slideId)) state.touched.set(slideId, new Set());
-      state.touched.get(slideId).add(editId);
     }
 
     function markDirty(elements) {
@@ -267,8 +261,8 @@
     function syncUi() {
       if (!state.tools) return;
       const targets = movementTargets();
-      const active = activeSlide();
-      const slideId = active && active.dataset.slideId;
+      const slide = activeSlide();
+      const slideId = slide && slide.dataset.slideId;
       state.multiBtn.classList.toggle('active', state.multi);
       state.multiBtn.textContent = state.multi ? '多选模式：开' : '多选模式';
       if (!targets.length) {
@@ -296,17 +290,21 @@
       state.status.className = `dm-layout-status${kind ? ` ${kind}` : ''}`;
     }
 
-    async function saveLayout(silent, forceAll = false) {
-      const slide = activeSlide();
-      if (!slide) return;
-      const slideId = slide.dataset.slideId;
-      if (!slideId) return;
-      const touched = state.touched.get(slideId) || new Set();
-      const movedElements = Array.from(slide.querySelectorAll('[data-dm-edit-id]')).filter((el) => {
-        return forceAll ? (num(el.dataset.dmMoveX) || num(el.dataset.dmMoveY) || touched.has(el.dataset.dmEditId)) : touched.has(el.dataset.dmEditId);
+    function collectLayout(slide) {
+      const positions = {};
+      slide.querySelectorAll('[data-dm-edit-id]').forEach((element) => {
+        const id = element.dataset.dmEditId;
+        const x = clamp(num(element.dataset.dmMoveX));
+        const y = clamp(num(element.dataset.dmMoveY));
+        if (id && (x || y)) positions[id] = [x, y];
       });
-      if (!movedElements.length && !forceAll) return;
+      return positions;
+    }
 
+    async function saveLayout(silent) {
+      const slide = activeSlide();
+      if (!slide || !slide.dataset.slideId) return;
+      const slideId = slide.dataset.slideId;
       if (!silent) {
         state.saveBtn.disabled = true;
         setLayoutStatus('正在保存位置…', 'saving');
@@ -318,19 +316,11 @@
         });
         if (!currentResponse.ok) throw new Error(`读取失败（${currentResponse.status}）`);
         const current = await currentResponse.json();
-        const merged = JSON.parse(JSON.stringify((current.slide_edits && current.slide_edits[slideId]) || {}));
-
-        movedElements.forEach((element) => {
-          const editId = element.dataset.dmEditId;
-          if (!editId) return;
-          const entry = merged[editId] && typeof merged[editId] === 'object' ? merged[editId] : {};
-          const x = clamp(num(element.dataset.dmMoveX));
-          const y = clamp(num(element.dataset.dmMoveY));
-          if (x) entry.move_x = x; else delete entry.move_x;
-          if (y) entry.move_y = y; else delete entry.move_y;
-          if (Object.keys(entry).length) merged[editId] = entry;
-          else delete merged[editId];
-        });
+        const merged = clone((current.slide_edits && current.slide_edits[slideId]) || {});
+        const metaId = `${slideId}-t999`;
+        const positions = collectLayout(slide);
+        if (Object.keys(positions).length) merged[metaId] = { text: LAYOUT_MARKER + JSON.stringify(positions) };
+        else delete merged[metaId];
 
         const body = new URLSearchParams({
           deck_id: deckId,
@@ -343,14 +333,12 @@
         let saved = {};
         try { saved = await response.json(); } catch (_) {}
         if (!response.ok) throw new Error(saved.detail || `保存失败（${response.status}）`);
-        state.serverEdits = saved.slide_edits && typeof saved.slide_edits === 'object' ? saved.slide_edits : state.serverEdits;
         state.dirty.delete(slideId);
-        state.touched.delete(slideId);
         if (!silent) setLayoutStatus('位置已保存', 'saved');
         syncUi();
       } catch (error) {
-        if (!silent) setLayoutStatus(error.message || '位置保存失败', 'error');
         state.dirty.add(slideId);
+        if (!silent) setLayoutStatus(error.message || '位置保存失败', 'error');
         syncUi();
       }
     }
@@ -359,10 +347,9 @@
       const status = document.querySelector('.dm-editor-status');
       const started = Date.now();
       const tick = () => {
-        if (!root.classList.contains('dm-edit-mode')) return;
         if (status && status.classList.contains('error')) return;
         if (status && status.classList.contains('saved')) {
-          saveLayout(true, true);
+          saveLayout(true);
           return;
         }
         if (Date.now() - started < 5000) setTimeout(tick, 120);
@@ -372,20 +359,34 @@
   }
 
   function applySavedMoves(stage, slideEdits) {
-    Object.values(slideEdits || {}).forEach((edits) => {
+    Object.entries(slideEdits || {}).forEach(([slideId, edits]) => {
       if (!edits || typeof edits !== 'object') return;
+      const meta = edits[`${slideId}-t999`];
+      if (meta && typeof meta.text === 'string' && meta.text.startsWith(LAYOUT_MARKER)) {
+        try {
+          const positions = JSON.parse(meta.text.slice(LAYOUT_MARKER.length));
+          Object.entries(positions || {}).forEach(([editId, coords]) => {
+            if (!Array.isArray(coords) || coords.length < 2) return;
+            applyPosition(stage, editId, coords[0], coords[1]);
+          });
+        } catch (_) {}
+      }
+      // Forward-compatible fallback if AutoLab later stores native move fields.
       Object.entries(edits).forEach(([editId, edit]) => {
-        if (!edit || typeof edit !== 'object') return;
-        const x = clamp(num(edit.move_x));
-        const y = clamp(num(edit.move_y));
-        if (!x && !y) return;
-        const element = stage.querySelector(`[data-dm-edit-id="${CSS.escape(editId)}"]`);
-        if (!element) return;
-        element.dataset.dmMoveX = String(x);
-        element.dataset.dmMoveY = String(y);
-        element.style.setProperty('translate', `${x}px ${y}px`);
+        if (!edit || typeof edit !== 'object' || (!('move_x' in edit) && !('move_y' in edit))) return;
+        applyPosition(stage, editId, edit.move_x, edit.move_y);
       });
     });
+  }
+
+  function applyPosition(stage, editId, rawX, rawY) {
+    const x = clamp(num(rawX));
+    const y = clamp(num(rawY));
+    const element = stage.querySelector(`[data-dm-edit-id="${CSS.escape(editId)}"]`);
+    if (!element) return;
+    element.dataset.dmMoveX = String(x);
+    element.dataset.dmMoveY = String(y);
+    if (x || y) element.style.setProperty('translate', `${x}px ${y}px`);
   }
 
   function hasAnyMovedElement(stage) {
