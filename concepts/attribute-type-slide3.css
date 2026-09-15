@@ -1,57 +1,536 @@
-/* Concept 04 · slide 3 only: reduce visual crowding and improve hierarchy */
-.slide[data-title="为什么属性类型重要"] .slide-content{justify-content:flex-start;margin-top:18px;gap:16px}
-.slide[data-title="为什么属性类型重要"] .impact-layout{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:24px;align-items:stretch}
-.slide[data-title="为什么属性类型重要"] .coding-trap,
-.slide[data-title="为什么属性类型重要"] .implication-panel{padding:22px 24px;border-radius:20px}
-.slide[data-title="为什么属性类型重要"] .trap-title{font-size:12px;letter-spacing:.08em}
-.slide[data-title="为什么属性类型重要"] .city-row{padding:12px 2px;font-size:16px}
-.slide[data-title="为什么属性类型重要"] .trap-question{margin-top:18px;font-size:18px;line-height:1.45}
-.slide[data-title="为什么属性类型重要"] .trap-actions{gap:12px;margin-top:14px}
-.slide[data-title="为什么属性类型重要"] .trap-actions button{padding:12px 14px;font-size:15px}
-.slide[data-title="为什么属性类型重要"] .trap-feedback{margin-top:12px;min-height:42px;font-size:14px;line-height:1.55}
-.slide[data-title="为什么属性类型重要"] .implication-panel h3{font-size:20px;margin-bottom:16px}
-.slide[data-title="为什么属性类型重要"] .implication-list{gap:12px}
-.slide[data-title="为什么属性类型重要"] .implication-list button{padding:14px 15px;border-radius:14px;min-height:82px}
-.slide[data-title="为什么属性类型重要"] .implication-list b{font-size:15px}
-.slide[data-title="为什么属性类型重要"] .implication-list span{font-size:12px;line-height:1.55;margin-top:5px}
-.slide[data-title="为什么属性类型重要"] .impact-detail{margin-top:14px;padding:13px 15px;min-height:66px;font-size:14px;line-height:1.6}
-.slide[data-title="为什么属性类型重要"] .second-axis{display:grid;grid-template-columns:1.35fr repeat(3,auto);gap:10px 12px;align-items:center;margin-top:0;padding:14px 16px;font-size:13px}
-.slide[data-title="为什么属性类型重要"] .second-axis>div{margin-right:0;font-size:14px;line-height:1.5}
-.slide[data-title="为什么属性类型重要"] .second-axis span{padding:8px 11px;font-size:12px;text-align:center}
-.slide[data-title="为什么属性类型重要"] .takeaway{margin-top:0;padding:14px 18px;font-size:clamp(18px,1.9vw,24px)}
-.slide[data-title="为什么属性类型重要"] .takeaway small{font-size:12px;margin-top:6px}
+/* Concept 04 · Slide 3
+   Designed as a real 16:9 teaching slide: header → two-column main area → two-column footer.
+   Keep this file scoped to slide 3 so slides 1–2 remain untouched. */
 
+.slide-impact{
+  overflow:hidden;
+}
+
+.slide-impact h2{
+  max-width:980px;
+  font-size:clamp(34px,3.65vw,52px);
+  line-height:1.03;
+}
+
+.slide-impact .lead{
+  max-width:1040px;
+  margin-top:10px;
+  font-size:clamp(16px,1.42vw,20px);
+  line-height:1.45;
+}
+
+.slide-impact .slide-content{
+  flex:1;
+  min-height:0;
+  margin-top:16px;
+  display:grid;
+  grid-template-rows:minmax(0,1fr) auto;
+  gap:14px;
+  justify-content:stretch;
+}
+
+/* ---------- main teaching area ---------- */
+.slide-impact .impact-main{
+  min-height:0;
+  display:grid;
+  grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);
+  gap:18px;
+  align-items:stretch;
+}
+
+.slide-impact .coding-trap,
+.slide-impact .implication-panel{
+  min-width:0;
+  min-height:0;
+  border-radius:18px;
+  padding:16px 18px;
+}
+
+.slide-impact .coding-trap{
+  border:1px solid var(--line);
+  background:#f8fafc;
+  display:grid;
+  grid-template-rows:auto auto auto auto minmax(34px,auto);
+  align-content:start;
+}
+
+.slide-impact .trap-title,
+.slide-impact .impact-kicker{
+  color:#7890b5;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.slide-impact .city-code-list{
+  margin-top:7px;
+  border-top:1px solid #e3eaf3;
+}
+
+.slide-impact .city-row{
+  min-height:35px;
+  padding:6px 2px;
+  border-bottom:1px solid #e3eaf3;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:14px;
+}
+
+.slide-impact .city-row span{
+  font-weight:850;
+  color:#27384f;
+}
+
+.slide-impact .city-row b{
+  min-width:32px;
+  height:26px;
+  padding:0 8px;
+  border-radius:8px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#eaf2ff;
+  color:#244a82;
+  font-size:14px;
+}
+
+.slide-impact .trap-question{
+  margin-top:10px;
+  padding:10px 12px;
+  border:1px solid #d7e3f3;
+  border-radius:12px;
+  background:#fff;
+  color:#1f3250;
+  font-size:16px;
+  font-weight:930;
+  line-height:1.28;
+}
+
+.slide-impact .trap-question span{
+  color:#526178;
+  font-size:13px;
+  font-weight:760;
+}
+
+.slide-impact .trap-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:9px;
+}
+
+.slide-impact .trap-actions button{
+  min-height:34px;
+  padding:7px 9px;
+  border:1px solid #cbd8e8;
+  border-radius:10px;
+  background:#fff;
+  font:inherit;
+  font-size:13px;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.slide-impact .trap-actions button.correct{
+  background:#eefbf5;
+  border-color:#8ed2b1;
+  color:#0f6d49;
+}
+
+.slide-impact .trap-actions button.wrong{
+  background:#fff3f1;
+  border-color:#efb4aa;
+  color:#a34031;
+}
+
+.slide-impact .trap-feedback{
+  margin-top:8px;
+  min-height:34px;
+  padding:8px 10px;
+  border-radius:9px;
+  background:#fff;
+  color:#526178;
+  font-size:11px;
+  font-weight:760;
+  line-height:1.35;
+}
+
+.slide-impact .implication-panel{
+  border:1px solid #cfe0ff;
+  background:#f3f7ff;
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto;
+  gap:10px;
+}
+
+.slide-impact .impact-heading{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.slide-impact .impact-heading h3{
+  margin:3px 0 0;
+  color:#1e3557;
+  font-size:18px;
+  line-height:1.25;
+}
+
+.slide-impact .impact-hint{
+  flex:0 0 auto;
+  color:#7890b5;
+  font-size:10px;
+  font-weight:850;
+}
+
+.slide-impact .implication-list{
+  min-height:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:8px;
+}
+
+.slide-impact .implication-list button{
+  min-height:0;
+  border:1px solid #c7d7ed;
+  border-radius:11px;
+  background:#fff;
+  padding:9px 11px;
+  text-align:left;
+  font:inherit;
+  cursor:pointer;
+}
+
+.slide-impact .implication-list button.active{
+  border-color:#93b2e5;
+  background:#eaf2ff;
+}
+
+.slide-impact .implication-list b{
+  display:block;
+  color:#244a82;
+  font-size:13px;
+  line-height:1.2;
+}
+
+.slide-impact .implication-list span{
+  display:block;
+  margin-top:3px;
+  color:#68778c;
+  font-size:10px;
+  line-height:1.35;
+}
+
+.slide-impact .impact-detail{
+  margin-top:0;
+  min-height:42px;
+  padding:9px 11px;
+  border-left:4px solid var(--blue);
+  border-radius:8px;
+  background:#fff;
+  color:#40516a;
+  font-size:11px;
+  line-height:1.4;
+}
+
+/* ---------- footer: secondary axis + final takeaway ---------- */
+.slide-impact .impact-footer{
+  display:grid;
+  grid-template-columns:minmax(0,1.22fr) minmax(0,.78fr);
+  gap:14px;
+  align-items:stretch;
+}
+
+.slide-impact .second-axis{
+  margin-top:0;
+  padding:11px 13px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#f8fafc;
+  display:grid;
+  grid-template-columns:170px 1fr;
+  gap:9px 12px;
+  align-items:center;
+  color:#526178;
+  font-size:11px;
+}
+
+.slide-impact .axis-heading{
+  align-self:stretch;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  border-right:1px solid #dce5f0;
+  padding-right:12px;
+}
+
+.slide-impact .axis-heading strong{
+  color:#243c5c;
+  font-size:13px;
+  line-height:1.2;
+}
+
+.slide-impact .axis-heading span{
+  margin-top:3px;
+  color:#64748b;
+  font-size:10px;
+  line-height:1.25;
+}
+
+.slide-impact .axis-examples{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+}
+
+.slide-impact .axis-examples span{
+  min-width:0;
+  padding:7px 8px;
+  border:1px solid #d9e2ee;
+  border-radius:9px;
+  background:#fff;
+  color:#526178;
+  font-size:9px;
+  line-height:1.3;
+}
+
+.slide-impact .axis-examples b{
+  display:block;
+  margin-bottom:2px;
+  color:#244a82;
+  font-size:11px;
+}
+
+.slide-impact .impact-takeaway{
+  margin-top:0;
+  min-height:0;
+  padding:12px 15px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  text-align:left;
+  font-size:clamp(15px,1.55vw,20px);
+  line-height:1.32;
+}
+
+.slide-impact .impact-takeaway span{
+  color:#9fc1ff;
+}
+
+.slide-impact .impact-takeaway small{
+  margin-top:5px;
+  color:#b8c8df;
+  font-size:9px;
+  line-height:1.35;
+  text-align:left;
+}
+
+/* Standard desktop 16:9: protect against content pushing the canvas taller. */
+@media(min-width:901px){
+  .slide-impact{
+    padding-top:38px;
+    padding-bottom:30px;
+  }
+}
+
+/* Tablet / portrait: stack naturally instead of forcing a 16:9 composition. */
 @media(max-width:900px){
-  .slide[data-title="为什么属性类型重要"] .impact-layout{grid-template-columns:1fr;gap:16px}
-  .slide[data-title="为什么属性类型重要"] .second-axis{grid-template-columns:1fr 1fr}
-  .slide[data-title="为什么属性类型重要"] .second-axis>div{grid-column:1/-1}
+  .slide-impact{
+    overflow:auto;
+  }
+
+  .slide-impact .slide-content{
+    display:flex;
+    gap:16px;
+  }
+
+  .slide-impact .impact-main,
+  .slide-impact .impact-footer{
+    grid-template-columns:1fr;
+  }
+
+  .slide-impact .coding-trap,
+  .slide-impact .implication-panel{
+    padding:18px;
+  }
+
+  .slide-impact .second-axis{
+    grid-template-columns:1fr;
+  }
+
+  .slide-impact .axis-heading{
+    border-right:0;
+    border-bottom:1px solid #dce5f0;
+    padding:0 0 9px;
+  }
 }
 
 @media(max-width:620px){
-  .slide[data-title="为什么属性类型重要"] .coding-trap,
-  .slide[data-title="为什么属性类型重要"] .implication-panel{padding:18px}
-  .slide[data-title="为什么属性类型重要"] .second-axis{grid-template-columns:1fr}
-  .slide[data-title="为什么属性类型重要"] .second-axis>div{grid-column:auto}
+  .slide-impact .implication-list,
+  .slide-impact .axis-examples,
+  .slide-impact .trap-actions{
+    grid-template-columns:1fr;
+  }
+
+  .slide-impact .implication-list{
+    grid-template-rows:auto;
+  }
 }
 
+/* Short landscape fullscreen (laptop/projector): keep text readable instead of shrinking to 7–8px. */
 @media(orientation:landscape) and (max-height:650px){
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .slide-content{gap:8px!important;margin-top:10px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .impact-layout{grid-template-columns:.82fr 1.18fr!important;gap:12px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .coding-trap,
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-panel{padding:12px 14px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .city-row{padding:6px 1px!important;font-size:11px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .trap-question{font-size:12px!important;margin-top:8px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .trap-actions button{padding:7px!important;font-size:10px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .trap-feedback{font-size:10px!important;min-height:26px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-panel h3{font-size:13px!important;margin-bottom:8px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-list{gap:7px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-list button{padding:8px!important;min-height:54px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-list b{font-size:10px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .implication-list span{font-size:9px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .impact-detail{font-size:10px!important;min-height:36px!important;padding:7px 9px!important;margin-top:7px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .second-axis{grid-template-columns:1.35fr repeat(3,auto)!important;gap:5px!important;padding:7px 9px!important;font-size:9px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .second-axis>div{font-size:9px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .second-axis span{padding:4px 6px!important;font-size:8px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .takeaway{padding:8px 10px!important;font-size:14px!important}
-  .deck-wrap:fullscreen .slide[data-title="为什么属性类型重要"] .takeaway small{font-size:8px!important}
+  .deck-wrap:fullscreen .slide-impact{
+    padding:22px 32px 18px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact h2{
+    font-size:min(4.2vw,42px)!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .lead{
+    margin-top:6px!important;
+    font-size:14px!important;
+    line-height:1.35!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .slide-content{
+    margin-top:10px!important;
+    gap:9px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .impact-main{
+    grid-template-columns:.76fr 1.24fr!important;
+    gap:10px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .coding-trap,
+  .deck-wrap:fullscreen .slide-impact .implication-panel{
+    padding:10px 12px!important;
+    border-radius:12px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .trap-title,
+  .deck-wrap:fullscreen .slide-impact .impact-kicker,
+  .deck-wrap:fullscreen .slide-impact .impact-hint{
+    font-size:8px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .city-code-list{
+    margin-top:4px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .city-row{
+    min-height:24px!important;
+    padding:3px 1px!important;
+    font-size:10px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .city-row b{
+    height:20px!important;
+    font-size:10px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .trap-question{
+    margin-top:5px!important;
+    padding:6px 8px!important;
+    font-size:11px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .trap-question span{
+    font-size:9px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .trap-actions{
+    margin-top:5px!important;
+    gap:5px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .trap-actions button{
+    min-height:25px!important;
+    padding:4px 6px!important;
+    font-size:9px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .trap-feedback{
+    margin-top:4px!important;
+    min-height:24px!important;
+    padding:5px 7px!important;
+    font-size:8px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .implication-panel{
+    gap:5px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .impact-heading h3{
+    font-size:12px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .implication-list{
+    gap:5px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .implication-list button{
+    padding:6px 7px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .implication-list b{
+    font-size:9px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .implication-list span{
+    font-size:8px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .impact-detail{
+    min-height:28px!important;
+    padding:5px 7px!important;
+    font-size:8px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .impact-footer{
+    grid-template-columns:1.22fr .78fr!important;
+    gap:8px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .second-axis{
+    grid-template-columns:120px 1fr!important;
+    gap:5px 7px!important;
+    padding:6px 8px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .axis-heading strong{
+    font-size:9px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .axis-heading span,
+  .deck-wrap:fullscreen .slide-impact .axis-examples span{
+    font-size:7px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .axis-examples b{
+    font-size:8px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .axis-examples{
+    gap:4px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .axis-examples span{
+    padding:4px 5px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .impact-takeaway{
+    padding:7px 9px!important;
+    font-size:12px!important;
+  }
+
+  .deck-wrap:fullscreen .slide-impact .impact-takeaway small{
+    font-size:7px!important;
+  }
 }
