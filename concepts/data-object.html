@@ -42,7 +42,7 @@
   <div class="container deck-nav">
     <div class="deck-nav-left">
       <a class="back-link" href="../curriculum.html#lesson-1">← 返回</a>
-      <div class="deck-label">概念 02 · 数据对象<small>Object / Sample / Instance</small></div>
+      <div class="deck-label">概念 02 · 数据对象<small>数据对象 · Object / Sample / Instance</small></div>
     </div>
     <div class="deck-nav-right">
       <button class="tool-btn" id="restartBtn" type="button">↺ <span>重新开始</span></button>
@@ -53,17 +53,17 @@
 
 <main class="deck-wrap" id="deckRoot" tabindex="0">
   <section class="stage" id="stage" aria-live="polite">
-    <article class="slide active" data-title="一个 Object 是什么">
+    <article class="slide active" data-title="一个数据对象是什么">
       <span class="slide-no">01 / 03</span>
       <div class="slide-kicker">Start with a table · 先看一行</div>
-      <h1>这张表里，<br><span class="accent">一个 Object</span> 是什么？</h1>
+      <h1>这张表里，<br><span class="accent">一个数据对象（Object）</span> 是什么？</h1>
       <p class="lead">点击任意一行。先建立最简单的直觉：在表格型数据中，一行通常记录一个被研究的对象。</p>
       <div class="slide-content">
         <div class="object-layout">
           <div class="data-card">
             <div class="data-head"><strong>students.csv</strong><span>点击任意一行</span></div>
             <table class="mock">
-              <thead><tr><th>ID</th><th>姓名</th><th>专业</th><th>本周学习时长</th></tr></thead>
+              <thead><tr><th>编号（ID）</th><th>姓名</th><th>专业</th><th>本周学习时长</th></tr></thead>
               <tbody>
                 <tr data-object="学生 S101"><td>S101</td><td>李明</td><td>生物工程</td><td>8.4 h</td></tr>
                 <tr data-object="学生 S102"><td>S102</td><td>王悦</td><td>化学</td><td>5.9 h</td></tr>
@@ -73,10 +73,10 @@
             </table>
           </div>
           <div class="object-panel">
-            <div class="eyebrow-mini">DATA OBJECT</div>
+            <div class="eyebrow-mini">数据对象 · DATA OBJECT</div>
             <h3>我们正在研究的“一个对象”</h3>
             <p>表格中的每一行，通常对应一个被描述、比较或预测的对象。</p>
-            <div class="object-result" id="objectResult">点一行试试。<br><span>Object = ?</span></div>
+            <div class="object-result" id="objectResult">点一行试试。<br><span>数据对象（Object） = ?</span></div>
           </div>
         </div>
       </div>
@@ -89,47 +89,47 @@
       <p class="lead">数据挖掘和机器学习教材里，下面这些词经常指向同一个基本角色。点击看看语境差异。</p>
       <div class="slide-content">
         <div class="term-grid">
-          <button class="term-btn active" data-term="object" type="button"><b>Object</b><small>数据对象</small></button>
-          <button class="term-btn" data-term="instance" type="button"><b>Instance</b><small>实例</small></button>
-          <button class="term-btn" data-term="sample" type="button"><b>Sample</b><small>样本</small></button>
-          <button class="term-btn" data-term="record" type="button"><b>Record</b><small>记录</small></button>
-          <button class="term-btn" data-term="point" type="button"><b>Data Point</b><small>数据点</small></button>
+          <button class="term-btn active" data-term="object" type="button"><b>数据对象</b><small>Object</small></button>
+          <button class="term-btn" data-term="instance" type="button"><b>实例</b><small>Instance</small></button>
+          <button class="term-btn" data-term="sample" type="button"><b>样本</b><small>Sample</small></button>
+          <button class="term-btn" data-term="record" type="button"><b>记录</b><small>Record</small></button>
+          <button class="term-btn" data-term="point" type="button"><b>数据点</b><small>Data Point</small></button>
         </div>
-        <div class="term-detail" id="termDetail"><div><strong>Object：</strong>最直接的说法——数据集中被描述的一个实体或对象。</div></div>
-        <div class="definition-box">Object = 分析、比较或预测的一个基本单位<small>这些术语在很多机器学习语境里近似使用；具体教材可能偏好不同叫法。</small></div>
+        <div class="term-detail" id="termDetail"><div><strong>数据对象（Object）：</strong>最直接的说法——数据集中被描述的一个实体或对象。</div></div>
+        <div class="definition-box">数据对象（Object） = 分析、比较或预测的一个基本单位<small>这些术语在很多机器学习语境里近似使用；具体教材可能偏好不同叫法。</small></div>
       </div>
     </article>
 
     <article class="slide" data-title="问题决定分析单位">
       <span class="slide-no">03 / 03</span>
       <div class="slide-kicker">Think · 同一批原始数据</div>
-      <h2>Object 是天然固定的吗？</h2>
+      <h2>数据对象（Object）是天然固定的吗？</h2>
       <p class="lead">不一定。同一批业务数据，因为问题不同，最终拿来分析的基本单位也可能不同。</p>
       <div class="slide-content">
         <div class="scenario-grid">
           <section class="scenario" data-answer="user">
-            <div class="tag">QUESTION A</div>
+            <div class="tag">问题 A（QUESTION A）</div>
             <h3>预测哪些用户下个月最可能流失？</h3>
             <div class="choices">
               <button class="choice-btn" data-choice="user" type="button">用户</button>
               <button class="choice-btn" data-choice="order" type="button">订单</button>
               <button class="choice-btn" data-choice="store" type="button">商家</button>
             </div>
-            <div class="scenario-result">请选择这里的 Object。</div>
+            <div class="scenario-result">请选择这里的数据对象（Object）。</div>
           </section>
           <section class="scenario" data-answer="order">
-            <div class="tag">QUESTION B</div>
+            <div class="tag">问题 B（QUESTION B）</div>
             <h3>检测哪些订单的行为异常，值得进一步检查？</h3>
             <div class="choices">
               <button class="choice-btn" data-choice="user" type="button">用户</button>
               <button class="choice-btn" data-choice="order" type="button">订单</button>
               <button class="choice-btn" data-choice="store" type="button">商家</button>
             </div>
-            <div class="scenario-result">请选择这里的 Object。</div>
+            <div class="scenario-result">请选择这里的数据对象（Object）。</div>
           </section>
         </div>
-        <div class="final-takeaway">Object = 我们真正拿来分析、比较或预测的基本单位<small>所以先问清楚：我到底在研究“谁”或“什么”？</small></div>
-        <div class="next-concept">下一概念：<strong>Feature / Attribute</strong> —— 机器靠什么来描述这些对象？</div>
+        <div class="final-takeaway">数据对象（Object） = 我们真正拿来分析、比较或预测的基本单位<small>所以先问清楚：我到底在研究“谁”或“什么”？</small></div>
+        <div class="next-concept">下一概念：<strong>特征 / 属性（Feature / Attribute）</strong> —— 机器靠什么来描述这些对象？</div>
       </div>
     </article>
   </section>
@@ -147,7 +147,7 @@
       <li>Tan, Steinbach, Karpatne & Kumar, <em>Introduction to Data Mining</em>：Data Objects and Attribute Types。</li>
       <li>scikit-learn Glossary：sample / instance / data point 等术语的常见机器学习用法。</li>
       <li>本节刻意不提前引入 feature vector 或 feature space；这些内容放到下一个概念 Feature / Attribute 再讲。</li>
-      <li>“一行 = 一个 Object”只针对典型表格数据建立直觉，不作为所有数据形式的严格定义。</li>
+      <li>“一行 = 一个数据对象（Object）”只针对典型表格数据建立直觉，不作为所有数据形式的严格定义。</li>
     </ul>
   </details>
 </main>
@@ -222,16 +222,16 @@
     row.addEventListener('click', () => {
       document.querySelectorAll('tr[data-object]').forEach((r) => r.classList.remove('selected'));
       row.classList.add('selected');
-      objectResult.innerHTML = `<strong>这一整行就是一个数据对象：</strong><br><span>Object = ${row.dataset.object}</span>`;
+      objectResult.innerHTML = `<strong>这一整行就是一个数据对象：</strong><br><span>数据对象（Object） = ${row.dataset.object}</span>`;
     });
   });
 
   const termText = {
-    object: '<strong>Object：</strong>最直接的说法——数据集中被描述的一个实体或对象。',
-    instance: '<strong>Instance：</strong>强调“一个具体实例”，机器学习教材里非常常见。',
-    sample: '<strong>Sample：</strong>机器学习里常指一个样本；注意统计学中 sample 也常指一整批抽样得到的观测。',
-    record: '<strong>Record：</strong>强调数据表或数据库中的一条记录，尤其适合表格型数据。',
-    point: '<strong>Data Point：</strong>常作为“一个观测”的口语化称呼；这里先只理解为一个数据对象，不提前讲特征空间。'
+    object: '<strong>数据对象（Object）：</strong>最直接的说法——数据集中被描述的一个实体或对象。',
+    instance: '<strong>实例（Instance）：</strong>强调“一个具体实例”，机器学习教材里非常常见。',
+    sample: '<strong>样本（Sample）：</strong>机器学习里常指一个样本；注意统计学中 sample 也常指一整批抽样得到的观测。',
+    record: '<strong>记录（Record）：</strong>强调数据表或数据库中的一条记录，尤其适合表格型数据。',
+    point: '<strong>数据点（Data Point）：</strong>常作为“一个观测”的口语化称呼；这里先只理解为一个数据对象，不提前讲特征空间。'
   };
   document.querySelectorAll('.term-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -248,18 +248,18 @@
         scenario.querySelectorAll('.choice-btn').forEach((b) => b.classList.remove('correct','wrong'));
         const correct = btn.dataset.choice === scenario.dataset.answer;
         btn.classList.add(correct ? 'correct' : 'wrong');
-        result.textContent = correct ? `✓ 对。这里一个 Object = ${btn.textContent}。` : '再想一下：最终要被逐个判断或比较的基本单位是谁？';
+        result.textContent = correct ? `✓ 对。这里一个数据对象（Object） = ${btn.textContent}。` : '再想一下：最终要被逐个判断或比较的基本单位是谁？';
       });
     });
   });
 
   function resetInteractions() {
     document.querySelectorAll('tr[data-object]').forEach((r) => r.classList.remove('selected'));
-    objectResult.innerHTML = '点一行试试。<br><span>Object = ?</span>';
+    objectResult.innerHTML = '点一行试试。<br><span>数据对象（Object） = ?</span>';
     document.querySelectorAll('.term-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
-    termDetail.innerHTML = '<div><strong>Object：</strong>最直接的说法——数据集中被描述的一个实体或对象。</div>';
+    termDetail.innerHTML = '<div><strong>数据对象（Object）：</strong>最直接的说法——数据集中被描述的一个实体或对象。</div>';
     document.querySelectorAll('.choice-btn').forEach((b) => b.classList.remove('correct','wrong'));
-    document.querySelectorAll('.scenario-result').forEach((r) => r.textContent = '请选择这里的 Object。');
+    document.querySelectorAll('.scenario-result').forEach((r) => r.textContent = '请选择这里的数据对象（Object）。');
   }
   restartBtn.addEventListener('click', () => { resetInteractions(); showSlide(0); root.focus({preventScroll:true}); });
 
