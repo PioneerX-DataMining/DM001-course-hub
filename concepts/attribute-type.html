@@ -56,38 +56,55 @@
       </div>
     </article>
 
-    <article class="slide" data-title="为什么属性类型重要">
+    <article class="slide slide-impact" data-title="为什么属性类型重要">
       <span class="slide-no">03 / 03</span>
       <div class="slide-kicker">为什么重要 · Why it matters</div>
-      <h2>编码成数字，<br>不等于变成<span class="accent">数值属性</span>。</h2>
-      <p class="lead">属性类型会影响统计、编码、距离、相似性和模型处理方式。先做一个最常见的陷阱题。</p>
+      <h2>编码成数字，不等于变成<span class="accent">数值属性</span>。</h2>
+      <p class="lead">属性类型会影响统计、编码、距离、相似性和模型处理方式。先从一个最常见的编码陷阱开始。</p>
       <div class="slide-content">
-        <div class="impact-layout">
+        <div class="impact-main">
           <section class="coding-trap">
-            <div class="trap-title">城市编码</div>
-            <div class="city-row"><span>北京</span><b>= 1</b></div>
-            <div class="city-row"><span>上海</span><b>= 2</b></div>
-            <div class="city-row"><span>广州</span><b>= 3</b></div>
-            <div class="trap-question">所以“广州 − 北京 = 2”有意义吗？</div>
+            <div class="trap-title">编码陷阱 · Coding trap</div>
+            <div class="city-code-list">
+              <div class="city-row"><span>北京</span><b>1</b></div>
+              <div class="city-row"><span>上海</span><b>2</b></div>
+              <div class="city-row"><span>广州</span><b>3</b></div>
+            </div>
+            <div class="trap-question">“广州 − 北京 = 2”<br><span>这个差值有意义吗？</span></div>
             <div class="trap-actions"><button data-trap="yes" type="button">有意义</button><button data-trap="no" type="button">没有意义</button></div>
-            <div class="trap-feedback" id="trapFeedback">先作答。</div>
+            <div class="trap-feedback" id="trapFeedback">先作答，再看为什么。</div>
           </section>
+
           <section class="implication-panel">
-            <h3>属性类型（Attribute Type）会影响什么？</h3>
+            <div class="impact-heading">
+              <div>
+                <span class="impact-kicker">WHY IT MATTERS</span>
+                <h3>属性类型（Attribute Type）会影响什么？</h3>
+              </div>
+              <span class="impact-hint">点击卡片</span>
+            </div>
             <div class="implication-list">
-              <button data-impact="summary" type="button"><b>统计</b><span>平均值、众数、中位数能不能用？</span></button>
-              <button data-impact="encoding" type="button"><b>编码</b><span>类别数字编码不能凭空制造大小关系。</span></button>
-              <button data-impact="distance" type="button"><b>距离 / 相似性</b><span>不同类型需要不同的比较方式。</span></button>
-              <button data-impact="model" type="button"><b>模型</b><span>模型必须知道属性的语义与允许的操作。</span></button>
+              <button data-impact="summary" type="button"><b>统计</b><span>平均值、众数、中位数，哪些真的有意义？</span></button>
+              <button data-impact="encoding" type="button"><b>编码</b><span>编码只是表示方式，不能凭空制造顺序和距离。</span></button>
+              <button data-impact="distance" type="button"><b>距离 / 相似性</b><span>不同类型的数据，需要不同的比较方式。</span></button>
+              <button data-impact="model" type="button"><b>模型</b><span>模型必须知道变量语义与允许的操作。</span></button>
             </div>
             <div class="impact-detail" id="impactDetail">点击任意一项，看为什么属性类型会影响后面的数据挖掘。</div>
           </section>
         </div>
-        <div class="second-axis">
-          <div><strong>还有另一条分类轴：</strong>离散（Discrete） vs 连续（Continuous）</div>
-          <span>人数：离散（Discrete）+ 比率（Ratio）</span><span>邮编：离散（Discrete）+ 名义（Nominal）</span><span>身高：连续（Continuous）+ 比率（Ratio）</span>
+
+        <div class="impact-footer">
+          <section class="second-axis">
+            <div class="axis-heading"><strong>另一条分类轴</strong><span>离散（Discrete） vs 连续（Continuous）</span></div>
+            <div class="axis-examples">
+              <span><b>人数</b>离散（Discrete）+ 比率（Ratio）</span>
+              <span><b>邮编</b>离散（Discrete）+ 名义（Nominal）</span>
+              <span><b>身高</b>连续（Continuous）+ 比率（Ratio）</span>
+            </div>
+          </section>
+
+          <div class="takeaway impact-takeaway">属性类型（Attribute Type）决定的不是“这一列叫什么”，而是<span>“这一列允许你做什么”</span>。<small>下一步：不同的数据对象与属性，又可以怎样组织成完整的数据表示？</small></div>
         </div>
-        <div class="takeaway">属性类型（Attribute Type）决定的不是“这一列叫什么”，而是<span>“这一列允许你做什么”</span>。<small>下一步：不同的数据对象与属性，又可以怎样组织成完整的数据表示？</small></div>
       </div>
     </article>
   </section>
