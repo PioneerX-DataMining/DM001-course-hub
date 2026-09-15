@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = '20260915-1745';
+  const VERSION = '20260915-1800';
   const SEQUENCE = [
     { file: 'data-mining.html', title: '01 · 数据挖掘' },
     { file: 'data-object.html', title: '02 · 数据对象' },
