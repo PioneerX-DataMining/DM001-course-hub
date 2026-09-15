@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DM001 学生创新项目：1–5 人组队，自拟项目优先，用 Agent、数据与软件做一个真正有人愿意使用的作品。" />
+  <title>项目实践 · DM001 Course Hub</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .project-hero { padding:72px 0 42px; }
+    .project-hero h1 { max-width:1050px; }
+    .project-hero .lead { max-width:850px; color:#526178; font-size:clamp(18px,2vw,22px); margin:0; }
+    .rule-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:30px; }
+    .rule-card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:22px; }
+    .rule-card strong { display:block; font-size:18px; margin:8px 0 6px; }
+    .rule-card p { margin:0; color:var(--muted); font-size:14px; }
+    .rule-no { color:var(--blue); font-size:12px; font-weight:900; letter-spacing:.08em; }
+    .callout { background:#0c1f46; color:#fff; border-radius:26px; padding:34px 38px; margin-top:24px; display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center; box-shadow:0 24px 56px rgba(15,23,42,.14); }
+    .callout h2 { font-size:32px; line-height:1.15; margin:0 0 12px; letter-spacing:-.04em; }
+    .callout p { color:#cbd8ee; margin:0; }
+    .callout .quote { border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.07); border-radius:18px; padding:22px; font-size:18px; line-height:1.6; }
+    .idea-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .idea-card { background:#fff; border:1px solid var(--line); border-radius:20px; padding:22px; min-height:230px; display:flex; flex-direction:column; }
+    .idea-card .idea-top { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px; }
+    .idea-id { font-size:12px; font-weight:900; letter-spacing:.08em; color:var(--blue); }
+    .idea-kind { font-size:11px; font-weight:800; border-radius:999px; padding:5px 8px; background:#f0f5ff; color:var(--blue-dark); border:1px solid #d6e2fb; }
+    .idea-card h3 { font-size:20px; margin:0 0 8px; letter-spacing:-.025em; }
+    .idea-card p { color:var(--muted); font-size:14px; margin:0 0 14px; }
+    .idea-card ul { color:#45546a; font-size:13px; padding-left:18px; margin:0; }
+    .idea-card li + li { margin-top:4px; }
+    .infra-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+    .infra-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px; }
+    .infra-card b { display:block; margin:5px 0; font-size:16px; }
+    .infra-card p { margin:0; color:var(--muted); font-size:13px; }
+    .soft-note { margin-top:18px; padding:16px 18px; border-radius:14px; border:1px solid #cfe0ff; background:#f3f7ff; color:#27456f; font-size:14px; }
+    .deliverable { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .deliverable .card { min-height:150px; }
+    .deliverable .card .icon { margin-bottom:18px; }
+    @media (max-width: 980px) {
+      .rule-grid, .idea-grid { grid-template-columns:1fr 1fr; }
+      .infra-grid { grid-template-columns:1fr 1fr; }
+      .callout { grid-template-columns:1fr; }
+    }
+    @media (max-width: 620px) {
+      .project-hero { padding-top:42px; }
+      .project-hero h1 { font-size:46px; }
+      .rule-grid, .idea-grid, .infra-grid, .deliverable { grid-template-columns:1fr; }
+      .callout { padding:26px 22px; }
+    }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="./">
+      <span class="brand-mark">DM</span>
+      <span>DM001 <small>Course Hub</small></span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="./">课程首页</a>
+      <a href="curriculum.html">课程内容</a>
+      <a href="projects.html">项目实践</a>
+      <a href="join.html">加入课程</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="project-hero">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> PROJECT PRACTICE · 项目实践</span>
+      <h1>不要只完成作业。<br><span>做一个真正有人愿意用的东西。</span></h1>
+      <p class="lead">项目可以和生物、化学、食品、生物制造、健康、环境或你真正感兴趣的问题有关。数据挖掘可以用，也可以不用；算法不是目的，解决真实问题才是。</p>
+
+      <div class="rule-grid">
+        <div class="rule-card"><span class="rule-no">TEAM</span><strong>1–5 人组队</strong><p>可以一个人独立完成，也可以自由组队；每组最多 5 人。</p></div>
+        <div class="rule-card"><span class="rule-no">IDEA</span><strong>自拟项目优先</strong><p>最鼓励从你自己的兴趣、生活、专业或身边的问题出发。</p></div>
+        <div class="rule-card"><span class="rule-no">BUILD</span><strong>做出能用的作品</strong><p>网页、App、数据库、可视化、智能工具、Agent、数据产品都可以。</p></div>
+        <div class="rule-card"><span class="rule-no">AGENT</span><strong>大胆使用 Agent</strong><p>不要求手写大量代码。让 Agent 帮你实现，但你要能判断它做得对不对。</p></div>
+      </div>
+
+      <div class="callout">
+        <div>
+          <h2>不要求“必须像一门数据挖掘课”。</h2>
+          <p>你不需要为了课程硬塞一个随机森林、神经网络或聚类算法。一个把化学结构式画得非常漂亮的工具，只要真的解决问题，也可以是优秀项目。</p>
+        </div>
+        <div class="quote">“我身边有没有一个反复出现、很烦、但其实可以用数据、AI 或软件解决的问题？”<br><br>从这个问题开始。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="infra">
+    <div class="container">
+      <div class="section-head">
+        <div><h2>课程本身也在持续建设</h2></div>
+        <p>下面是课程长期基础设施。它们不是普通作业；如果你对其中某个模块特别感兴趣，也可以和老师讨论参与一个明确的小模块。</p>
+      </div>
+      <div class="infra-grid">
+        <div class="infra-card"><span class="idea-id">DM001</span><b>Course Hub</b><p>课程主页、概念展示、教程与统一入口。</p></div>
+        <div class="infra-card"><span class="idea-id">DM002</span><b>Course Pulse</b><p>观察课程进展、项目动态、成果展示与对外宣传。</p></div>
+        <div class="infra-card"><span class="idea-id">DM003</span><b>Open Resources</b><p>免费 API、开放数据、免费模型和可用工具。</p></div>
+        <div class="infra-card"><span class="idea-id">DM004</span><b>Gradebook</b><p>面向每位学生的过程记录、个人评价与最终成绩。</p></div>
+        <div class="infra-card"><span class="idea-id">DM005</span><b>Course Infra</b><p>部署、域名、CI/CD、运行状态和课程技术基础设施。</p></div>
+      </div>
+      <div class="soft-note">学生创新项目从 <strong>DM011</strong> 开始编号。项目确定后再分配正式编号和仓库，不需要现在先把所有仓库建出来。</div>
+    </div>
+  </section>
+
+  <section class="section" id="ideas">
+    <div class="container">
+      <div class="section-head">
+        <div><h2>如果你暂时没有想法</h2></div>
+        <p>下面不是题目清单，更不是必须完成的方向。它们只是一些“火种”：可以直接做，也可以改得完全不像原来的样子。</p>
+      </div>
+
+      <div class="idea-grid">
+        <article class="idea-card">
+          <div class="idea-top"><span class="idea-id">IDEA 01</span><span class="idea-kind">食品 × AI</span></div>
+          <h3>FoodLens · 食品配料表助手</h3>
+          <p>拍摄食品包装或配料表，自动识别成分，并帮助用户读懂“这个东西到底是什么”。</p>
+          <ul><li>中文配料表识别</li><li>食品添加剂与成分解释</li><li>两个商品拍照对比</li><li>同类产品推荐</li></ul>
+        </article>
+
+        <article class="idea-card">
+          <div class="idea-top"><span class="idea-id">IDEA 02</span><span class="idea-kind">饮食 × 推荐</span></div>
+          <h3>EatWise · 今天吃什么</h3>
+          <p>记录今天已经吃过什么，结合食堂菜单、个人偏好和近期饮食，推荐下一餐。</p>
+          <ul><li>拍餐盘 / 菜单识别</li><li>校园食堂真实数据</li><li>避免连续重复</li><li>可以先从北化食堂做起</li></ul>
+        </article>
+
+        <article class="idea-card">
+          <div class="idea-top"><span class="idea-id">IDEA 03</span><span class="idea-kind">化妆品 × 配方</span></div>
+          <h3>FormulaMatch · 配方比较与找平替</h3>
+          <p>拍两个化妆品配料表，比较它们的核心配方，并寻找“成分类似但更适合我”的产品。</p>
+          <ul><li>INCI 成分识别</li><li>核心功能成分解释</li><li>配方相似度</li><li>避免简单“好/坏”打分</li></ul>
+        </article>
+
+        <article class="idea-card">
+          <div class="idea-top"><span class="idea-id">IDEA 04</span><span class="idea-kind">化学 × 工具</span></div>
+          <h3>MoleculeDraw · 漂亮结构式生成器</h3>
+          <p>输入化学名称、SMILES，甚至上传图片，自动得到风格统一、适合论文和 PPT 的漂亮结构式。</p>
+          <ul><li>二维结构自动排版</li><li>风格模板</li><li>SVG / PNG 等导出</li><li>进一步可扩展到反应路线</li></ul>
+        </article>
+
+        <article class="idea-card">
+          <div class="idea-top"><span class="idea-id">IDEA 05</span><span class="idea-kind">化学发光 × 数据库</span></div>
+          <h3>LuminoBase · 化学发光数据库</h3>
+          <p>系统收集化学发光分子、结构、发光波长、量子产率、触发条件和应用，并做成真正可搜索、可浏览的数据库。</p>
+          <ul><li>分子结构与文献数据整理</li><li>按发光颜色 / 机理 / 应用筛选</li><li>化学空间或结构相似性展示</li><li>漂亮的分子卡片与交互可视化</li></ul>
+        </article>
+
+        <article class="idea-card">
+          <div class="idea-top"><span class="idea-id">IDEA 06</span><span class="idea-kind">生物制造 × 发酵</span></div>
+          <h3>FermentAI · 发酵过程助手</h3>
+          <p>记录温度、pH、OD、糖浓度、产物浓度等过程数据，帮助比较批次、发现异常并整理实验记录。</p>
+          <ul><li>发酵曲线自动生成</li><li>不同批次对比</li><li>异常变化提示</li><li>实验记录自动整理</li></ul>
+        </article>
+
+        <article class="idea-card">
+          <div class="idea-top"><span class="idea-id">IDEA 07</span><span class="idea-kind">生物制造 × 循环利用</span></div>
+          <h3>BioWaste Match · 废弃物去哪儿</h3>
+          <p>输入咖啡渣、果皮、秸秆、食品副产物等，寻找可能的生物转化路线和高值产品。</p>
+          <ul><li>原料—微生物—产物关系</li><li>公开文献和数据库整理</li><li>路线推荐</li><li>可扩展市场信息</li></ul>
+        </article>
+
+        <article class="idea-card">
+          <div class="idea-top"><span class="idea-id">IDEA 08</span><span class="idea-kind">酶 × 知识图谱</span></div>
+          <h3>Enzyme Explorer · 酶反应探索器</h3>
+          <p>把酶、底物、产物、反应类型和物种连起来，让用户可以真正“逛”酶催化反应空间。</p>
+          <ul><li>公开酶数据库整合</li><li>反应网络与检索</li><li>相似反应发现</li><li>未知区域和数据空白展示</li></ul>
+        </article>
+
+        <article class="idea-card">
+          <div class="idea-top"><span class="idea-id">YOUR IDEA</span><span class="idea-kind">你来定义</span></div>
+          <h3>也许最好的项目还没写在这里</h3>
+          <p>游戏、运动、校园生活、宠物、植物、食品、环境、科研工具……只要你能说清楚问题，并做出真正可用的作品，就值得尝试。</p>
+          <ul><li>先找真实问题</li><li>再考虑技术</li><li>尽快做出最小可用版本</li><li>让真实用户试一试</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="deliverables">
+    <div class="container">
+      <div class="section-head">
+        <div><h2>我们希望最后看到什么</h2></div>
+        <p>项目形式可以不同，但最好留下可继续发展的成果，而不是只交一份报告。</p>
+      </div>
+      <div class="deliverable">
+        <div class="card"><div class="icon">01</div><h3>一个可用的作品</h3><p>网页、App、数据库、工具、Agent、可视化或其他可以实际体验的成果。</p></div>
+        <div class="card"><div class="icon">02</div><h3>一个 GitHub 仓库</h3><p>保留代码、数据说明、过程与版本，让项目能够继续生长。</p></div>
+        <div class="card"><div class="icon">03</div><h3>一次清楚的展示</h3><p>告诉大家：你发现了什么问题、怎么解决、现在能做到什么、下一步还能去哪。</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <strong>DM001 · Student Innovation Projects</strong>
+    <span>Build something real.</span>
+  </div>
+</footer>
+</body>
+</html>
