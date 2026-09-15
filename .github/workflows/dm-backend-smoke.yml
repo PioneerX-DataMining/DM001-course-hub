@@ -25,7 +25,7 @@ jobs:
           data = json.load(open('/tmp/ready.json', encoding='utf-8'))
           assert data.get('status') == 'ready', data
           assert data.get('database') == 'ready', data
-          assert data.get('schema_version') == '20260915_01', data
+          assert data.get('schema_version') == '20260915_02', data
           print('AutoLab ready at schema', data['schema_version'])
           PY
 
@@ -35,7 +35,7 @@ jobs:
           curl -fsS --max-time 20 \
             -H 'Origin: https://dm.pioneer-x.cn' \
             -H 'Content-Type: application/x-www-form-urlencoded' \
-            --data 'student_id=smoke&real_name=smoke&github_username=smoke&team=&website=dm-backend-smoke' \
+            --data 'student_id=smoke&real_name=smoke&github_username=smoke&github_email=smoke@example.edu&website=dm-backend-smoke' \
             -D /tmp/headers.txt \
             https://lab.pioneer-x.cn/api/dm/register \
             -o /tmp/probe.json
