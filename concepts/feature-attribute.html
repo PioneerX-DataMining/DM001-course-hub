@@ -11,67 +11,67 @@
   <link rel="stylesheet" href="feature-space.css" />
 </head>
 <body>
-<header class="deck-topbar"><div class="container deck-nav"><div class="deck-nav-left"><a class="back-link" href="../curriculum.html#lesson-1">← 返回</a><div class="deck-label">概念 03 · 特征与属性<small>Feature / Attribute</small></div></div><div class="deck-nav-right"><button class="tool-btn" id="restartBtn" type="button">↺ <span>重新开始</span></button><button class="tool-btn" id="fullscreenBtn" type="button">⛶ <span>全屏演示</span></button></div></div></header>
+<header class="deck-topbar"><div class="container deck-nav"><div class="deck-nav-left"><a class="back-link" href="../curriculum.html#lesson-1">← 返回</a><div class="deck-label">概念 03 · 特征与属性<small>特征 / 属性 · Feature / Attribute</small></div></div><div class="deck-nav-right"><button class="tool-btn" id="restartBtn" type="button">↺ <span>重新开始</span></button><button class="tool-btn" id="fullscreenBtn" type="button">⛶ <span>全屏演示</span></button></div></div></header>
 
 <main class="deck-wrap" id="deckRoot" tabindex="0">
   <section class="stage" id="stage" aria-live="polite">
     <article class="slide active" data-title="对象如何变成数据">
       <span class="slide-no">01 / 05</span><div class="slide-kicker">From object to data · 从对象到数据</div>
       <h1>只有“小明”，<br>计算机<span class="accent">知道什么？</span></h1>
-      <p class="lead">上一节我们找到了 Object。现在的问题是：怎样把一个现实对象变成机器可以分析的数据？</p>
+      <p class="lead">上一节我们找到了数据对象（Object）。现在的问题是：怎样把一个现实对象变成机器可以分析的数据？</p>
       <div class="slide-content"><div class="person-layout">
         <div class="person-card"><div class="avatar">👤</div><h3>小明</h3><p>一个真实世界中的学生对象</p></div>
-        <div class="attribute-board" id="attributeBoard"><h3>点击，把 Object 变成可描述的数据</h3><div class="attribute-chips"><span class="attribute-chip">年龄 · 21 岁</span><span class="attribute-chip">身高 · 175 cm</span><span class="attribute-chip">体重 · 68 kg</span><span class="attribute-chip">专业 · 化学</span><span class="attribute-chip">平均成绩 · 86</span><span class="attribute-chip">睡眠 · 6.5 h</span></div><button class="reveal-btn" id="revealBtn" type="button">显示 Attributes →</button><div class="reveal-note" id="revealNote">Object 本身不是一串数字；我们先选择怎样描述它。</div></div>
+        <div class="attribute-board" id="attributeBoard"><h3>点击，把数据对象（Object）变成可描述的数据</h3><div class="attribute-chips"><span class="attribute-chip">年龄 · 21 岁</span><span class="attribute-chip">身高 · 175 cm</span><span class="attribute-chip">体重 · 68 kg</span><span class="attribute-chip">专业 · 化学</span><span class="attribute-chip">平均成绩 · 86</span><span class="attribute-chip">睡眠 · 6.5 h</span></div><button class="reveal-btn" id="revealBtn" type="button">显示属性（Attributes） →</button><div class="reveal-note" id="revealNote">数据对象（Object）本身不是一串数字；我们先选择怎样描述它。</div></div>
       </div></div>
     </article>
 
     <article class="slide" data-title="一行与一列">
-      <span class="slide-no">02 / 05</span><div class="slide-kicker">Objects × Attributes · 数据表的两个方向</div>
+      <span class="slide-no">02 / 05</span><div class="slide-kicker">对象与属性 · Objects × Attributes</div>
       <h2>一行回答“谁”，<br>一列回答<span class="accent">“我们知道什么”</span>。</h2>
-      <p class="lead">经典数据挖掘教材最基础的视角：数据集由 Objects 和描述它们的 Attributes 共同组成。</p>
+      <p class="lead">经典数据挖掘教材最基础的视角：数据集由数据对象（Objects）和描述它们的属性（Attributes）共同组成。</p>
       <div class="slide-content"><div class="matrix-layout">
-        <div class="matrix-card"><div class="matrix-toolbar"><button class="active" data-matrix="row" type="button">高亮一个 Object（一行）</button><button data-matrix="col" type="button">高亮 Attributes（列）</button><button data-matrix="reset" type="button">恢复</button></div><table class="matrix highlight-row" id="matrixTable"><thead><tr><th>Object</th><th>Age</th><th>Height</th><th>Major</th><th>Score</th></tr></thead><tbody><tr><td>小明</td><td>21</td><td>175</td><td>化学</td><td>86</td></tr><tr><td>小雨</td><td>20</td><td>163</td><td>材料</td><td>91</td></tr><tr><td>小陈</td><td>22</td><td>181</td><td>计算机</td><td>79</td></tr></tbody></table></div>
-        <div class="matrix-side"><div class="formula">Data =<br>Objects × Attributes</div><p>表格只是最直观的例子，但这两个问题会贯穿整门课：研究对象是谁？我们用什么信息描述它？</p><div class="legend"><div class="legend-row"><span class="legend-swatch swatch-row"></span> Row → 一个 Object</div><div class="legend-row"><span class="legend-swatch swatch-col"></span> Column → 一个 Attribute</div></div></div>
+        <div class="matrix-card"><div class="matrix-toolbar"><button class="active" data-matrix="row" type="button">高亮一个数据对象（Object，一行）</button><button data-matrix="col" type="button">高亮属性（Attributes，列）</button><button data-matrix="reset" type="button">恢复</button></div><table class="matrix highlight-row" id="matrixTable"><thead><tr><th>对象（Object）</th><th>年龄（Age）</th><th>身高（Height）</th><th>专业（Major）</th><th>成绩（Score）</th></tr></thead><tbody><tr><td>小明</td><td>21</td><td>175</td><td>化学</td><td>86</td></tr><tr><td>小雨</td><td>20</td><td>163</td><td>材料</td><td>91</td></tr><tr><td>小陈</td><td>22</td><td>181</td><td>计算机</td><td>79</td></tr></tbody></table></div>
+        <div class="matrix-side"><div class="formula">数据（Data） =<br>对象（Objects） × 属性（Attributes）</div><p>表格只是最直观的例子，但这两个问题会贯穿整门课：研究对象是谁？我们用什么信息描述它？</p><div class="legend"><div class="legend-row"><span class="legend-swatch swatch-row"></span> 行（Row）→ 一个数据对象（Object）</div><div class="legend-row"><span class="legend-swatch swatch-col"></span> 列（Column）→ 一个属性（Attribute）</div></div></div>
       </div></div>
     </article>
 
     <article class="slide" data-title="对象进入特征空间">
-      <span class="slide-no">03 / 05</span><div class="slide-kicker">Feature vector &amp; feature space · 从现实对象到空间中的点</div>
-      <h2>多个 Features 放在一起，<br>Object 就变成<span class="accent">空间中的一个点</span>。</h2>
+      <span class="slide-no">03 / 05</span><div class="slide-kicker">特征向量与特征空间 · Feature vector &amp; feature space</div>
+      <h2>多个特征（Features）放在一起，<br>数据对象（Object）就变成<span class="accent">空间中的一个点</span>。</h2>
       <p class="lead">这是后面 KNN、聚类、距离、决策边界和“高维空间”共同依赖的几何直觉。</p>
       <div class="slide-content"><div class="space-layout">
         <div class="vector-flow">
-          <div class="flow-card"><div class="flow-tag">REAL WORLD</div><div class="flow-main">👤 小明</div><div class="flow-sub">一个 Object</div></div>
+          <div class="flow-card"><div class="flow-tag">现实世界 · REAL WORLD</div><div class="flow-main">👤 小明</div><div class="flow-sub">一个数据对象（Object）</div></div>
           <div class="flow-arrow">→</div>
-          <div class="flow-card vector-card"><div class="flow-tag">FEATURE VECTOR</div><div class="flow-main mono">x = (21, 175, 68)</div><div class="flow-sub">Age · Height · Weight</div></div>
+          <div class="flow-card vector-card"><div class="flow-tag">特征向量 · FEATURE VECTOR</div><div class="flow-main mono">x = (21, 175, 68)</div><div class="flow-sub">年龄（Age） · 身高（Height） · 体重（Weight）</div></div>
           <div class="flow-arrow">→</div>
-          <div class="flow-card"><div class="flow-tag">FEATURE SPACE</div><div class="flow-main">• 一个 Data Point</div><div class="flow-sub">每个 Feature 对应一个维度</div></div>
+          <div class="flow-card"><div class="flow-tag">特征空间 · FEATURE SPACE</div><div class="flow-main">• 一个数据点（Data Point）</div><div class="flow-sub">每个特征（Feature）对应一个维度</div></div>
         </div>
         <div class="space-bottom">
-          <div class="space-explain"><h3>Feature Space 是什么？</h3><p>如果选择 <strong>d 个 Features</strong>，就可以把每个 Object 表示成一个 <strong>d 维向量</strong>。因此，每个 Object 都对应这个 d 维 Feature Space 中的一个点。</p><div class="space-equation">Object → Feature Vector → Data Point</div><div class="space-note">为了画出来，右边只保留 Height 与 Weight 两个 Feature，把高维问题简化成二维。</div></div>
-          <div class="plot-card" aria-label="二维特征空间示意图"><div class="y-label">Weight</div><div class="x-label">Height</div><div class="axis-y"></div><div class="axis-x"></div><div class="plot-point p1"><span>小雨</span></div><div class="plot-point p2"><span>小明</span></div><div class="plot-point p3"><span>小陈</span></div><div class="plot-caption">每个学生 = Feature Space 中的一个点</div></div>
+          <div class="space-explain"><h3>特征空间（Feature Space）是什么？</h3><p>如果选择 <strong>d 个特征（Features）</strong>，就可以把每个数据对象（Object）表示成一个 <strong>d 维向量</strong>。因此，每个数据对象（Object）都对应这个 d 维特征空间（Feature Space）中的一个点。</p><div class="space-equation">数据对象（Object） → 特征向量（Feature Vector） → 数据点（Data Point）</div><div class="space-note">为了画出来，右边只保留身高（Height）与体重（Weight）两个特征（Feature），把高维问题简化成二维。</div></div>
+          <div class="plot-card" aria-label="二维特征空间示意图"><div class="y-label">体重（Weight）</div><div class="x-label">身高（Height）</div><div class="axis-y"></div><div class="axis-x"></div><div class="plot-point p1"><span>小雨</span></div><div class="plot-point p2"><span>小明</span></div><div class="plot-point p3"><span>小陈</span></div><div class="plot-caption">每个学生 = 特征空间（Feature Space）中的一个点</div></div>
         </div>
       </div></div>
     </article>
 
     <article class="slide" data-title="属性不等于属性值">
-      <span class="slide-no">04 / 05</span><div class="slide-kicker">Attribute ≠ Attribute value · 一个关键区分</div>
-      <h2><span class="accent">Height</span> 是特征，<br>但 <span class="accent">175 cm</span> 不是。</h2>
+      <span class="slide-no">04 / 05</span><div class="slide-kicker">属性 ≠ 属性值 · Attribute ≠ Attribute value</div>
+      <h2><span class="accent">身高（Height）</span> 是特征（Feature），<br>但 <span class="accent">175 cm</span> 不是。</h2>
       <p class="lead">属性（Attribute）是描述维度；属性值（Attribute Value）才是某个对象在这个维度上的具体观测。</p>
       <div class="slide-content"><div class="value-layout">
-        <div class="value-table"><table><thead><tr><th>Attribute</th><th>Attribute Value</th></tr></thead><tbody><tr data-value="年龄|21 岁"><td>Age</td><td>21 岁</td></tr><tr data-value="身高|175 cm"><td>Height</td><td>175 cm</td></tr><tr data-value="专业|Chemistry"><td>Major</td><td>Chemistry</td></tr><tr data-value="成绩|86"><td>Score</td><td>86</td></tr></tbody></table></div>
-        <div class="value-quiz"><div class="question">“175” 本身是 Feature 吗？</div><div class="binary"><button data-answer="no" type="button">不是</button><button data-answer="yes" type="button">是</button></div><div class="value-feedback" id="valueFeedback">先作答。然后再点左边任意一行，看 Attribute 与 Value 的对应关系。</div></div>
+        <div class="value-table"><table><thead><tr><th>属性（Attribute）</th><th>属性值（Attribute Value）</th></tr></thead><tbody><tr data-value="年龄|21 岁"><td>年龄（Age）</td><td>21 岁</td></tr><tr data-value="身高|175 cm"><td>身高（Height）</td><td>175 cm</td></tr><tr data-value="专业|化学"><td>专业（Major）</td><td>化学（Chemistry）</td></tr><tr data-value="成绩|86"><td>成绩（Score）</td><td>86</td></tr></tbody></table></div>
+        <div class="value-quiz"><div class="question">“175” 本身是特征（Feature）吗？</div><div class="binary"><button data-answer="no" type="button">不是</button><button data-answer="yes" type="button">是</button></div><div class="value-feedback" id="valueFeedback">先作答。然后再点左边任意一行，看属性（Attribute）与属性值（Value）的对应关系。</div></div>
       </div></div>
     </article>
 
     <article class="slide" data-title="特征取决于问题">
-      <span class="slide-no">05 / 05</span><div class="slide-kicker">Features depend on the question · 描述方式不是唯一的</div>
-      <h2>同一个 Object，<br>可以有<span class="accent">完全不同的 Features</span>。</h2>
-      <p class="lead">Feature 不是对象天然携带的一张固定清单；我们为了一个问题，选择一种描述方式。</p>
+      <span class="slide-no">05 / 05</span><div class="slide-kicker">特征取决于问题 · Features depend on the question</div>
+      <h2>同一个数据对象（Object），<br>可以有<span class="accent">完全不同的特征（Features）</span>。</h2>
+      <p class="lead">特征（Feature）不是对象天然携带的一张固定清单；我们为了一个问题，选择一种描述方式。</p>
       <div class="slide-content"><div class="final-layout">
-        <div class="problem-tabs"><h3>还是“小明”，你现在想研究什么？</h3><div class="tabs"><button class="tab-btn active" data-problem="study" type="button">学习成绩</button><button class="tab-btn" data-problem="sport" type="button">运动能力</button><button class="tab-btn" data-problem="consume" type="button">消费行为</button></div><div class="feature-list" id="featureList"></div><div class="problem-note">切换问题，观察描述同一个人的 Features 怎样随之改变。</div></div>
-        <div class="mini-challenge"><h3>最后一题：如果要预测 IC50？</h3><table class="mol-table"><thead><tr><th>Molecule</th><th>MW</th><th>logP</th><th>HBD</th><th>IC50</th></tr></thead><tbody><tr><td>A</td><td>320</td><td>2.1</td><td>2</td><td>18</td></tr><tr><td>B</td><td>275</td><td>1.3</td><td>1</td><td>63</td></tr><tr><td>C</td><td>410</td><td>4.2</td><td>0</td><td>7</td></tr></tbody></table><div class="challenge-options"><button data-challenge="mw" type="button">MW / logP / HBD</button><button data-challenge="ic50" type="button">IC50</button><button data-challenge="all" type="button">全部都一样</button></div><div class="challenge-feedback" id="challengeFeedback">哪些列更像是“用来描述分子、帮助预测”的 Features？</div></div>
-      </div><div class="takeaway">Feature = 为了当前问题，用来描述 Object 的属性<small>An object is described by attributes · Objects become data points in feature space · Representation depends on the question</small></div></div>
+        <div class="problem-tabs"><h3>还是“小明”，你现在想研究什么？</h3><div class="tabs"><button class="tab-btn active" data-problem="study" type="button">学习成绩</button><button class="tab-btn" data-problem="sport" type="button">运动能力</button><button class="tab-btn" data-problem="consume" type="button">消费行为</button></div><div class="feature-list" id="featureList"></div><div class="problem-note">切换问题，观察描述同一个人的特征（Features）怎样随之改变。</div></div>
+        <div class="mini-challenge"><h3>最后一题：如果要预测 IC50？</h3><table class="mol-table"><thead><tr><th>分子（Molecule）</th><th>MW</th><th>logP</th><th>HBD</th><th>IC50</th></tr></thead><tbody><tr><td>A</td><td>320</td><td>2.1</td><td>2</td><td>18</td></tr><tr><td>B</td><td>275</td><td>1.3</td><td>1</td><td>63</td></tr><tr><td>C</td><td>410</td><td>4.2</td><td>0</td><td>7</td></tr></tbody></table><div class="challenge-options"><button data-challenge="mw" type="button">MW / logP / HBD</button><button data-challenge="ic50" type="button">IC50</button><button data-challenge="all" type="button">全部都一样</button></div><div class="challenge-feedback" id="challengeFeedback">哪些列更像是“用来描述分子、帮助预测”的特征（Features）？</div></div>
+      </div><div class="takeaway">特征（Feature） = 为了当前问题，用来描述数据对象（Object）的属性<small>一个对象由属性描述（An object is described by attributes） · 对象在特征空间中成为数据点（Objects become data points in feature space） · 表示方式取决于问题（Representation depends on the question）</small></div></div>
     </article>
   </section>
 
