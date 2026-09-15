@@ -28,17 +28,25 @@ DM001 is a concept-first Data Mining course. The concept pages are classroom pre
    - Do not introduce tiny helper text, labels, legends, or feedback text.
    - Small secondary text must remain visibly readable; do not shrink content merely to fit one screen.
 
-5. **Keep visual hierarchy simple.**
+5. **Fullscreen is the same slide, only uniformly scaled.**
+   - Normal mode is the single source of truth for slide typography, line wrapping, spacing, grid topology, card sizes, and element positions.
+   - Fullscreen/presenter mode must preserve that exact layout and scale the entire stage uniformly to fit the available screen.
+   - **Never create a second fullscreen content layout.** Do not change font sizes, line breaks, card padding, grid columns, component heights, or slide spacing only because the deck is fullscreen.
+   - Do not add page-specific `.deck-wrap:fullscreen ...`, `:fullscreen ...`, or presenter-only rules that alter slide content. Presentation-only CSS may hide/show chrome such as the top bar, hints, sources, or exit-fullscreen controls.
+   - Shared behavior lives in `fullscreen-sync.js` and `fullscreen-consistency.css`; fix consistency there rather than patching individual slides.
+   - Existing legacy page-level fullscreen rules may remain temporarily, but new work must not depend on them and should remove them when touching the relevant stylesheet.
+
+6. **Keep visual hierarchy simple.**
    - One clear main idea per slide.
    - Main title > optional short lead > visual/interaction > concise takeaway.
    - Avoid dense prose and documentation-style paragraphs.
 
-6. **Use the shared concept-deck infrastructure.**
+7. **Use the shared concept-deck infrastructure.**
    - New concept pages under `concepts/` must load `deck-mobile.js`.
    - `deck-mobile.js` loads shared mobile/fullscreen behavior, page management, `concept-standards.css`, and the teacher text/style editor (`deck-text-editor.js`).
    - Do not bypass this shared loader without a specific reason; otherwise new pages will lose editing, presentation, and consistency features.
 
-7. **Keep teacher editing compatible.**
+8. **Keep teacher editing compatible.**
    - Static visible text should remain normal DOM text so the shared editor can select it.
    - Avoid replacing the shared editor or inventing per-page editing controls.
    - The editing baseline supports persistent text content, font size, text color, and deleting selected text or buttons.
@@ -48,7 +56,7 @@ DM001 is a concept-first Data Mining course. The concept pages are classroom pre
    - Keep teacher entry points simple: the top bar should expose `编辑本页` and `页面管理`, not a separate top-level `删除本页` button.
    - `删除本页` belongs inside the `编辑本页` panel as a dangerous current-page action; `页面管理` is for deck-level page management such as viewing/restoring deleted pages.
 
-8. **Maintain interaction consistency.**
+9. **Maintain interaction consistency.**
    - Student-answer interactions should give immediate visual feedback.
    - Buttons and feedback text should use Chinese-first bilingual terminology where terminology is involved.
    - Fullscreen navigation and mobile behavior must continue to work.
@@ -60,7 +68,9 @@ Check the page for:
 - Any question without a `课堂判断` label.
 - Unnecessarily small text at 100% zoom.
 - Explanatory filler that can be removed without losing meaning.
-- Broken normal/fullscreen/mobile layout.
+- Any normal/fullscreen difference in typography, wrapping, spacing, grids, card sizes, or content positions.
+- Any newly introduced page-specific fullscreen content styling; fullscreen must be a uniform scale of the normal slide.
+- Broken mobile layout.
 - A missing `deck-mobile.js` loader that would disable shared editing/presentation behavior.
 - Any teacher edit path that silently auto-saves instead of requiring `保存本页`.
 - Duplicate teacher controls such as a top-level `删除本页` plus the same action inside `编辑本页`.
