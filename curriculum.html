@@ -13,170 +13,25 @@
   </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="container nav">
-    <a class="brand" href="./">
-      <span class="brand-mark">DM</span>
-      <span>DM001 <small>Course Hub</small></span>
-    </a>
-    <nav class="nav-links" aria-label="主导航">
-      <a href="./">首页</a>
-      <a class="active" href="curriculum.html">课程内容</a>
-      <a href="./#resources">教程</a>
-      <a href="apps/pomodoro.html">番茄钟</a>
-    </nav>
-  </div>
-</header>
-
+<header class="topbar"><div class="container nav"><a class="brand" href="./"><span class="brand-mark">DM</span><span>DM001 <small>Course Hub</small></span></a><nav class="nav-links" aria-label="主导航"><a href="./">首页</a><a class="active" href="curriculum.html">课程内容</a><a href="./#resources">教程</a><a href="apps/pomodoro.html">番茄钟</a></nav></div></header>
 <main>
-  <section class="course-hero">
-    <div class="container">
-      <span class="eyebrow"><span class="dot"></span> DM001 · Concept-first Curriculum</span>
-      <h1>12 次课，48 个<br><span style="color:var(--blue)">数据挖掘核心概念。</span></h1>
-      <p class="lead">2026 版课程不再把课堂时间主要用于算法手算和代码操作。课堂聚焦概念、假设、模型思想与评价；实现、实验、比较与迭代主要通过 Agent 驱动的项目实践完成。</p>
-      <div class="course-stats"><span>12 次概念课</span><span>48 个核心概念</span><span>Concept first</span><span>Agent-based project</span></div>
-      <div class="principle"><strong>课程主线</strong><p>认识数据与问题 → 让数据可学习 → 发现结构 → 建立预测模型 → 理解机器如何学习 → 判断模型是否可信 → 进入真实应用。</p></div>
-      <div class="stage-grid">
-        <div class="stage"><b>01 · DATA</b><span>认识数据</span><p>第 1–4 课：现实怎样变成机器可以处理的数据。</p></div>
-        <div class="stage"><b>02 · PATTERN</b><span>发现模式</span><p>第 5–6 课：没有标签时，数据中有哪些结构。</p></div>
-        <div class="stage"><b>03 · MODEL</b><span>学习预测</span><p>第 7–10 课：不同模型如何理解世界，又如何学习。</p></div>
-        <div class="stage"><b>04 · EVALUATE</b><span>判断与应用</span><p>第 11–12 课：模型是否可信，以及如何进入真实系统。</p></div>
-      </div>
-      <div class="mini-toc" aria-label="课程课次导航">
-        <a href="#lesson-1">01</a><a href="#lesson-2">02</a><a href="#lesson-3">03</a><a href="#lesson-4">04</a><a href="#lesson-5">05</a><a href="#lesson-6">06</a><a href="#lesson-7">07</a><a href="#lesson-8">08</a><a href="#lesson-9">09</a><a href="#lesson-10">10</a><a href="#lesson-11">11</a><a href="#lesson-12">12</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" style="padding-top:0">
-    <div class="container lesson-list">
-      <article class="lesson" id="lesson-1">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 01</span><h2>绪论：什么是数据挖掘</h2></div><div class="lesson-note">从“研究对象”开始建立整门课程的基本语言。</div></div>
-        <div class="concepts">
-          <a class="concept concept-link" href="concepts/data-mining.html" aria-label="打开概念 01 数据挖掘交互课件"><div class="n">01</div><h3>数据挖掘<br>Data Mining / Knowledge Discovery</h3><p>从数据中发现原本未知但有用的模式与知识。</p><span class="concept-open">打开交互课件 →</span></a>
-          <a class="concept concept-link" href="concepts/data-object.html" aria-label="打开概念 02 数据对象交互课件"><div class="n">02</div><h3>数据对象<br>Object / Sample / Instance</h3><p>明确我们正在研究的“一个对象”究竟是什么。</p><span class="concept-open">打开交互课件 →</span></a>
-          <div class="concept"><div class="n">03</div><h3>特征<br>Feature / Attribute</h3><p>机器通过哪些变量来描述一个对象。</p></div>
-          <div class="concept"><div class="n">04</div><h3>标签<br>Label / Target</h3><p>监督学习中真正希望解释或预测的目标。</p></div>
-        </div>
-      </article>
-
-      <article class="lesson" id="lesson-2">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 02</span><h2>数据如何表示现实世界</h2></div><div class="lesson-note">同一个现实问题，可以被编码成完全不同的数据问题。</div></div>
-        <div class="concepts">
-          <div class="concept"><div class="n">05</div><h3>数据表示<br>Data Representation</h3><p>表格、事务、文本、序列、图、图像等不同表示方式。</p></div>
-          <div class="concept"><div class="n">06</div><h3>测量尺度<br>Nominal / Ordinal / Interval / Ratio</h3><p>数字的意义不同，允许进行的数学操作也不同。</p></div>
-          <div class="concept"><div class="n">07</div><h3>监督学习 vs 无监督学习</h3><p>有没有已知答案，是机器学习任务最基本的分叉。</p></div>
-          <div class="concept"><div class="n">08</div><h3>问题形式化<br>Problem Formulation</h3><p>把现实问题翻译成分类、回归、聚类、关联或推荐问题。</p></div>
-        </div>
-      </article>
-
-      <article class="lesson" id="lesson-3">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 03</span><h2>真实数据的问题</h2></div><div class="lesson-note">模型之前，先判断数据是否值得相信。</div></div>
-        <div class="concepts">
-          <div class="concept"><div class="n">09</div><h3>数据质量<br>Data Quality</h3><p>准确、完整、一致、可信与及时，是建模的前提。</p></div>
-          <div class="concept"><div class="n">10</div><h3>缺失数据<br>Missing Data</h3><p>“没有数据”可能是随机缺失，也可能本身携带信息。</p></div>
-          <div class="concept"><div class="n">11</div><h3>噪声与异常值<br>Noise / Outlier</h3><p>异常既可能是错误，也可能是最重要的发现。</p></div>
-          <div class="concept"><div class="n">12</div><h3>数据集成与实体识别<br>Data Integration / Entity Resolution</h3><p>来自不同数据源的记录如何对应到同一真实实体。</p></div>
-        </div>
-      </article>
-
-      <article class="lesson" id="lesson-4">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 04</span><h2>怎样比较数据</h2></div><div class="lesson-note">“相似”不是天然存在的，它必须被定义。</div></div>
-        <div class="concepts">
-          <div class="concept"><div class="n">13</div><h3>标准化<br>Scaling / Normalization</h3><p>避免不同量纲和数值范围扭曲模型判断。</p></div>
-          <div class="concept"><div class="n">14</div><h3>距离与相似性<br>Distance / Similarity</h3><p>用数学方式定义两个对象到底有多像。</p></div>
-          <div class="concept"><div class="n">15</div><h3>相关 ≠ 因果<br>Correlation ≠ Causation</h3><p>一起变化不代表一个因素导致另一个因素。</p></div>
-          <div class="concept"><div class="n">16</div><h3>高维与维度灾难<br>Curse of Dimensionality</h3><p>维度增加后数据变稀疏，相似性和学习都会变困难。</p></div>
-        </div>
-      </article>
-
-      <article class="lesson" id="lesson-5">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 05</span><h2>从数据中发现模式</h2></div><div class="lesson-note">从“模式是什么”开始理解共现结构。</div></div>
-        <div class="concepts">
-          <div class="concept"><div class="n">17</div><h3>模式<br>Pattern</h3><p>数据挖掘寻找的不是单个数字，而是非随机结构。</p></div>
-          <div class="concept"><div class="n">18</div><h3>频繁模式 / 频繁项集<br>Frequent Pattern / Itemset</h3><p>发现哪些事物经常共同出现。</p></div>
-          <div class="concept"><div class="n">19</div><h3>支持度<br>Support</h3><p>衡量一个模式在整个数据集中到底有多常见。</p></div>
-          <div class="concept"><div class="n">20</div><h3>置信度<br>Confidence</h3><p>衡量已知 A 出现时，B 出现得有多频繁。</p></div>
-        </div>
-      </article>
-
-      <article class="lesson" id="lesson-6">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 06</span><h2>无监督结构发现</h2></div><div class="lesson-note">没有标签时，既可以寻找共现，也可以寻找自然群体。</div></div>
-        <div class="concepts">
-          <div class="concept"><div class="n">21</div><h3>Apriori / 剪枝思想</h3><p>利用已经知道的“不可能”，大幅减少搜索空间。</p></div>
-          <div class="concept"><div class="n">22</div><h3>聚类<br>Clustering</h3><p>在没有人工标签时，寻找数据中的自然分组。</p></div>
-          <div class="concept"><div class="n">23</div><h3>K-means 与质心</h3><p>把“属于一群”定义为围绕同一个中心。</p></div>
-          <div class="concept"><div class="n">24</div><h3>什么才叫一个 Cluster？</h3><p>中心、层次、密度对应不同的“群体”假设。</p></div>
-        </div>
-      </article>
-
-      <article class="lesson" id="lesson-7">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 07</span><h2>分类的基本思想</h2></div><div class="lesson-note">从“空间怎么被切开”进入监督预测。</div></div>
-        <div class="concepts">
-          <div class="concept"><div class="n">25</div><h3>决策边界<br>Decision Boundary</h3><p>分类模型可以理解为在特征空间中划分不同区域。</p></div>
-          <div class="concept"><div class="n">26</div><h3>KNN / 邻域思想</h3><p>根据附近最相似的样本来推断未知样本。</p></div>
-          <div class="concept"><div class="n">27</div><h3>Lazy vs Eager Learning</h3><p>比较“先建模型再预测”和“预测时再计算”的学习方式。</p></div>
-          <div class="concept"><div class="n">28</div><h3>Naive Bayes</h3><p>把分类理解为基于证据更新类别概率。</p></div>
-        </div>
-      </article>
-
-      <article class="lesson" id="lesson-8">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 08</span><h2>从树到线性模型</h2></div><div class="lesson-note">不同模型不是不同公式，而是不同的世界假设。</div></div>
-        <div class="concepts">
-          <div class="concept"><div class="n">29</div><h3>Decision Tree</h3><p>通过连续提问，把复杂决策分解成简单判断。</p></div>
-          <div class="concept"><div class="n">30</div><h3>Entropy / Information Gain / Gini</h3><p>决策树选择问题的本质：尽可能减少不确定性。</p></div>
-          <div class="concept"><div class="n">31</div><h3>Linear Regression</h3><p>用简单函数逼近连续变量之间的关系。</p></div>
-          <div class="concept"><div class="n">32</div><h3>Logistic Regression</h3><p>先估计类别概率，再通过阈值完成分类。</p></div>
-        </div>
-      </article>
-
-      <article class="lesson" id="lesson-9">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 09</span><h2>更强的模型表达能力</h2></div><div class="lesson-note">从稳健边界走向多层非线性表示。</div></div>
-        <div class="concepts">
-          <div class="concept"><div class="n">33</div><h3>SVM：Margin 与 Support Vector</h3><p>不只要求分开，还希望找到更稳健的最大间隔边界。</p></div>
-          <div class="concept"><div class="n">34</div><h3>Neural Network：神经元、隐藏层与非线性</h3><p>通过多层简单变换组合，表达复杂关系。</p></div>
-          <div class="concept"><div class="n">35</div><h3>模型<br>Model / Hypothesis</h3><p>规定机器允许在什么样的函数空间里寻找答案。</p></div>
-          <div class="concept"><div class="n">36</div><h3>参数<br>Parameter</h3><p>模型真正从训练数据中学习得到的数值。</p></div>
-        </div>
-      </article>
-
-      <article class="lesson" id="lesson-10">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 10</span><h2>机器到底怎样学习</h2></div><div class="lesson-note">把不同算法统一到“定义错误，并让错误变小”。</div></div>
-        <div class="concepts">
-          <div class="concept"><div class="n">37</div><h3>超参数<br>Hyperparameter</h3><p>不由模型直接学习，而是决定模型如何学习的设置。</p></div>
-          <div class="concept"><div class="n">38</div><h3>损失函数<br>Loss Function</h3><p>先定义什么叫“错”，机器才知道什么叫“更好”。</p></div>
-          <div class="concept"><div class="n">39</div><h3>优化<br>Optimization</h3><p>寻找一组参数，使模型的目标函数尽可能好。</p></div>
-          <div class="concept"><div class="n">40</div><h3>梯度下降<br>Gradient Descent</h3><p>沿着让损失下降最快的方向逐步更新参数。</p></div>
-        </div>
-      </article>
-
-      <article class="lesson" id="lesson-11">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 11</span><h2>复杂模型的学习与组合</h2></div><div class="lesson-note">会训练还不够，模型必须面对真正没见过的数据。</div></div>
-        <div class="concepts">
-          <div class="concept"><div class="n">41</div><h3>Backpropagation</h3><p>把最终误差逐层分配给神经网络中的各个参数。</p></div>
-          <div class="concept"><div class="n">42</div><h3>Ensemble Learning</h3><p>组合多个不完全相同的模型，获得更稳定或更强的预测。</p></div>
-          <div class="concept"><div class="n">43</div><h3>Training / Validation / Test</h3><p>训练、选择与最终评价必须使用不同角色的数据。</p></div>
-          <div class="concept"><div class="n">44</div><h3>Generalization</h3><p>机器学习真正追求的是对未见数据仍然有效。</p></div>
-        </div>
-      </article>
-
-      <article class="lesson" id="lesson-12">
-        <div class="lesson-head"><div><span class="lesson-no">LESSON 12</span><h2>模型可信吗，以及怎样用于真实世界</h2></div><div class="lesson-note">最终目标不是跑出一个分数，而是做出可信的判断与决策。</div></div>
-        <div class="concepts">
-          <div class="concept"><div class="n">45</div><h3>Overfitting / Underfitting</h3><p>模型过于简单和过于复杂都可能失去真正的预测能力。</p></div>
-          <div class="concept"><div class="n">46</div><h3>Model Complexity &amp; Regularization</h3><p>通过控制复杂度，让模型在拟合与泛化之间取得平衡。</p></div>
-          <div class="concept"><div class="n">47</div><h3>模型评价体系</h3><p>Confusion Matrix → Precision / Recall → Threshold → ROC / AUC。</p></div>
-          <div class="concept"><div class="n">48</div><h3>Recommendation System 与真实世界决策</h3><p>把表示、相似性、预测、评价等概念组合成实际智能系统。</p></div>
-        </div>
-      </article>
-
-      <div class="course-footer-note"><strong>教学原则：</strong>课堂重点回答“它是什么、为什么需要、解决什么问题、什么时候会失效”；代码实现、参数尝试、模型比较和结果可视化主要交给 Agent 与项目实践完成。</div>
-    </div>
-  </section>
+  <section class="course-hero"><div class="container"><span class="eyebrow"><span class="dot"></span> DM001 · Concept-first Curriculum</span><h1>12 次课，48 个<br><span style="color:var(--blue)">数据挖掘核心概念。</span></h1><p class="lead">2026 版课程不再把课堂时间主要用于算法手算和代码操作。课堂聚焦概念、假设、模型思想与评价；实现、实验、比较与迭代主要通过 Agent 驱动的项目实践完成。</p><div class="course-stats"><span>12 次概念课</span><span>48 个核心概念</span><span>Concept first</span><span>Agent-based project</span></div><div class="principle"><strong>课程主线</strong><p>认识数据与问题 → 让数据可学习 → 发现结构 → 建立预测模型 → 理解机器如何学习 → 判断模型是否可信 → 进入真实应用。</p></div><div class="stage-grid"><div class="stage"><b>01 · DATA</b><span>认识数据</span><p>第 1–4 课：现实怎样变成机器可以处理的数据。</p></div><div class="stage"><b>02 · PATTERN</b><span>发现模式</span><p>第 5–6 课：没有标签时，数据中有哪些结构。</p></div><div class="stage"><b>03 · MODEL</b><span>学习预测</span><p>第 7–10 课：不同模型如何理解世界，又如何学习。</p></div><div class="stage"><b>04 · EVALUATE</b><span>判断与应用</span><p>第 11–12 课：模型是否可信，以及如何进入真实系统。</p></div></div><div class="mini-toc" aria-label="课程课次导航"><a href="#lesson-1">01</a><a href="#lesson-2">02</a><a href="#lesson-3">03</a><a href="#lesson-4">04</a><a href="#lesson-5">05</a><a href="#lesson-6">06</a><a href="#lesson-7">07</a><a href="#lesson-8">08</a><a href="#lesson-9">09</a><a href="#lesson-10">10</a><a href="#lesson-11">11</a><a href="#lesson-12">12</a></div></div></section>
+  <section class="section" style="padding-top:0"><div class="container lesson-list">
+    <article class="lesson" id="lesson-1"><div class="lesson-head"><div><span class="lesson-no">LESSON 01</span><h2>绪论：什么是数据挖掘</h2></div><div class="lesson-note">从“研究对象”开始建立整门课程的基本语言。</div></div><div class="concepts"><a class="concept concept-link" href="concepts/data-mining.html" aria-label="打开概念 01 数据挖掘交互课件"><div class="n">01</div><h3>数据挖掘<br>Data Mining / Knowledge Discovery</h3><p>从数据中发现原本未知但有用的模式与知识。</p><span class="concept-open">打开交互课件 →</span></a><a class="concept concept-link" href="concepts/data-object.html" aria-label="打开概念 02 数据对象交互课件"><div class="n">02</div><h3>数据对象<br>Object / Sample / Instance</h3><p>明确我们正在研究的“一个对象”究竟是什么。</p><span class="concept-open">打开交互课件 →</span></a><a class="concept concept-link" href="concepts/feature-attribute.html" aria-label="打开概念 03 特征与属性交互课件"><div class="n">03</div><h3>特征<br>Feature / Attribute</h3><p>机器通过哪些变量来描述一个对象。</p><span class="concept-open">打开交互课件 →</span></a><div class="concept"><div class="n">04</div><h3>标签<br>Label / Target</h3><p>监督学习中真正希望解释或预测的目标。</p></div></div></article>
+    <article class="lesson" id="lesson-2"><div class="lesson-head"><div><span class="lesson-no">LESSON 02</span><h2>数据如何表示现实世界</h2></div><div class="lesson-note">同一个现实问题，可以被编码成完全不同的数据问题。</div></div><div class="concepts"><div class="concept"><div class="n">05</div><h3>数据表示<br>Data Representation</h3><p>表格、事务、文本、序列、图、图像等不同表示方式。</p></div><div class="concept"><div class="n">06</div><h3>测量尺度<br>Nominal / Ordinal / Interval / Ratio</h3><p>数字的意义不同，允许进行的数学操作也不同。</p></div><div class="concept"><div class="n">07</div><h3>监督学习 vs 无监督学习</h3><p>有没有已知答案，是机器学习任务最基本的分叉。</p></div><div class="concept"><div class="n">08</div><h3>问题形式化<br>Problem Formulation</h3><p>把现实问题翻译成分类、回归、聚类、关联或推荐问题。</p></div></div></article>
+    <article class="lesson" id="lesson-3"><div class="lesson-head"><div><span class="lesson-no">LESSON 03</span><h2>真实数据的问题</h2></div><div class="lesson-note">模型之前，先判断数据是否值得相信。</div></div><div class="concepts"><div class="concept"><div class="n">09</div><h3>数据质量<br>Data Quality</h3><p>准确、完整、一致、可信与及时，是建模的前提。</p></div><div class="concept"><div class="n">10</div><h3>缺失数据<br>Missing Data</h3><p>“没有数据”可能是随机缺失，也可能本身携带信息。</p></div><div class="concept"><div class="n">11</div><h3>噪声与异常值<br>Noise / Outlier</h3><p>异常既可能是错误，也可能是最重要的发现。</p></div><div class="concept"><div class="n">12</div><h3>数据集成与实体识别<br>Data Integration / Entity Resolution</h3><p>来自不同数据源的记录如何对应到同一真实实体。</p></div></div></article>
+    <article class="lesson" id="lesson-4"><div class="lesson-head"><div><span class="lesson-no">LESSON 04</span><h2>怎样比较数据</h2></div><div class="lesson-note">“相似”不是天然存在的，它必须被定义。</div></div><div class="concepts"><div class="concept"><div class="n">13</div><h3>标准化<br>Scaling / Normalization</h3><p>避免不同量纲和数值范围扭曲模型判断。</p></div><div class="concept"><div class="n">14</div><h3>距离与相似性<br>Distance / Similarity</h3><p>用数学方式定义两个对象到底有多像。</p></div><div class="concept"><div class="n">15</div><h3>相关 ≠ 因果<br>Correlation ≠ Causation</h3><p>一起变化不代表一个因素导致另一个因素。</p></div><div class="concept"><div class="n">16</div><h3>高维与维度灾难<br>Curse of Dimensionality</h3><p>维度增加后数据变稀疏，相似性和学习都会变困难。</p></div></div></article>
+    <article class="lesson" id="lesson-5"><div class="lesson-head"><div><span class="lesson-no">LESSON 05</span><h2>从数据中发现模式</h2></div><div class="lesson-note">从“模式是什么”开始理解共现结构。</div></div><div class="concepts"><div class="concept"><div class="n">17</div><h3>模式<br>Pattern</h3><p>数据挖掘寻找的不是单个数字，而是非随机结构。</p></div><div class="concept"><div class="n">18</div><h3>频繁模式 / 频繁项集<br>Frequent Pattern / Itemset</h3><p>发现哪些事物经常共同出现。</p></div><div class="concept"><div class="n">19</div><h3>支持度<br>Support</h3><p>衡量一个模式在整个数据集中到底有多常见。</p></div><div class="concept"><div class="n">20</div><h3>置信度<br>Confidence</h3><p>衡量已知 A 出现时，B 出现得有多频繁。</p></div></div></article>
+    <article class="lesson" id="lesson-6"><div class="lesson-head"><div><span class="lesson-no">LESSON 06</span><h2>无监督结构发现</h2></div><div class="lesson-note">没有标签时，既可以寻找共现，也可以寻找自然群体。</div></div><div class="concepts"><div class="concept"><div class="n">21</div><h3>Apriori / 剪枝思想</h3><p>利用已经知道的“不可能”，大幅减少搜索空间。</p></div><div class="concept"><div class="n">22</div><h3>聚类<br>Clustering</h3><p>在没有人工标签时，寻找数据中的自然分组。</p></div><div class="concept"><div class="n">23</div><h3>K-means 与质心</h3><p>把“属于一群”定义为围绕同一个中心。</p></div><div class="concept"><div class="n">24</div><h3>什么才叫一个 Cluster？</h3><p>中心、层次、密度对应不同的“群体”假设。</p></div></div></article>
+    <article class="lesson" id="lesson-7"><div class="lesson-head"><div><span class="lesson-no">LESSON 07</span><h2>分类的基本思想</h2></div><div class="lesson-note">从“空间怎么被切开”进入监督预测。</div></div><div class="concepts"><div class="concept"><div class="n">25</div><h3>决策边界<br>Decision Boundary</h3><p>分类模型可以理解为在特征空间中划分不同区域。</p></div><div class="concept"><div class="n">26</div><h3>KNN / 邻域思想</h3><p>根据附近最相似的样本来推断未知样本。</p></div><div class="concept"><div class="n">27</div><h3>Lazy vs Eager Learning</h3><p>比较“先建模型再预测”和“预测时再计算”的学习方式。</p></div><div class="concept"><div class="n">28</div><h3>Naive Bayes</h3><p>把分类理解为基于证据更新类别概率。</p></div></div></article>
+    <article class="lesson" id="lesson-8"><div class="lesson-head"><div><span class="lesson-no">LESSON 08</span><h2>从树到线性模型</h2></div><div class="lesson-note">不同模型不是不同公式，而是不同的世界假设。</div></div><div class="concepts"><div class="concept"><div class="n">29</div><h3>Decision Tree</h3><p>通过连续提问，把复杂决策分解成简单判断。</p></div><div class="concept"><div class="n">30</div><h3>Entropy / Information Gain / Gini</h3><p>决策树选择问题的本质：尽可能减少不确定性。</p></div><div class="concept"><div class="n">31</div><h3>Linear Regression</h3><p>用简单函数逼近连续变量之间的关系。</p></div><div class="concept"><div class="n">32</div><h3>Logistic Regression</h3><p>先估计类别概率，再通过阈值完成分类。</p></div></div></article>
+    <article class="lesson" id="lesson-9"><div class="lesson-head"><div><span class="lesson-no">LESSON 09</span><h2>更强的模型表达能力</h2></div><div class="lesson-note">从稳健边界走向多层非线性表示。</div></div><div class="concepts"><div class="concept"><div class="n">33</div><h3>SVM：Margin 与 Support Vector</h3><p>不只要求分开，还希望找到更稳健的最大间隔边界。</p></div><div class="concept"><div class="n">34</div><h3>Neural Network：神经元、隐藏层与非线性</h3><p>通过多层简单变换组合，表达复杂关系。</p></div><div class="concept"><div class="n">35</div><h3>模型<br>Model / Hypothesis</h3><p>规定机器允许在什么样的函数空间里寻找答案。</p></div><div class="concept"><div class="n">36</div><h3>参数<br>Parameter</h3><p>模型真正从训练数据中学习得到的数值。</p></div></div></article>
+    <article class="lesson" id="lesson-10"><div class="lesson-head"><div><span class="lesson-no">LESSON 10</span><h2>机器到底怎样学习</h2></div><div class="lesson-note">把不同算法统一到“定义错误，并让错误变小”。</div></div><div class="concepts"><div class="concept"><div class="n">37</div><h3>超参数<br>Hyperparameter</h3><p>不由模型直接学习，而是决定模型如何学习的设置。</p></div><div class="concept"><div class="n">38</div><h3>损失函数<br>Loss Function</h3><p>先定义什么叫“错”，机器才知道什么叫“更好”。</p></div><div class="concept"><div class="n">39</div><h3>优化<br>Optimization</h3><p>寻找一组参数，使模型的目标函数尽可能好。</p></div><div class="concept"><div class="n">40</div><h3>梯度下降<br>Gradient Descent</h3><p>沿着让损失下降最快的方向逐步更新参数。</p></div></div></article>
+    <article class="lesson" id="lesson-11"><div class="lesson-head"><div><span class="lesson-no">LESSON 11</span><h2>复杂模型的学习与组合</h2></div><div class="lesson-note">会训练还不够，模型必须面对真正没见过的数据。</div></div><div class="concepts"><div class="concept"><div class="n">41</div><h3>Backpropagation</h3><p>把最终误差逐层分配给神经网络中的各个参数。</p></div><div class="concept"><div class="n">42</div><h3>Ensemble Learning</h3><p>组合多个不完全相同的模型，获得更稳定或更强的预测。</p></div><div class="concept"><div class="n">43</div><h3>Training / Validation / Test</h3><p>训练、选择与最终评价必须使用不同角色的数据。</p></div><div class="concept"><div class="n">44</div><h3>Generalization</h3><p>机器学习真正追求的是对未见数据仍然有效。</p></div></div></article>
+    <article class="lesson" id="lesson-12"><div class="lesson-head"><div><span class="lesson-no">LESSON 12</span><h2>模型可信吗，以及怎样用于真实世界</h2></div><div class="lesson-note">最终目标不是跑出一个分数，而是做出可信的判断与决策。</div></div><div class="concepts"><div class="concept"><div class="n">45</div><h3>Overfitting / Underfitting</h3><p>模型过于简单和过于复杂都可能失去真正的预测能力。</p></div><div class="concept"><div class="n">46</div><h3>Model Complexity &amp; Regularization</h3><p>通过控制复杂度，让模型在拟合与泛化之间取得平衡。</p></div><div class="concept"><div class="n">47</div><h3>模型评价体系</h3><p>Confusion Matrix → Precision / Recall → Threshold → ROC / AUC。</p></div><div class="concept"><div class="n">48</div><h3>Recommendation System 与真实世界决策</h3><p>把表示、相似性、预测、评价等概念组合成实际智能系统。</p></div></div></article>
+    <div class="course-footer-note"><strong>教学原则：</strong>课堂重点回答“它是什么、为什么需要、解决什么问题、什么时候会失效”；代码实现、参数尝试、模型比较和结果可视化主要交给 Agent 与项目实践完成。</div>
+  </div></section>
 </main>
-
-<footer class="footer">
-  <div class="container footer-inner"><strong>DM001 · Course Hub</strong><span>48 concepts · 12 sessions · Agent-based project learning</span></div>
-</footer>
+<footer class="footer"><div class="container footer-inner"><strong>DM001 · Course Hub</strong><span>48 concepts · 12 sessions · Agent-based project learning</span></div></footer>
 </body>
 </html>
