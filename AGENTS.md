@@ -41,7 +41,10 @@ DM001 is a concept-first Data Mining course. The concept pages are classroom pre
 7. **Keep teacher editing compatible.**
    - Static visible text should remain normal DOM text so the shared editor can select it.
    - Avoid replacing the shared editor or inventing per-page editing controls.
-   - The first editing baseline supports persistent text content, font size, and text color; changes are stored by slide/element IDs through AutoLab.
+   - The editing baseline supports persistent text content, font size, text color, and deleting selected text or buttons.
+   - **Never auto-save teacher edits.** Editing creates a local draft first; persistence happens only after the teacher explicitly clicks `保存本页`.
+   - Deleting selected text/buttons follows the same draft-first rule and must not sync until `保存本页` is clicked.
+   - Unsaved changes should be visibly indicated and navigation away should warn when practical.
 
 8. **Maintain interaction consistency.**
    - Student-answer interactions should give immediate visual feedback.
@@ -57,5 +60,6 @@ Check the page for:
 - Explanatory filler that can be removed without losing meaning.
 - Broken normal/fullscreen/mobile layout.
 - A missing `deck-mobile.js` loader that would disable shared editing/presentation behavior.
+- Any teacher edit path that silently auto-saves instead of requiring `保存本页`.
 
 When the user's explicit instruction conflicts with this file, follow the user's instruction and update this file if the change should become a lasting repository convention.
