@@ -1,0 +1,39 @@
+/* Shared classroom-display conventions for all DM001 concept decks. */
+
+/* Any interactive question that asks students to make a judgment/choice must be visibly labeled. */
+.classroom-check::before,
+.quiz::before,
+.scenario-grid::before,
+.value-quiz::before,
+.mini-challenge::before,
+.coding-trap::before {
+  content: "课堂判断";
+  display: block;
+  width: fit-content;
+  margin: 0 0 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #eef4ff;
+  border: 1px solid #c9daf8;
+  color: #174b94;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  line-height: 1.2;
+}
+
+/* Question groups implemented as grids need the label to span the full row. */
+.quiz::before,
+.scenario-grid::before {
+  grid-column: 1 / -1;
+}
+
+/* Keep the label legible in fullscreen as well. */
+.deck-wrap:fullscreen .classroom-check::before,
+.deck-wrap:fullscreen .quiz::before,
+.deck-wrap:fullscreen .scenario-grid::before,
+.deck-wrap:fullscreen .value-quiz::before,
+.deck-wrap:fullscreen .mini-challenge::before,
+.deck-wrap:fullscreen .coding-trap::before {
+  font-size: max(14px, 1vw);
+}
