@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../styles.css" />
   <script src="deck-mobile.js"></script>
   <link rel="stylesheet" href="feature-attribute.css" />
+  <link rel="stylesheet" href="feature-space.css" />
 </head>
 <body>
 <header class="deck-topbar"><div class="container deck-nav"><div class="deck-nav-left"><a class="back-link" href="../curriculum.html#lesson-1">← 返回</a><div class="deck-label">概念 03 · 特征与属性<small>Feature / Attribute</small></div></div><div class="deck-nav-right"><button class="tool-btn" id="restartBtn" type="button">↺ <span>重新开始</span></button><button class="tool-btn" id="fullscreenBtn" type="button">⛶ <span>全屏演示</span></button></div></div></header>
@@ -15,7 +16,7 @@
 <main class="deck-wrap" id="deckRoot" tabindex="0">
   <section class="stage" id="stage" aria-live="polite">
     <article class="slide active" data-title="对象如何变成数据">
-      <span class="slide-no">01 / 05</span><div class="slide-kicker">From object to data · 从对象到数据</div>
+      <span class="slide-no">01 / 06</span><div class="slide-kicker">From object to data · 从对象到数据</div>
       <h1>只有“小明”，<br>计算机<span class="accent">知道什么？</span></h1>
       <p class="lead">上一节我们找到了 Object。现在的问题是：怎样把一个现实对象变成机器可以分析的数据？</p>
       <div class="slide-content"><div class="person-layout">
@@ -25,7 +26,7 @@
     </article>
 
     <article class="slide" data-title="一行与一列">
-      <span class="slide-no">02 / 05</span><div class="slide-kicker">Objects × Attributes · 数据表的两个方向</div>
+      <span class="slide-no">02 / 06</span><div class="slide-kicker">Objects × Attributes · 数据表的两个方向</div>
       <h2>一行回答“谁”，<br>一列回答<span class="accent">“我们知道什么”</span>。</h2>
       <p class="lead">经典数据挖掘教材最基础的视角：数据集由 Objects 和描述它们的 Attributes 共同组成。</p>
       <div class="slide-content"><div class="matrix-layout">
@@ -34,8 +35,27 @@
       </div></div>
     </article>
 
+    <article class="slide" data-title="对象进入特征空间">
+      <span class="slide-no">03 / 06</span><div class="slide-kicker">Feature vector &amp; feature space · 从现实对象到空间中的点</div>
+      <h2>多个 Features 放在一起，<br>Object 就变成<span class="accent">空间中的一个点</span>。</h2>
+      <p class="lead">这是后面 KNN、聚类、距离、决策边界和“高维空间”共同依赖的几何直觉。</p>
+      <div class="slide-content"><div class="space-layout">
+        <div class="vector-flow">
+          <div class="flow-card"><div class="flow-tag">REAL WORLD</div><div class="flow-main">👤 小明</div><div class="flow-sub">一个 Object</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-card vector-card"><div class="flow-tag">FEATURE VECTOR</div><div class="flow-main mono">x = (21, 175, 68)</div><div class="flow-sub">Age · Height · Weight</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-card"><div class="flow-tag">FEATURE SPACE</div><div class="flow-main">• 一个 Data Point</div><div class="flow-sub">每个 Feature 对应一个维度</div></div>
+        </div>
+        <div class="space-bottom">
+          <div class="space-explain"><h3>Feature Space 是什么？</h3><p>如果选择 <strong>d 个 Features</strong>，就可以把每个 Object 表示成一个 <strong>d 维向量</strong>。因此，每个 Object 都对应这个 d 维 Feature Space 中的一个点。</p><div class="space-equation">Object → Feature Vector → Data Point</div><div class="space-note">为了画出来，右边只保留 Height 与 Weight 两个 Feature，把高维问题简化成二维。</div></div>
+          <div class="plot-card" aria-label="二维特征空间示意图"><div class="y-label">Weight</div><div class="x-label">Height</div><div class="axis-y"></div><div class="axis-x"></div><div class="plot-point p1"><span>小雨</span></div><div class="plot-point p2"><span>小明</span></div><div class="plot-point p3"><span>小陈</span></div><div class="plot-caption">每个学生 = Feature Space 中的一个点</div></div>
+        </div>
+      </div></div>
+    </article>
+
     <article class="slide" data-title="属性不等于属性值">
-      <span class="slide-no">03 / 05</span><div class="slide-kicker">Attribute ≠ Attribute value · 一个关键区分</div>
+      <span class="slide-no">04 / 06</span><div class="slide-kicker">Attribute ≠ Attribute value · 一个关键区分</div>
       <h2><span class="accent">Height</span> 是特征，<br>但 <span class="accent">175 cm</span> 不是。</h2>
       <p class="lead">属性（Attribute）是描述维度；属性值（Attribute Value）才是某个对象在这个维度上的具体观测。</p>
       <div class="slide-content"><div class="value-layout">
@@ -45,7 +65,7 @@
     </article>
 
     <article class="slide" data-title="数字不一定具有相同含义">
-      <span class="slide-no">04 / 05</span><div class="slide-kicker">Meaning before math · 先理解含义，再做计算</div>
+      <span class="slide-no">05 / 06</span><div class="slide-kicker">Meaning before math · 先理解含义，再做计算</div>
       <h2>都是数字，<br>就能<span class="accent">一样处理</span>吗？</h2>
       <p class="lead">数据长什么样，不等于它在语义上是什么。点击三组数字，看看为什么“数字列”也可能完全不同。</p>
       <div class="slide-content"><div class="number-grid">
@@ -56,19 +76,19 @@
     </article>
 
     <article class="slide" data-title="特征取决于问题">
-      <span class="slide-no">05 / 05</span><div class="slide-kicker">Features depend on the question · 描述方式不是唯一的</div>
+      <span class="slide-no">06 / 06</span><div class="slide-kicker">Features depend on the question · 描述方式不是唯一的</div>
       <h2>同一个 Object，<br>可以有<span class="accent">完全不同的 Features</span>。</h2>
       <p class="lead">Feature 不是对象天然携带的一张固定清单；我们为了一个问题，选择一种描述方式。</p>
       <div class="slide-content"><div class="final-layout">
         <div class="problem-tabs"><h3>还是“小明”，你现在想研究什么？</h3><div class="tabs"><button class="tab-btn active" data-problem="study" type="button">学习成绩</button><button class="tab-btn" data-problem="sport" type="button">运动能力</button><button class="tab-btn" data-problem="consume" type="button">消费行为</button></div><div class="feature-list" id="featureList"></div><div class="problem-note">切换问题，观察描述同一个人的 Features 怎样随之改变。</div></div>
         <div class="mini-challenge"><h3>最后一题：如果要预测 IC50？</h3><table class="mol-table"><thead><tr><th>Molecule</th><th>MW</th><th>logP</th><th>HBD</th><th>IC50</th></tr></thead><tbody><tr><td>A</td><td>320</td><td>2.1</td><td>2</td><td>18</td></tr><tr><td>B</td><td>275</td><td>1.3</td><td>1</td><td>63</td></tr><tr><td>C</td><td>410</td><td>4.2</td><td>0</td><td>7</td></tr></tbody></table><div class="challenge-options"><button data-challenge="mw" type="button">MW / logP / HBD</button><button data-challenge="ic50" type="button">IC50</button><button data-challenge="all" type="button">全部都一样</button></div><div class="challenge-feedback" id="challengeFeedback">哪些列更像是“用来描述分子、帮助预测”的 Features？</div></div>
-      </div><div class="takeaway">Feature = 为了当前问题，用来描述 Object 的属性<small>An object is described by attributes · Attribute ≠ value · Representation depends on the question</small></div></div>
+      </div><div class="takeaway">Feature = 为了当前问题，用来描述 Object 的属性<small>An object is described by attributes · Objects become data points in feature space · Representation depends on the question</small></div></div>
     </article>
   </section>
 
-  <div class="deck-controls" aria-label="幻灯片导航"><div class="left"><button class="nav-btn" id="prevBtn" type="button" aria-label="上一页">←</button></div><div class="center" id="dots"></div><div class="right"><span class="slide-status" id="slideStatus">1 / 5</span><button class="tool-btn fs-exit" id="exitFullscreenBtn" type="button">退出全屏</button><button class="nav-btn" id="nextBtn" type="button" aria-label="下一页">→</button></div></div>
+  <div class="deck-controls" aria-label="幻灯片导航"><div class="left"><button class="nav-btn" id="prevBtn" type="button" aria-label="上一页">←</button></div><div class="center" id="dots"></div><div class="right"><span class="slide-status" id="slideStatus">1 / 6</span><button class="tool-btn fs-exit" id="exitFullscreenBtn" type="button">退出全屏</button><button class="nav-btn" id="nextBtn" type="button" aria-label="下一页">→</button></div></div>
   <div class="hint">课堂操作：← / → 翻页 · 空格下一页 · 点击页内元素互动 · 支持全屏演示</div>
-  <details class="sources"><summary>参考资料与教学说明</summary><ul><li>Tan, Steinbach, Karpatne &amp; Kumar, <em>Introduction to Data Mining</em>：Data Objects and Attribute Types；数据由对象及其属性构成。</li><li>Han, Kamber &amp; Pei, <em>Data Mining: Concepts and Techniques</em>：数据对象、属性类型与测量尺度。</li><li>本节刻意区分 Attribute 与 Attribute Value，并用“学号也是数字”提前为后续数据类型概念埋下问题。</li><li>“一行 = Object / 一列 = Attribute”用于建立表格型数据直觉，不作为图、序列、图像等所有数据形式的严格定义。</li></ul></details>
+  <details class="sources"><summary>参考资料与教学说明</summary><ul><li>Tan, Steinbach, Karpatne &amp; Kumar, <em>Introduction to Data Mining</em>：Data Objects and Attribute Types；数据由对象及其属性构成。</li><li>Han, Kamber &amp; Pei, <em>Data Mining: Concepts and Techniques</em>：数据对象、属性类型与测量尺度。</li><li>本节新增 Feature Vector / Feature Space 的几何直觉：选定 d 个 Features 后，一个 Object 可表示为 d 维向量，并对应特征空间中的一个 Data Point。</li><li>“一行 = Object / 一列 = Attribute”用于建立表格型数据直觉，不作为图、序列、图像等所有数据形式的严格定义。</li></ul></details>
 </main>
 
 <script src="feature-attribute.js"></script>
