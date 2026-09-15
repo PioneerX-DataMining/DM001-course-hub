@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DM001 数据挖掘核心概念 01：交互式课堂演示。" />
+  <title>概念 01 · 数据挖掘 | DM001</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body{background:#eef2f8;overflow-x:hidden}
+    .deck-topbar{position:sticky;top:0;z-index:30;background:rgba(238,242,248,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(219,228,240,.9)}
+    .deck-nav{height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .deck-nav-left,.deck-nav-right{display:flex;align-items:center;gap:10px;min-width:0}
+    .back-link,.tool-btn{border:1px solid var(--line);background:#fff;border-radius:11px;min-height:40px;padding:0 13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;font:inherit;font-size:13px;font-weight:780;color:#334155;cursor:pointer}
+    .back-link:hover,.tool-btn:hover{border-color:#b8c8df;color:var(--blue)}
+    .deck-label{font-weight:850;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .deck-label small{display:block;color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-top:-2px}
+    .deck-wrap{width:min(calc(100% - 32px),1180px);margin:28px auto 54px}
+    .stage{position:relative;background:#fff;border:1px solid #d8e1ee;border-radius:24px;box-shadow:0 30px 80px rgba(15,23,42,.12);overflow:hidden;aspect-ratio:16/9;min-height:620px}
+    .slide{position:absolute;inset:0;padding:48px 54px 42px;display:none;flex-direction:column;background:#fff;overflow:auto}
+    .slide.active{display:flex}
+    .slide-kicker{font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--blue);text-transform:uppercase;margin-bottom:10px}
+    .slide h1,.slide h2{margin:0;letter-spacing:-.05em;line-height:1.05}
+    .slide h1{font-size:clamp(42px,5.1vw,74px);max-width:900px}
+    .slide h2{font-size:clamp(34px,4vw,58px)}
+    .slide .lead{font-size:clamp(17px,1.7vw,23px);color:#526178;max-width:900px;margin:14px 0 0;line-height:1.55}
+    .slide-no{position:absolute;right:28px;top:24px;color:#94a3b8;font-weight:850;font-size:12px;letter-spacing:.12em}
+    .accent{color:var(--blue)}
+    .slide-content{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;margin-top:22px}
+    .prompt-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .reveal-btn,.choice-btn,.task-btn,.process-btn{border:1px solid #cfdcf0;background:#f8fbff;color:#26466f;border-radius:12px;padding:10px 14px;font:inherit;font-weight:800;cursor:pointer;transition:.16s ease}
+    .reveal-btn:hover,.choice-btn:hover,.task-btn:hover,.process-btn:hover{transform:translateY(-1px);border-color:#9eb8df;background:#f0f6ff}
+    .reveal-btn.primary,.process-btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .reveal-btn.primary:hover,.process-btn.primary:hover{background:#0f4fd1}
+    .order-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:stretch}
+    .data-card{border:1px solid var(--line);border-radius:18px;background:#f8fafc;overflow:hidden;min-height:330px}
+    .data-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:#fff}
+    .data-head strong{font-size:14px}.data-head span{font-size:11px;color:var(--muted);font-weight:800}
+    table.mock{width:100%;border-collapse:collapse;font-size:12px}.mock th,.mock td{padding:10px 12px;text-align:left;border-bottom:1px solid #e7edf5;white-space:nowrap}.mock th{color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:.05em}.mock td:last-child{font-weight:800}
+    .thinking-panel{border-radius:18px;background:#0c1f46;color:#fff;padding:22px;display:flex;flex-direction:column;justify-content:center;min-height:330px}
+    .thinking-panel h3{margin:0 0 8px;font-size:22px}.thinking-panel p{margin:0;color:#cbd8ee;font-size:14px}.answer-stack{display:grid;gap:9px;margin-top:15px}
+    .answer{display:none;padding:11px 12px;border-radius:12px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.12);font-size:13px}.answer.show{display:block;animation:pop .22s ease}
+    .answer b{display:inline-block;min-width:60px;color:#9fc1ff}
+    @keyframes pop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+    .definition{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:center;margin:16px 0 26px}
+    .def-node{border:1px solid var(--line);border-radius:18px;background:#f8fafc;padding:22px 18px;text-align:center;min-height:128px;display:grid;place-items:center}.def-node strong{font-size:28px;letter-spacing:-.04em}.def-node span{display:block;font-size:12px;color:var(--muted);margin-top:4px}.arrow{font-size:30px;color:#a4b4c8;font-weight:900}
+    .core-definition{padding:20px 22px;border-radius:18px;background:#eef4ff;border:1px solid #cadcff;text-align:center;font-size:clamp(22px,2.7vw,34px);font-weight:900;letter-spacing:-.03em;color:#163f7d}
+    .criteria{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    .criterion{border:1px solid var(--line);border-radius:15px;background:#fff;padding:14px;cursor:pointer;text-align:left}.criterion strong{display:block;font-size:15px}.criterion span{display:block;color:var(--muted);font-size:12px;margin-top:4px}.criterion.active{border-color:#9bb9ef;background:#f4f8ff}.criterion .detail{display:none;margin-top:7px;color:#31517e;font-size:12px}.criterion.active .detail{display:block}
+    .quiz{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .quiz-item{border:1px solid var(--line);border-radius:16px;background:#f8fafc;padding:15px}.quiz-item p{margin:0 0 11px;font-size:14px;font-weight:730;line-height:1.45}.choices{display:flex;gap:8px}.choice-btn{padding:8px 11px;font-size:12px;background:#fff}.quiz-result{min-height:20px;margin-top:8px;font-size:12px;font-weight:800}.quiz-result.ok{color:#0f7a50}.quiz-result.no{color:#b24330}
+    .takeaway{margin-top:18px;padding:17px 20px;border-radius:16px;background:#0c1f46;color:#fff;font-size:clamp(18px,2vw,25px);font-weight:900;text-align:center;letter-spacing:-.02em}.takeaway small{display:block;color:#b8c8df;font-size:12px;font-weight:650;margin-top:4px;letter-spacing:0}
+    .task-map{display:grid;grid-template-columns:1fr 1fr;gap:18px}.task-column{border:1px solid var(--line);border-radius:18px;padding:18px;background:#f8fafc}.task-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}.task-head h3{margin:0;font-size:22px}.task-head span{font-size:11px;font-weight:850;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.task-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}.task-btn{background:#fff;text-align:left;padding:12px}.task-btn b{display:block;font-size:14px}.task-btn small{color:var(--muted);font-size:11px}.task-btn.active{border-color:#8fb0e8;background:#eef5ff;color:#163f7d}.task-example{margin-top:15px;min-height:84px;border-radius:15px;border:1px dashed #b9c9df;padding:15px 17px;background:#fff}.task-example .label{font-size:10px;font-weight:900;letter-spacing:.1em;color:#7890b5;text-transform:uppercase}.task-example p{margin:4px 0 0;font-size:14px;color:#40516a}.process{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;align-items:stretch;margin-top:8px}.process-step{border:1px solid var(--line);border-radius:14px;background:#f8fafc;padding:14px 8px;text-align:center;display:flex;flex-direction:column;justify-content:center;min-height:112px;transition:.2s ease}.process-step .num{font-size:10px;font-weight:900;color:#94a3b8}.process-step b{font-size:13px;margin-top:4px}.process-step.active{background:#eaf1ff;border-color:#94b4ed;box-shadow:inset 0 0 0 1px #c5d8f8}.process-step.done{background:#eefbf5;border-color:#b9ead2}.process-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px}.process-note{flex:1;min-width:250px;border-left:4px solid var(--blue);padding:9px 12px;background:#f3f7ff;border-radius:8px;color:#35547d;font-size:13px}.big-final{font-size:clamp(26px,3vw,42px);font-weight:950;letter-spacing:-.04em;margin-top:18px;text-align:center;color:#0c1f46;opacity:.22;transition:.25s ease}.big-final.show{opacity:1}.big-final span{color:var(--blue)}
+    .deck-controls{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;margin-top:16px}.deck-controls .left{justify-self:start}.deck-controls .center{display:flex;align-items:center;gap:7px}.deck-controls .right{justify-self:end}.nav-btn{width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:#fff;cursor:pointer;font:inherit;font-size:21px;color:#334155}.nav-btn:disabled{opacity:.35;cursor:not-allowed}.dot-btn{width:10px;height:10px;border:0;border-radius:50%;background:#c8d3e2;cursor:pointer;padding:0}.dot-btn.active{background:var(--blue);transform:scale(1.22)}.slide-status{font-size:12px;color:#64748b;font-weight:800;min-width:44px;text-align:center}.sources{margin-top:18px;border:1px solid var(--line);background:#fff;border-radius:14px;padding:0 16px;color:#526178}.sources summary{cursor:pointer;padding:12px 0;font-size:12px;font-weight:850;color:#40516a}.sources ul{margin:0 0 14px;padding-left:20px;font-size:12px}.sources li{margin:4px 0}.hint{font-size:11px;color:#94a3b8;margin-top:8px;text-align:center}
+    .stage:fullscreen{border-radius:0;border:0;aspect-ratio:auto;width:100%;height:100%;min-height:0}.stage:fullscreen .slide{padding:5vw 6vw}.stage:fullscreen .slide h1{font-size:min(7vw,86px)}.stage:fullscreen .slide h2{font-size:min(5vw,64px)}
+    @media(max-width:900px){.stage{aspect-ratio:auto;min-height:760px}.slide{padding:38px 28px}.order-layout,.task-map{grid-template-columns:1fr}.definition{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}.process{grid-template-columns:repeat(2,1fr)}.process-step:last-child{grid-column:1/-1}.deck-nav-right .tool-btn span{display:none}}
+    @media(max-width:620px){.deck-wrap{width:min(calc(100% - 18px),1180px);margin-top:14px}.stage{min-height:900px;border-radius:17px}.slide{padding:30px 18px 24px}.slide-no{right:16px;top:14px}.quiz,.criteria,.task-list{grid-template-columns:1fr}.data-card,.thinking-panel{min-height:auto}.deck-controls{grid-template-columns:auto 1fr auto}.deck-controls .center{justify-content:center}.slide-status{display:none}.back-link{padding:0 10px}.deck-label{font-size:13px}.deck-label small{display:none}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+<header class="deck-topbar">
+  <div class="container deck-nav">
+    <div class="deck-nav-left">
+      <a class="back-link" href="../curriculum.html#lesson-1" aria-label="返回课程内容">← 返回</a>
+      <div class="deck-label">概念 01 · 数据挖掘<small>DM001 Interactive Concept Deck</small></div>
+    </div>
+    <div class="deck-nav-right">
+      <button class="tool-btn" id="restartBtn" type="button">↺ <span>重新开始</span></button>
+      <button class="tool-btn" id="fullscreenBtn" type="button">⛶ <span>全屏演示</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="deck-wrap" id="deckRoot" tabindex="0">
+  <section class="stage" id="stage" aria-live="polite">
+    <article class="slide active" data-title="一百万条订单">
+      <span class="slide-no">01 / 05</span>
+      <div class="slide-kicker">Warm-up · 先不要定义</div>
+      <h1>给你 <span class="accent">100 万条订单</span>，<br>你能知道什么？</h1>
+      <p class="lead">先区分两件事：从数据里<strong>查到答案</strong>，和从数据里<strong>发现原本不知道的规律</strong>。</p>
+      <div class="slide-content">
+        <div class="order-layout">
+          <div class="data-card" aria-label="模拟订单表格">
+            <div class="data-head"><strong>orders.csv</strong><span>1,000,000 rows</span></div>
+            <table class="mock">
+              <thead><tr><th>User</th><th>Time</th><th>Items</th><th>Amount</th></tr></thead>
+              <tbody>
+                <tr><td>U0821</td><td>Fri 20:14</td><td>奶茶 + 炸鸡</td><td>¥48</td></tr>
+                <tr><td>U1044</td><td>Mon 12:03</td><td>盖饭</td><td>¥27</td></tr>
+                <tr><td>U0821</td><td>Fri 20:31</td><td>奶茶 + 炸鸡</td><td>¥52</td></tr>
+                <tr><td>U7732</td><td>Sat 18:42</td><td>披萨 + 可乐</td><td>¥89</td></tr>
+                <tr><td>U2091</td><td>Wed 23:57</td><td>咖啡</td><td>¥31</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="thinking-panel">
+            <h3>你想让计算机做什么？</h3>
+            <p>先点“统计”，再点“发现”，比较两类问题。</p>
+            <div class="prompt-row">
+              <button class="reveal-btn" type="button" data-reveal="query">显示统计 / 查询</button>
+              <button class="reveal-btn primary" type="button" data-reveal="mining">显示潜在发现</button>
+            </div>
+            <div class="answer-stack">
+              <div class="answer" data-kind="query"><b>Query</b> 昨天一共有多少订单？</div>
+              <div class="answer" data-kind="query"><b>Query</b> 哪家店销售额最高？</div>
+              <div class="answer" data-kind="mining"><b>Mining</b> 哪些商品经常一起购买？</div>
+              <div class="answer" data-kind="mining"><b>Mining</b> 用户会自然形成哪些消费群体？</div>
+              <div class="answer" data-kind="mining"><b>Mining</b> 哪些订单行为异常，值得进一步检查？</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide" data-title="定义数据挖掘">
+      <span class="slide-no">02 / 05</span>
+      <div class="slide-kicker">Concept · 建立第一印象</div>
+      <h2>什么是 Data Mining？</h2>
+      <p class="lead">先记住一条主线，而不是背一段长定义。</p>
+      <div class="slide-content">
+        <div class="definition" aria-label="数据到知识的流程">
+          <div class="def-node"><div><strong>Data</strong><span>大量观察与记录</span></div></div>
+          <div class="arrow">→</div>
+          <div class="def-node"><div><strong>Pattern</strong><span>非随机的结构与关系</span></div></div>
+          <div class="arrow">→</div>
+          <div class="def-node"><div><strong>Knowledge</strong><span>可以解释、判断或行动</span></div></div>
+        </div>
+        <div class="core-definition">从数据中发现 <span class="accent">原本不知道、但有价值</span> 的规律。</div>
+        <div class="criteria">
+          <button class="criterion" type="button"><strong>Unknown · 未知</strong><span>不是把已经知道的答案查出来</span><div class="detail">真正的“发现”应该带来新的认识，而不是重复已有结论。</div></button>
+          <button class="criterion" type="button"><strong>Valid · 可靠</strong><span>不是随机碰巧出现的巧合</span><div class="detail">模式需要经得起数据、统计与验证，而不是只在一个样本里好看。</div></button>
+          <button class="criterion" type="button"><strong>Useful · 有用</strong><span>能够支持解释、预测或决策</span><div class="detail">“有规律”不等于“有价值”；是否值得使用取决于问题本身。</div></button>
+        </div>
+      </div>
+    </article>
+
+    <article class="slide" data-title="Mining 不是 Query">
+      <span class="slide-no">03 / 05</span>
+      <div class="slide-kicker">Boundary · 最重要的区分</div>
+      <h2>Mining ≠ Query</h2>
+      <p class="lead">点一下你的判断。目标不是考试，而是建立“什么时候才需要挖掘”的直觉。</p>
+      <div class="slide-content">
+        <div class="quiz">
+          <div class="quiz-item" data-answer="query"><p>① 昨天全平台一共有多少订单？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">Query</button><button class="choice-btn" type="button" data-choice="mining">Mining</button></div><div class="quiz-result"></div></div>
+          <div class="quiz-item" data-answer="mining"><p>② 哪些商品组合经常一起出现？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">Query</button><button class="choice-btn" type="button" data-choice="mining">Mining</button></div><div class="quiz-result"></div></div>
+          <div class="quiz-item" data-answer="query"><p>③ 北京地区平均客单价是多少？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">Query</button><button class="choice-btn" type="button" data-choice="mining">Mining</button></div><div class="quiz-result"></div></div>
+          <div class="quiz-item" data-answer="mining"><p>④ 哪一类用户最可能在下个月流失？</p><div class="choices"><button class="choice-btn" type="button" data-choice="query">Query</button><button class="choice-btn" type="button" data-choice="mining">Mining</button></div><div class="quiz-result"></div></div>
+        </div>
+        <div class="takeaway">Query：我知道自己要找什么　↔　Mining：我在寻找尚未知道的模式<small>这是课堂上的教学化简，不是严格的计算机科学边界定义。</small></div>
+      </div>
+    </article>
+
+    <article class="slide" data-title="我们到底在挖什么">
+      <span class="slide-no">04 / 05</span>
+      <div class="slide-kicker">Map · 给整门课一张地图</div>
+      <h2>我们到底在“挖”什么？</h2>
+      <p class="lead">先分成两种目标：<strong>描述这个世界</strong>，或者<strong>预测未知的世界</strong>。</p>
+      <div class="slide-content">
+        <div class="task-map">
+          <section class="task-column">
+            <div class="task-head"><h3>描述 · Description</h3><span>What is there?</span></div>
+            <div class="task-list">
+              <button class="task-btn" type="button" data-example="自动把顾客分成若干消费类型；事先没有人工标签。"><b>聚类</b><small>Clustering</small></button>
+              <button class="task-btn" type="button" data-example="发现“买尿布的人也常买啤酒”这类共现关系。"><b>关联</b><small>Association</small></button>
+              <button class="task-btn" type="button" data-example="找出与绝大多数交易行为明显不同的可疑订单。"><b>异常</b><small>Anomaly</small></button>
+              <button class="task-btn" type="button" data-example="发现时间、空间或网络中的重复结构与规律。"><b>模式发现</b><small>Pattern discovery</small></button>
+            </div>
+          </section>
+          <section class="task-column">
+            <div class="task-head"><h3>预测 · Prediction</h3><span>What will happen?</span></div>
+            <div class="task-list">
+              <button class="task-btn" type="button" data-example="预测一封新邮件是“垃圾邮件”还是“正常邮件”。"><b>分类</b><small>Classification</small></button>
+              <button class="task-btn" type="button" data-example="根据房屋信息预测一个连续数值：房价。"><b>回归</b><small>Regression</small></button>
+              <button class="task-btn" type="button" data-example="根据历史行为预测用户未来是否会流失。"><b>风险预测</b><small>Risk prediction</small></button>
+              <button class="task-btn" type="button" data-example="根据已知偏好，估计用户接下来最可能喜欢什么。"><b>推荐</b><small>Recommendation</small></button>
+            </div>
+          </section>
+        </div>
+        <div class="task-example" id="taskExample"><span class="label">CLICK A TASK</span><p>点击上面的任意任务，看一个具体例子。</p></div>
+      </div>
+    </article>
+
+    <article class="slide" data-title="数据挖掘是一个过程">
+      <span class="slide-no">05 / 05</span>
+      <div class="slide-kicker">Process · 算法只是一步</div>
+      <h2>Data Mining is a <span class="accent">process</span>.</h2>
+      <p class="lead">真实项目不是“选一个算法然后跑起来”，而是从问题出发，再回到可以行动的知识。</p>
+      <div class="slide-content">
+        <div class="process" id="process">
+          <div class="process-step" data-process="0"><span class="num">01</span><b>Question<br>问题</b></div>
+          <div class="process-step" data-process="1"><span class="num">02</span><b>Data<br>数据</b></div>
+          <div class="process-step" data-process="2"><span class="num">03</span><b>Preparation<br>准备</b></div>
+          <div class="process-step" data-process="3"><span class="num">04</span><b>Mining / Modeling<br>挖掘 / 建模</b></div>
+          <div class="process-step" data-process="4"><span class="num">05</span><b>Evaluation<br>评价</b></div>
+          <div class="process-step" data-process="5"><span class="num">06</span><b>Knowledge<br>知识</b></div>
+          <div class="process-step" data-process="6"><span class="num">07</span><b>Action<br>行动</b></div>
+        </div>
+        <div class="process-controls">
+          <button class="process-btn primary" id="processNext" type="button">演示下一步 →</button>
+          <button class="process-btn" id="processReset" type="button">重置</button>
+          <div class="process-note" id="processNote">从一个现实问题开始：我们到底想理解、预测或改变什么？</div>
+        </div>
+        <div class="big-final" id="finalMessage">算法只是其中 <span>一步</span>；从问题到知识，才是完整的数据挖掘。</div>
+      </div>
+    </article>
+  </section>
+
+  <div class="deck-controls" aria-label="幻灯片导航">
+    <div class="left"><button class="nav-btn" id="prevBtn" type="button" aria-label="上一页">←</button></div>
+    <div class="center" id="dots"></div>
+    <div class="right" style="display:flex;align-items:center;gap:10px"><span class="slide-status" id="slideStatus">1 / 5</span><button class="nav-btn" id="nextBtn" type="button" aria-label="下一页">→</button></div>
+  </div>
+  <div class="hint">课堂操作：← / → 翻页 · 空格下一页 · 点击页内元素互动 · 支持全屏演示</div>
+
+  <details class="sources">
+    <summary>参考资料与教学说明</summary>
+    <ul>
+      <li>Tan, Steinbach, Karpatne & Kumar, <em>Introduction to Data Mining</em>：Why Mine Data、What is / is not Data Mining、任务分类等。</li>
+      <li>Fayyad, Piatetsky-Shapiro & Smyth (1996), From Data Mining to Knowledge Discovery in Databases：KDD 过程与有效、新颖、有用、可理解的知识发现。</li>
+      <li>Stanford CS246 / Mining Massive Data Sets：大规模数据中的挖掘与机器学习任务。</li>
+      <li>本页将“Query vs Mining”做了教学化简，用于帮助学生建立第一直觉，不作为严格边界定义。</li>
+    </ul>
+  </details>
+</main>
+
+<script>
+(() => {
+  const root = document.getElementById('deckRoot');
+  const stage = document.getElementById('stage');
+  const slides = Array.from(stage.querySelectorAll('.slide'));
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const restartBtn = document.getElementById('restartBtn');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  const dots = document.getElementById('dots');
+  const slideStatus = document.getElementById('slideStatus');
+  let current = 0;
+
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'dot-btn' + (i === 0 ? ' active' : '');
+    b.setAttribute('aria-label', `跳到第 ${i + 1} 页`);
+    b.addEventListener('click', () => showSlide(i));
+    dots.appendChild(b);
+  });
+
+  function showSlide(index) {
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+    Array.from(dots.children).forEach((dot, i) => dot.classList.toggle('active', i === current));
+    slideStatus.textContent = `${current + 1} / ${slides.length}`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === slides.length - 1;
+    stage.setAttribute('aria-label', `第 ${current + 1} 页：${slides[current].dataset.title || ''}`);
+  }
+
+  prevBtn.addEventListener('click', () => showSlide(current - 1));
+  nextBtn.addEventListener('click', () => showSlide(current + 1));
+  restartBtn.addEventListener('click', () => {
+    resetInteractions();
+    showSlide(0);
+  });
+
+  root.addEventListener('keydown', (event) => {
+    const tag = document.activeElement && document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+    if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
+      event.preventDefault();
+      showSlide(current + 1);
+    } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+      event.preventDefault();
+      showSlide(current - 1);
+    } else if (event.key === 'Home') {
+      event.preventDefault();
+      showSlide(0);
+    } else if (event.key === 'End') {
+      event.preventDefault();
+      showSlide(slides.length - 1);
+    }
+  });
+
+  if (!stage.requestFullscreen) {
+    fullscreenBtn.disabled = true;
+    fullscreenBtn.title = '当前浏览器不支持全屏 API';
+  } else {
+    fullscreenBtn.addEventListener('click', async () => {
+      try {
+        if (document.fullscreenElement) await document.exitFullscreen();
+        else await stage.requestFullscreen();
+      } catch (_) {
+        fullscreenBtn.title = '浏览器阻止了全屏，请使用浏览器自带全屏功能';
+      }
+    });
+    document.addEventListener('fullscreenchange', () => {
+      fullscreenBtn.innerHTML = document.fullscreenElement ? '⛶ <span>退出全屏</span>' : '⛶ <span>全屏演示</span>';
+    });
+  }
+
+  document.querySelectorAll('[data-reveal]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const kind = btn.dataset.reveal;
+      document.querySelectorAll(`.answer[data-kind="${kind}"]`).forEach((el) => el.classList.add('show'));
+    });
+  });
+
+  document.querySelectorAll('.criterion').forEach((btn) => {
+    btn.addEventListener('click', () => btn.classList.toggle('active'));
+  });
+
+  document.querySelectorAll('.quiz-item').forEach((item) => {
+    item.querySelectorAll('.choice-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const result = item.querySelector('.quiz-result');
+        const correct = btn.dataset.choice === item.dataset.answer;
+        result.textContent = correct ? '✓ 对，这一项更接近 ' + (item.dataset.answer === 'query' ? 'Query：答案已经被问题明确指定。' : 'Mining：目标是发现或预测尚未知的模式。') : '再想一下：问题是在“取一个已知答案”，还是在“发现未知模式”？';
+        result.className = 'quiz-result ' + (correct ? 'ok' : 'no');
+      });
+    });
+  });
+
+  const taskExample = document.getElementById('taskExample');
+  document.querySelectorAll('.task-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.task-btn').forEach((other) => other.classList.remove('active'));
+      btn.classList.add('active');
+      taskExample.innerHTML = `<span class="label">EXAMPLE</span><p>${btn.dataset.example}</p>`;
+    });
+  });
+
+  const processSteps = Array.from(document.querySelectorAll('.process-step'));
+  const processNext = document.getElementById('processNext');
+  const processReset = document.getElementById('processReset');
+  const processNote = document.getElementById('processNote');
+  const finalMessage = document.getElementById('finalMessage');
+  const processNotes = [
+    '从一个现实问题开始：我们到底想理解、预测或改变什么？',
+    '获取与问题有关的数据，并确认对象、变量、范围和来源。',
+    '清洗、集成、变换和表示数据，让它变得可以分析。',
+    '这里才进入算法：发现模式、建立模型、进行搜索或学习。',
+    '判断模式是不是可靠、泛化、可解释，并排除偶然与偏差。',
+    '把结果变成可以理解的知识，而不是只留下一个分数。',
+    '最终回到行动：做决策、优化系统，或者提出新的问题。'
+  ];
+  let processIndex = 0;
+
+  function renderProcess() {
+    processSteps.forEach((step, i) => {
+      step.classList.toggle('done', i < processIndex);
+      step.classList.toggle('active', i === processIndex && processIndex < processSteps.length);
+    });
+    const noteIndex = Math.min(processIndex, processNotes.length - 1);
+    processNote.textContent = processNotes[noteIndex];
+    const finished = processIndex >= processSteps.length;
+    processNext.disabled = finished;
+    processNext.textContent = finished ? '演示完成 ✓' : '演示下一步 →';
+    finalMessage.classList.toggle('show', finished);
+  }
+
+  processNext.addEventListener('click', () => {
+    if (processIndex < processSteps.length) processIndex += 1;
+    renderProcess();
+  });
+  processReset.addEventListener('click', () => {
+    processIndex = 0;
+    renderProcess();
+  });
+
+  function resetInteractions() {
+    document.querySelectorAll('.answer').forEach((el) => el.classList.remove('show'));
+    document.querySelectorAll('.criterion').forEach((el) => el.classList.remove('active'));
+    document.querySelectorAll('.quiz-result').forEach((el) => { el.textContent = ''; el.className = 'quiz-result'; });
+    document.querySelectorAll('.task-btn').forEach((el) => el.classList.remove('active'));
+    taskExample.innerHTML = '<span class="label">CLICK A TASK</span><p>点击上面的任意任务，看一个具体例子。</p>';
+    processIndex = 0;
+    renderProcess();
+  }
+
+  renderProcess();
+  showSlide(0);
+  root.focus({preventScroll:true});
+})();
+</script>
+</body>
+</html>
