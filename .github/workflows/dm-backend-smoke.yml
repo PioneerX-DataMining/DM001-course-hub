@@ -1,0 +1,49 @@
+name: DM registration backend smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "join.html"
+      - ".github/workflows/dm-backend-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check AutoLab readiness and schema
+        run: |
+          set -euo pipefail
+          curl -fsS --max-time 20 https://lab.pioneer-x.cn/health/ready -o /tmp/ready.json
+          python - <<'PY'
+          import json
+          data = json.load(open('/tmp/ready.json', encoding='utf-8'))
+          assert data.get('status') == 'ready', data
+          assert data.get('database') == 'ready', data
+          assert data.get('schema_version') == '20260915_01', data
+          print('AutoLab ready at schema', data['schema_version'])
+          PY
+
+      - name: Probe DM registration endpoint without writing data
+        run: |
+          set -euo pipefail
+          curl -fsS --max-time 20 \
+            -H 'Origin: https://dm.pioneer-x.cn' \
+            -H 'Content-Type: application/x-www-form-urlencoded' \
+            --data 'student_id=smoke&real_name=smoke&github_username=smoke&team=&website=dm-backend-smoke' \
+            -D /tmp/headers.txt \
+            https://lab.pioneer-x.cn/api/dm/register \
+            -o /tmp/probe.json
+          python - <<'PY'
+          import json
+          data = json.load(open('/tmp/probe.json', encoding='utf-8'))
+          assert data.get('ok') is True, data
+          headers = open('/tmp/headers.txt', encoding='utf-8').read().lower()
+          assert 'access-control-allow-origin: https://dm.pioneer-x.cn' in headers, headers
+          print('DM registration endpoint and CORS are healthy')
+          PY
