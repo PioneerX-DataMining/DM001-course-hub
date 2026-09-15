@@ -11,6 +11,7 @@
     `<script src="${esc(new URL('deck-edit-capability-guard.js', base).href)}"><\/script>` +
     `<script src="${esc(new URL('deck-editor-ui.js', base).href)}"><\/script>` +
     `<link rel="stylesheet" href="${esc(new URL('fullscreen-consistency.css', base).href)}">` +
+    `<link rel="stylesheet" href="${esc(new URL('data-mining-definition-refine.css', base).href)}">` +
     `<script src="${esc(new URL('fullscreen-sync.js', base).href)}"><\/script>` +
     `<script src="${esc(new URL('slide-position.js', base).href)}"><\/script>`
   );
