@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = '20260915-1858';
+  const VERSION = '20260915-1905';
   const self = document.currentScript && document.currentScript.src;
   const base = self ? new URL('.', self).href : new URL('./', location.href).href;
   const esc = (url) => String(url).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
