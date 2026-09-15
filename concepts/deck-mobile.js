@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = '20260915-1746';
+  const VERSION = '20260915-1750';
   const self = document.currentScript && document.currentScript.src;
   const base = self ? new URL('.', self).href : new URL('./', location.href).href;
   const esc = (url) => String(url).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
@@ -14,6 +14,7 @@
     `<script src="${esc(asset('deck-mobile-core.js'))}"><\/script>` +
     `<script src="${esc(asset('deck-editor.js'))}"><\/script>` +
     `<script src="${esc(asset('deck-text-editor.js'))}"><\/script>` +
+    `<script src="${esc(asset('deck-editor-id-compat.js'))}"><\/script>` +
     `<script src="${esc(asset('deck-edit-capability-guard.js'))}"><\/script>` +
     `<script src="${esc(asset('deck-editor-ui.js'))}"><\/script>` +
     `<link rel="stylesheet" href="${esc(asset('fullscreen-consistency.css'))}">` +
