@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="5分钟配置 WorkBuddy × GitHub 官方 MCP：课程统一 GitHub 接入指南。" />
-  <title>5分钟配置 WorkBuddy × GitHub MCP · DM001</title>
+  <meta name="description" content="DM001 T02：5分钟配置 WorkBuddy × GitHub 官方 MCP，完成课程 GitHub 接入。" />
+  <title>T02 · WorkBuddy × GitHub MCP · DM001</title>
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
@@ -16,6 +16,7 @@
     </a>
     <nav class="nav-links" aria-label="教程导航">
       <a href="../index.html">课程首页</a>
+      <a href="accept-github-invite.html">T01 接受邀请</a>
       <a href="#steps">配置步骤</a>
       <a href="#test">测试</a>
       <a href="#rules">使用规范</a>
@@ -26,10 +27,10 @@
 <main>
   <section class="doc-hero">
     <div class="container">
-      <div class="breadcrumb"><a href="../index.html">DM001 Course Hub</a> / 教程 / GitHub MCP</div>
+      <div class="breadcrumb"><a href="../index.html">DM001 Course Hub</a> / 教程 T02 / GitHub MCP</div>
       <h1>5 分钟配置<br>WorkBuddy × GitHub MCP</h1>
       <p class="doc-lead">使用 GitHub 官方 Remote MCP，把 WorkBuddy 接入你自己的 GitHub 账号。完成后，AI 可以在你原有的仓库权限范围内读取代码、查看 Issue / PR，并辅助完成标准的 Branch → PR 协作流程。</p>
-      <div class="meta"><span>难度：入门</span><span>预计：5–10 分钟</span><span>推荐：GitHub 官方 Remote MCP</span></div>
+      <div class="meta"><span>T02</span><span>难度：入门</span><span>预计：5–10 分钟</span><span>推荐：GitHub 官方 Remote MCP</span></div>
     </div>
   </section>
 
@@ -60,7 +61,7 @@
 
       <section id="steps">
         <h2>五步完成配置</h2>
-        <div class="step"><div class="step-no">1</div><div class="step-body"><h3>确认 GitHub 权限</h3><ul><li>登录自己的 GitHub 账号。</li><li>确认已经加入课程要求的 GitHub Organization。</li><li>确认 GitHub 网页上能看到自己负责的仓库。</li><li>需要改代码时，应至少拥有对应仓库的 Write / Maintain 权限。</li></ul><div class="notice">如果 GitHub 网页本身看不到仓库，先解决 GitHub 权限，不要从 WorkBuddy 这一层排查。</div></div></div>
+        <div class="step"><div class="step-no">1</div><div class="step-body"><h3>确认 GitHub 权限</h3><ul><li>登录自己的 GitHub 账号。</li><li>确认已经加入课程要求的 GitHub Organization。</li><li>确认 GitHub 网页上能看到自己负责的仓库。</li><li>需要改代码时，应至少拥有对应仓库的 Write / Maintain 权限。</li></ul><div class="notice">如果 GitHub 网页本身看不到仓库，先解决 GitHub 权限，不要从 WorkBuddy 这一层排查。还没有加入课程组织时，先完成 <a href="accept-github-invite.html">T01 · 接受 GitHub 课程组织邀请</a>。</div></div></div>
         <div class="step"><div class="step-no">2</div><div class="step-body"><h3>打开 WorkBuddy 的 MCP 设置</h3><p>进入 WorkBuddy 的 MCP / MCP Server 设置入口，选择添加一个新的 MCP Server。</p></div></div>
         <div class="step"><div class="step-no">3</div><div class="step-body"><h3>添加 GitHub 官方 Remote MCP</h3><p>优先填写下面三个核心字段：</p><div class="code">名称：github
 类型：HTTP（或 HTTP/SSE）
