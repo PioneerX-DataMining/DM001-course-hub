@@ -34,10 +34,16 @@ DM001 is a concept-first Data Mining course. The concept pages are classroom pre
    - Avoid dense prose and documentation-style paragraphs.
 
 6. **Use the shared concept-deck infrastructure.**
-   - New concept pages under `concepts/` should load `deck-mobile.js`.
-   - `deck-mobile.js` loads shared mobile/editor behavior and `concept-standards.css`; do not bypass it without a specific reason.
+   - New concept pages under `concepts/` must load `deck-mobile.js`.
+   - `deck-mobile.js` loads shared mobile/fullscreen behavior, page management, `concept-standards.css`, and the teacher text/style editor (`deck-text-editor.js`).
+   - Do not bypass this shared loader without a specific reason; otherwise new pages will lose editing, presentation, and consistency features.
 
-7. **Maintain interaction consistency.**
+7. **Keep teacher editing compatible.**
+   - Static visible text should remain normal DOM text so the shared editor can select it.
+   - Avoid replacing the shared editor or inventing per-page editing controls.
+   - The first editing baseline supports persistent text content, font size, and text color; changes are stored by slide/element IDs through AutoLab.
+
+8. **Maintain interaction consistency.**
    - Student-answer interactions should give immediate visual feedback.
    - Buttons and feedback text should use Chinese-first bilingual terminology where terminology is involved.
    - Fullscreen navigation and mobile behavior must continue to work.
@@ -50,5 +56,6 @@ Check the page for:
 - Unnecessarily small text at 100% zoom.
 - Explanatory filler that can be removed without losing meaning.
 - Broken normal/fullscreen/mobile layout.
+- A missing `deck-mobile.js` loader that would disable shared editing/presentation behavior.
 
 When the user's explicit instruction conflicts with this file, follow the user's instruction and update this file if the change should become a lasting repository convention.
