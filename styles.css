@@ -142,3 +142,123 @@ h1 { font-size:clamp(42px,7vw,82px); line-height:1.02; letter-spacing:-.055em; m
   .step-no { width:36px; height:36px; border-radius:11px; }
   .step-body { padding:15px; }
 }
+
+/* Concept deck readability: keep classroom text legible at browser zoom 100%. */
+html body .deck-topbar .back-link,
+html body .deck-topbar .tool-btn { font-size:15px !important; }
+html body .deck-topbar .deck-label small { font-size:13px !important; }
+html body .deck-wrap .slide-kicker,
+html body .deck-wrap .slide-no { font-size:14px !important; }
+html body .deck-wrap .slide .lead { font-size:clamp(19px,1.75vw,24px) !important; }
+html body .deck-wrap .slide-content p { font-size:15px !important; line-height:1.6; }
+html body .deck-wrap .slide-content small { font-size:14px !important; line-height:1.45; }
+html body .deck-wrap .slide-content button { font-size:15px !important; line-height:1.35; }
+html body .deck-wrap .slide-content table { font-size:15px !important; }
+html body .deck-wrap .slide-content th { font-size:13px !important; }
+html body .deck-wrap .slide-content .tag,
+html body .deck-wrap .slide-content .label { font-size:13px !important; }
+html body .deck-wrap .data-head span,
+html body .deck-wrap .answer,
+html body .deck-wrap .criterion span,
+html body .deck-wrap .criterion .detail,
+html body .deck-wrap .quiz-result,
+html body .deck-wrap .task-head span,
+html body .deck-wrap .task-example .label,
+html body .deck-wrap .process-step .num,
+html body .deck-wrap .process-step b,
+html body .deck-wrap .process-note,
+html body .deck-wrap .object-panel .eyebrow-mini,
+html body .deck-wrap .scenario-result,
+html body .deck-wrap .next-concept,
+html body .deck-wrap .reveal-note,
+html body .deck-wrap .legend-row,
+html body .deck-wrap .value-feedback,
+html body .deck-wrap .feature-pill,
+html body .deck-wrap .problem-note,
+html body .deck-wrap .challenge-feedback,
+html body .deck-wrap .flow-tag,
+html body .deck-wrap .flow-sub,
+html body .deck-wrap .space-note,
+html body .deck-wrap .x-label,
+html body .deck-wrap .y-label,
+html body .deck-wrap .plot-point span,
+html body .deck-wrap .plot-caption,
+html body .deck-wrap .meaning-kicker,
+html body .deck-wrap .meaning-note,
+html body .deck-wrap .scale-check,
+html body .deck-wrap .scale-summary,
+html body .deck-wrap .trap-title,
+html body .deck-wrap .trap-feedback,
+html body .deck-wrap .implication-list b,
+html body .deck-wrap .implication-list span,
+html body .deck-wrap .impact-detail,
+html body .deck-wrap .second-axis,
+html body .deck-wrap .slide-status,
+html body .deck-wrap .hint,
+html body .deck-wrap .sources summary,
+html body .deck-wrap .sources ul { font-size:14px !important; }
+
+/* Full-screen projection gets one more step of enlargement. The extra specificity
+   intentionally overrides the compact landscape rules in individual concept pages. */
+html body .deck-wrap:fullscreen .slide-kicker,
+html body .deck-wrap:fullscreen .slide-no { font-size:16px !important; }
+html body .deck-wrap:fullscreen .slide .lead { font-size:clamp(23px,2vw,30px) !important; }
+html body .deck-wrap:fullscreen .slide-content p { font-size:18px !important; line-height:1.6; }
+html body .deck-wrap:fullscreen .slide-content small { font-size:16px !important; }
+html body .deck-wrap:fullscreen .slide-content button { font-size:17px !important; }
+html body .deck-wrap:fullscreen .slide-content table { font-size:18px !important; }
+html body .deck-wrap:fullscreen .slide-content th { font-size:16px !important; }
+html body .deck-wrap:fullscreen .slide-content .tag,
+html body .deck-wrap:fullscreen .slide-content .label { font-size:15px !important; }
+html body .deck-wrap:fullscreen .data-head span,
+html body .deck-wrap:fullscreen .answer,
+html body .deck-wrap:fullscreen .criterion span,
+html body .deck-wrap:fullscreen .criterion .detail,
+html body .deck-wrap:fullscreen .quiz-result,
+html body .deck-wrap:fullscreen .task-head span,
+html body .deck-wrap:fullscreen .task-example .label,
+html body .deck-wrap:fullscreen .process-step .num,
+html body .deck-wrap:fullscreen .process-step b,
+html body .deck-wrap:fullscreen .process-note,
+html body .deck-wrap:fullscreen .object-panel .eyebrow-mini,
+html body .deck-wrap:fullscreen .scenario-result,
+html body .deck-wrap:fullscreen .next-concept,
+html body .deck-wrap:fullscreen .reveal-note,
+html body .deck-wrap:fullscreen .legend-row,
+html body .deck-wrap:fullscreen .value-feedback,
+html body .deck-wrap:fullscreen .feature-pill,
+html body .deck-wrap:fullscreen .problem-note,
+html body .deck-wrap:fullscreen .challenge-feedback,
+html body .deck-wrap:fullscreen .flow-tag,
+html body .deck-wrap:fullscreen .flow-sub,
+html body .deck-wrap:fullscreen .space-note,
+html body .deck-wrap:fullscreen .x-label,
+html body .deck-wrap:fullscreen .y-label,
+html body .deck-wrap:fullscreen .plot-point span,
+html body .deck-wrap:fullscreen .plot-caption,
+html body .deck-wrap:fullscreen .meaning-kicker,
+html body .deck-wrap:fullscreen .meaning-note,
+html body .deck-wrap:fullscreen .scale-check,
+html body .deck-wrap:fullscreen .scale-summary,
+html body .deck-wrap:fullscreen .trap-title,
+html body .deck-wrap:fullscreen .trap-feedback,
+html body .deck-wrap:fullscreen .implication-list b,
+html body .deck-wrap:fullscreen .implication-list span,
+html body .deck-wrap:fullscreen .impact-detail,
+html body .deck-wrap:fullscreen .second-axis,
+html body .deck-wrap:fullscreen .second-axis span { font-size:16px !important; }
+html body .deck-wrap:fullscreen .numeric-card .tag { font-size:15px !important; }
+html body .deck-wrap:fullscreen .numeric-card strong { font-size:clamp(28px,2.7vw,38px) !important; margin:14px 0 6px !important; }
+html body .deck-wrap:fullscreen .numeric-card > span:last-child { font-size:16px !important; }
+html body .deck-wrap:fullscreen .meaning-main { font-size:19px !important; }
+html body .deck-wrap:fullscreen .operator-step .op { font-size:24px !important; }
+html body .deck-wrap:fullscreen .operator-step strong { font-size:16px !important; }
+html body .deck-wrap:fullscreen .type-pill { font-size:15px !important; }
+html body .deck-wrap:fullscreen .scale-title { font-size:24px !important; }
+html body .deck-wrap:fullscreen .scale-example,
+html body .deck-wrap:fullscreen .scale-check { font-size:16px !important; }
+html body .deck-wrap:fullscreen .scale-summary { font-size:16px !important; }
+html body .deck-wrap:fullscreen .scale-summary span { font-size:15px !important; }
+html body .deck-wrap:fullscreen .city-row { font-size:16px !important; }
+html body .deck-wrap:fullscreen .trap-question { font-size:18px !important; }
+html body .deck-wrap:fullscreen .implication-panel h3 { font-size:20px !important; }
