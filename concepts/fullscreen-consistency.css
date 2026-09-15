@@ -1,0 +1,341 @@
+/*
+ * Fullscreen consistency for DM001 concept decks.
+ *
+ * Principle: fullscreen is a larger presentation surface, not a second layout.
+ * Keep the same 16:9 canvas, grid topology, spacing hierarchy and classroom
+ * typography used in normal desktop mode. This file intentionally overrides
+ * legacy :fullscreen / embedded-presenter compact rules.
+ */
+
+html body .deck-wrap:fullscreen,
+html.dm-embedded-presenter body.dm-embedded-presenter .deck-wrap {
+  width: 100% !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 14px 20px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  background: #eef2f8 !important;
+}
+
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .stage {
+  flex: 0 0 auto !important;
+  width: min(calc(100vw - 40px), 148vh, 1500px) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  aspect-ratio: 16 / 9 !important;
+  border-radius: 24px !important;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, .12) !important;
+}
+
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide {
+  padding: 46px 54px 40px !important;
+  overflow: auto !important;
+}
+
+/* Keep the same title/body scale as the normal deck. */
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide h1 {
+  font-size: clamp(42px, 5vw, 72px) !important;
+  line-height: 1.05 !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide h2 {
+  font-size: clamp(34px, 4vw, 58px) !important;
+  line-height: 1.05 !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide-kicker,
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide-no {
+  font-size: 14px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide .lead {
+  font-size: clamp(20px, 1.8vw, 25px) !important;
+  line-height: 1.55 !important;
+  margin-top: 14px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide-content {
+  margin-top: 20px !important;
+  justify-content: center !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide-content p {
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide-content small {
+  font-size: 15px !important;
+  line-height: 1.45 !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide-content button {
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide-content table {
+  font-size: 16px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide-content th {
+  font-size: 14px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide-content .tag,
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide-content .label {
+  font-size: 14px !important;
+}
+
+/* Restore the normal desktop grid topology. */
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .order-layout {
+  grid-template-columns: 1.1fr .9fr !important;
+  gap: 26px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .definition {
+  grid-template-columns: 1fr auto 1fr auto 1fr !important;
+  gap: 12px !important;
+  margin: 8px 0 16px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .arrow {
+  transform: none !important;
+  font-size: 26px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .criteria {
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 10px !important;
+  margin-top: 12px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .quiz {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .process {
+  grid-template-columns: repeat(7, 1fr) !important;
+  gap: 7px !important;
+  margin-top: 8px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .process-step:last-child {
+  grid-column: auto !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .direction-map {
+  grid-template-columns: 1fr 1fr !important;
+}
+
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .object-layout {
+  grid-template-columns: 1.15fr .85fr !important;
+  gap: 24px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .term-grid {
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 10px !important;
+  margin-bottom: 18px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .scenario-grid {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 18px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .choices {
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 8px !important;
+}
+
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .person-layout {
+  grid-template-columns: .8fr 1.2fr !important;
+  gap: 24px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .matrix-layout {
+  grid-template-columns: 1.12fr .88fr !important;
+  gap: 22px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .value-layout {
+  grid-template-columns: 1fr .9fr !important;
+  gap: 22px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .number-grid {
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 14px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .final-layout {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 18px !important;
+}
+
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .numeric-grid {
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 12px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .ladder-layout {
+  grid-template-columns: 1.15fr .85fr !important;
+  gap: 20px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .impact-layout {
+  grid-template-columns: .9fr 1.1fr !important;
+  gap: 18px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .implication-list {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 8px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .meaning-panel {
+  grid-template-columns: 150px 1fr !important;
+  min-height: 94px !important;
+  margin-top: 14px !important;
+  padding: 16px 19px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .meaning-kicker {
+  grid-row: 1 / 3 !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .operator-step {
+  grid-template-columns: 70px 1fr auto !important;
+  gap: 13px !important;
+  padding: 13px 14px !important;
+}
+
+/* Restore normal component spacing/min-heights that compact fullscreen used to shrink. */
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .data-card {
+  min-height: 320px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .thinking-panel {
+  min-height: 320px !important;
+  padding: 22px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .def-node {
+  min-height: 96px !important;
+  padding: 16px 14px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .criterion {
+  padding: 11px 12px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .quiz-item {
+  padding: 15px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .process-step {
+  min-height: 112px !important;
+  padding: 14px 8px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .process-controls {
+  margin-top: 18px !important;
+  gap: 10px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .object-panel {
+  min-height: 330px !important;
+  padding: 24px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .term-btn {
+  padding: 18px 10px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .term-detail {
+  min-height: 94px !important;
+  padding: 18px 20px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .scenario {
+  padding: 18px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .person-card {
+  min-height: 320px !important;
+  padding: 28px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .number-card {
+  min-height: 230px !important;
+  padding: 18px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .numeric-card {
+  min-height: 160px !important;
+  padding: 18px 14px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .ladder-side {
+  padding: 24px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .coding-trap,
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .implication-panel {
+  padding: 18px !important;
+}
+
+/* Normal-mode readable typography also applies in fullscreen. */
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) :is(
+  .data-head span,.answer,.criterion span,.criterion .detail,.quiz-result,
+  .task-head span,.task-example .label,.process-step .num,.process-step b,
+  .process-note,.object-panel .eyebrow-mini,.scenario-result,.next-concept,
+  .reveal-note,.legend-row,.value-feedback,.feature-pill,.problem-note,
+  .challenge-feedback,.flow-tag,.flow-sub,.space-note,.x-label,.y-label,
+  .plot-point span,.plot-caption,.meaning-kicker,.meaning-note,.scale-check,
+  .scale-summary,.trap-title,.trap-feedback,.implication-list b,
+  .implication-list span,.impact-detail,.second-axis,.second-axis span
+) {
+  font-size: 15px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) :is(
+  .def-node span,.criterion strong,.task-btn small,.term-btn small,.matrix th,
+  .value-table th,.number-card p,.operator-step small,.type-pill,
+  .scale-summary span,.numeric-card .tag,.numeric-card > span:last-child,
+  .mol-table th,.challenge-options button
+) {
+  font-size: 15px !important;
+  line-height: 1.45 !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) :is(
+  .criterion strong,.operator-step strong,.meaning-main
+) {
+  font-size: 17px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .numeric-card strong {
+  font-size: clamp(25px, 2.7vw, 36px) !important;
+  margin: 18px 0 6px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .operator-step .op {
+  font-size: 25px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .scale-title {
+  font-size: 25px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .city-row {
+  font-size: 14px !important;
+  padding: 9px 2px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .trap-question {
+  font-size: 16px !important;
+  margin-top: 13px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .implication-panel h3 {
+  font-size: 18px !important;
+  margin-bottom: 12px !important;
+}
+
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .deck-controls {
+  flex: 0 0 auto !important;
+  width: min(calc(100vw - 40px), 148vh, 1500px) !important;
+  margin-top: 16px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .nav-btn {
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 14px !important;
+  font-size: 21px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .dot-btn {
+  width: 10px !important;
+  height: 10px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .slide-status {
+  font-size: 15px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .tool-btn {
+  min-height: 40px !important;
+  padding: 0 13px !important;
+  font-size: 15px !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .hint,
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .sources {
+  display: none !important;
+}
+html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .fs-exit {
+  display: inline-flex !important;
+}
+
+/* Small landscape screens: scale the whole canvas down by available space;
+   do not switch to the former compressed/reflowed fullscreen layout. */
+@media (orientation: landscape) and (max-height: 760px) {
+  html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .stage,
+  html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .deck-controls {
+    width: min(calc(100vw - 24px), 142vh, 1280px) !important;
+  }
+  html body :is(.deck-wrap:fullscreen, .dm-embedded-presenter .deck-wrap) .deck-controls {
+    margin-top: 8px !important;
+  }
+}
