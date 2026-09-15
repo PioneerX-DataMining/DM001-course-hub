@@ -124,6 +124,11 @@
     const prevConcept = sequenceIndex > 0 ? deckSequence[sequenceIndex - 1] : null;
     const nextConcept = sequenceIndex >= 0 && sequenceIndex < deckSequence.length - 1 ? deckSequence[sequenceIndex + 1] : null;
 
+    if (currentFile === 'data-mining.html') {
+      const firstKicker = root.querySelector('.slide:first-child .slide-kicker');
+      if (firstKicker && firstKicker.textContent.includes('Warm-up')) firstKicker.remove();
+    }
+
     if (embedded) {
       document.documentElement.classList.add('dm-embedded-presenter');
       document.body.classList.add('dm-embedded-presenter');
