@@ -37,3 +37,8 @@
 .deck-wrap:fullscreen .coding-trap::before {
   font-size: max(14px, 1vw);
 }
+
+/* Concept 01 · slide 03: the judgment examples already carry the teaching point; remove the redundant helper sentence. */
+.slide[data-title="挖掘不是查询"] > .lead {
+  display: none !important;
+}
