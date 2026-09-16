@@ -34,9 +34,7 @@ jobs:
           gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
-            /repos/PioneerX-DataMining/DM005-CourseInfra/dispatches \
-            -f event_type='courseinfra-deploy' \
-            -F client_payload[app_id]="$APP_ID" \
-            -F client_payload[environment]='production' \
-            -F client_payload[source_repo]="$GITHUB_REPOSITORY" \
-            -F client_payload[source_sha]="$GITHUB_SHA"
+            /repos/PioneerX-DataMining/DM005-CourseInfra/actions/workflows/deploy-app.yml/dispatches \
+            -f ref='main' \
+            -F inputs[app_id]="$APP_ID" \
+            -F inputs[environment]='production'
