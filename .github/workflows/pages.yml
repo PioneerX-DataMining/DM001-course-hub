@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
 
 permissions:
   contents: read
@@ -21,8 +23,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout course hub
         uses: actions/checkout@v4
+
+      - name: Checkout DM013 BioChemLearn
+        uses: actions/checkout@v4
+        with:
+          repository: PioneerX-DataMining/DM013-BioChemLearn
+          ref: main
+          path: projects/dm013
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
